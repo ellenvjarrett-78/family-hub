@@ -5,379 +5,199 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jarrett Family Hub</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #ffffff;
-    --bg2: #f5f5f3;
-    --bg3: #efefed;
-    --text: #1a1a18;
-    --text2: #6b6b67;
-    --text3: #9e9e9a;
-    --border: rgba(0,0,0,0.12);
-    --border2: rgba(0,0,0,0.22);
-    --radius: 10px;
-    --radius-lg: 14px;
-    --blue: #378ADD;
-    --blue-bg: #E6F1FB;
-    --blue-text: #0C447C;
-    --green: #1D9E75;
-    --amber: #BA7517;
-    --coral: #D85A30;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1c1c1a;
-      --bg2: #252523;
-      --bg3: #2e2e2c;
-      --text: #f0f0ee;
-      --text2: #a0a09c;
-      --text3: #6e6e6a;
-      --border: rgba(255,255,255,0.1);
-      --border2: rgba(255,255,255,0.2);
-      --blue-bg: #0c2a44;
-      --blue-text: #85B7EB;
-    }
-  }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg3);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 1.5rem 1rem;
-  }
-
-  .container { max-width: 860px; margin: 0 auto; }
-
-  /* Header */
-  .header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 1.25rem; }
-  .header h1 { font-size: 22px; font-weight: 600; color: var(--text); }
-  .header-sub { font-size: 13px; color: var(--text2); margin-top: 3px; }
-  .refresh-btn {
-    font-size: 13px; padding: 7px 14px; border-radius: var(--radius);
-    border: 1px solid var(--border2); background: var(--bg);
-    color: var(--text2); cursor: pointer; display: flex; align-items: center; gap: 6px;
-  }
-  .refresh-btn:hover { background: var(--bg2); }
-
-  /* Pills */
-  .pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem; }
-  .pill {
-    font-size: 12px; padding: 5px 13px; border-radius: 20px; cursor: pointer;
-    border: 1px solid var(--border); background: var(--bg2); color: var(--text2);
-    transition: all 0.12s;
-  }
-  .pill.active { background: var(--blue-bg); color: var(--blue-text); border-color: var(--blue); }
-
-  /* Summary */
-  .summary { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 1.25rem; }
-  @media(max-width:520px){ .summary { grid-template-columns: repeat(2,1fr); } }
-  .scard { background: var(--bg); border-radius: var(--radius); padding: 14px 16px; border: 1px solid var(--border); }
-  .scard .num { font-size: 26px; font-weight: 600; color: var(--text); }
-  .scard .lbl { font-size: 12px; color: var(--text2); margin-top: 3px; }
-
-  /* Grid */
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media(max-width:580px){ .grid { grid-template-columns: 1fr; } }
-  .card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.25rem; }
-  .card.full { grid-column: 1 / -1; }
-
-  .ctitle { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
-  .cdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-
-  /* Events */
-  .ev { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
-  .ev:last-child { border-bottom: none; padding-bottom: 0; }
-  .ev-time { font-size: 11px; color: var(--text3); min-width: 58px; padding-top: 2px; flex-shrink: 0; }
-  .ev-title { font-size: 13px; color: var(--text); line-height: 1.4; font-weight: 500; }
-  .ev-meta { font-size: 11px; color: var(--text2); margin-top: 2px; }
-
-  /* Tags */
-  .tag { font-size: 10px; padding: 2px 7px; border-radius: 10px; display: inline-block; margin: 3px 2px 0 0; font-weight: 500; }
-  .tag-ellen  { background: #EEEDFE; color: #3C3489; }
-  .tag-chris  { background: #E6F1FB; color: #0C447C; }
-  .tag-arthur { background: #E1F5EE; color: #085041; }
-  .tag-wilfred{ background: #FAECE7; color: #712B13; }
-  .tag-mabel  { background: #FBEAF0; color: #72243E; }
-  .tag-family { background: var(--bg2); color: var(--text2); border: 1px solid var(--border); }
-
-  @media (prefers-color-scheme: dark) {
-    .tag-ellen  { background: #26215C; color: #CECBF6; }
-    .tag-chris  { background: #042C53; color: #B5D4F4; }
-    .tag-arthur { background: #04342C; color: #9FE1CB; }
-    .tag-wilfred{ background: #4A1B0C; color: #F5C4B3; }
-    .tag-mabel  { background: #4B1528; color: #F4C0D1; }
-  }
-
-  /* Email */
-  .mail { display: flex; gap: 9px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-  .mail:last-child { border-bottom: none; }
-  .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--blue-bg); color: var(--blue-text); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
-  .mail-body { flex: 1; min-width: 0; }
-  .mail-from { font-size: 13px; font-weight: 600; color: var(--text); }
-  .mail-subject { font-size: 12px; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mail-snip { font-size: 11px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mail-time { font-size: 11px; color: var(--text3); flex-shrink: 0; padding-top: 2px; }
-  .unread-dot { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; margin-top: 11px; flex-shrink: 0; }
-  .spacer-dot { width: 7px; flex-shrink: 0; }
-
-  /* Tasks */
-  .task { display: flex; gap: 10px; padding: 9px 12px; border-radius: var(--radius); background: var(--bg2); margin-bottom: 7px; border: 1px solid var(--border); }
-  .task:last-child { margin-bottom: 0; }
-  .chk { width: 17px; height: 17px; border: 1.5px solid var(--border2); border-radius: 4px; flex-shrink: 0; margin-top: 2px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.12s; }
-  .chk.done { background: var(--green); border-color: var(--green); }
-  .chk.done::after { content:''; width:8px; height:5px; border-left:2px solid white; border-bottom:2px solid white; transform:rotate(-45deg) translate(1px,-1px); display:block; }
-  .task-txt { font-size: 13px; color: var(--text); line-height: 1.4; }
-  .task-txt.done { text-decoration: line-through; color: var(--text3); }
-  .task-src { font-size: 11px; color: var(--text3); margin-top: 3px; }
-
-  /* Day nav */
-  .day-nav { display: flex; align-items: center; gap: 6px; margin-left: auto; }
-  .dnav { width: 24px; height: 24px; border: 1px solid var(--border); border-radius: 6px; background: transparent; color: var(--text2); cursor: pointer; font-size: 13px; display:flex; align-items:center; justify-content:center; }
-  .dnav:hover { background: var(--bg2); }
-  .dlabel { font-size: 12px; font-weight: 600; color: var(--text); min-width: 54px; text-align: center; }
-
-  .empty { font-size: 13px; color: var(--text3); text-align: center; padding: 1.5rem 0; }
-
-  /* Note banner */
-  .note { background: #FAEEDA; color: #633806; border: 1px solid #FAC775; border-radius: var(--radius); padding: 10px 14px; font-size: 12px; margin-bottom: 1.25rem; line-height: 1.5; }
-  @media(prefers-color-scheme: dark){ .note { background: #412402; color: #FAC775; border-color: #633806; } }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#fff;--bg2:#f5f5f3;--bg3:#efefed;--text:#1a1a18;--text2:#6b6b67;--text3:#9e9e9a;--border:rgba(0,0,0,0.12);--border2:rgba(0,0,0,0.22);--radius:10px;--radius-lg:14px;--blue:#378ADD;--blue-bg:#E6F1FB;--blue-text:#0C447C;--green:#1D9E75;--amber:#BA7517;--coral:#D85A30}
+@media(prefers-color-scheme:dark){:root{--bg:#1c1c1a;--bg2:#252523;--bg3:#2e2e2c;--text:#f0f0ee;--text2:#a0a09c;--text3:#6e6e6a;--border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.2);--blue-bg:#0c2a44;--blue-text:#85B7EB}}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg3);color:var(--text);min-height:100vh;padding:1.5rem 1rem}
+.container{max-width:860px;margin:0 auto}
+.header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1.25rem}
+.header h1{font-size:22px;font-weight:600;color:var(--text)}
+.header-sub{font-size:13px;color:var(--text2);margin-top:3px}
+.note{background:#FAEEDA;color:#633806;border:1px solid #FAC775;border-radius:var(--radius);padding:10px 14px;font-size:12px;margin-bottom:1.25rem;line-height:1.5}
+@media(prefers-color-scheme:dark){.note{background:#412402;color:#FAC775;border-color:#633806}}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.pill{font-size:12px;padding:5px 13px;border-radius:20px;cursor:pointer;border:1px solid var(--border);background:var(--bg2);color:var(--text2);transition:all .12s}
+.pill.active{background:var(--blue-bg);color:var(--blue-text);border-color:var(--blue)}
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
+@media(max-width:520px){.summary{grid-template-columns:repeat(2,1fr)}}
+.scard{background:var(--bg);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border)}
+.scard .num{font-size:26px;font-weight:600;color:var(--text)}
+.scard .lbl{font-size:12px;color:var(--text2);margin-top:3px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:580px){.grid{grid-template-columns:1fr}}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem}
+.card.full{grid-column:1/-1}
+.ctitle{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ev{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.ev:last-child{border-bottom:none;padding-bottom:0}
+.ev-time{font-size:11px;color:var(--text3);min-width:58px;padding-top:2px;flex-shrink:0}
+.ev-title{font-size:13px;color:var(--text);line-height:1.4;font-weight:500}
+.ev-meta{font-size:11px;color:var(--text2);margin-top:2px}
+.tag{font-size:10px;padding:2px 7px;border-radius:10px;display:inline-block;margin:3px 2px 0 0;font-weight:500}
+.tag-ellen{background:#EEEDFE;color:#3C3489}.tag-chris{background:#E6F1FB;color:#0C447C}
+.tag-arthur{background:#E1F5EE;color:#085041}.tag-wilfred{background:#FAECE7;color:#712B13}
+.tag-mabel{background:#FBEAF0;color:#72243E}.tag-family{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
+@media(prefers-color-scheme:dark){.tag-ellen{background:#26215C;color:#CECBF6}.tag-chris{background:#042C53;color:#B5D4F4}.tag-arthur{background:#04342C;color:#9FE1CB}.tag-wilfred{background:#4A1B0C;color:#F5C4B3}.tag-mabel{background:#4B1528;color:#F4C0D1}}
+.mail{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.mail:last-child{border-bottom:none}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--blue-bg);color:var(--blue-text);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.mail-body{flex:1;min-width:0}
+.mail-from{font-size:13px;font-weight:600;color:var(--text)}
+.mail-subject{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mail-snip{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mail-time{font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px}
+.unread-dot{width:7px;height:7px;background:var(--blue);border-radius:50%;margin-top:11px;flex-shrink:0}
+.spacer-dot{width:7px;flex-shrink:0}
+.task{display:flex;gap:10px;padding:9px 12px;border-radius:var(--radius);background:var(--bg2);margin-bottom:7px;border:1px solid var(--border)}
+.task:last-child{margin-bottom:0}
+.chk{width:17px;height:17px;border:1.5px solid var(--border2);border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s}
+.chk.done{background:var(--green);border-color:var(--green)}
+.chk.done::after{content:"";width:8px;height:5px;border-left:2px solid white;border-bottom:2px solid white;transform:rotate(-45deg) translate(1px,-1px);display:block}
+.task-txt{font-size:13px;color:var(--text);line-height:1.4}
+.task-txt.done{text-decoration:line-through;color:var(--text3)}
+.task-src{font-size:11px;color:var(--text3);margin-top:3px}
+.day-nav{display:flex;align-items:center;gap:6px;margin-left:auto}
+.dnav{width:24px;height:24px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+.dnav:hover{background:var(--bg2)}
+.dlabel{font-size:12px;font-weight:600;color:var(--text);min-width:54px;text-align:center}
+.empty{font-size:13px;color:var(--text3);text-align:center;padding:1.5rem 0}
 </style>
 </head>
 <body>
 <div class="container">
 
-  <div class="header">
-    <div>
-      <h1>Jarrett Family Hub</h1>
-      <div class="header-sub" id="date-display"></div>
-    </div>
-    <button class="refresh-btn" onclick="alert('To refresh with live data, open a new conversation in Claude and ask it to update the family hub.')">↻ How to refresh</button>
-  </div>
-
-  <div class="note">
-    📌 <strong>Last updated:</strong> Wednesday 8 April 2026 from Ellen's Google account.
-    To get fresh data, open Claude and ask: <em>"Update my family hub with the latest calendar and inbox"</em> — it will generate a new file to replace this one.
-  </div>
-
-  <div class="pills" id="pills">
-    <div class="pill active" data-m="all" onclick="filter(this)">All</div>
-    <div class="pill" data-m="ellen" onclick="filter(this)">Ellen</div>
-    <div class="pill" data-m="chris" onclick="filter(this)">Chris</div>
-    <div class="pill" data-m="arthur" onclick="filter(this)">Arthur</div>
-    <div class="pill" data-m="wilfred" onclick="filter(this)">Wilfred</div>
-    <div class="pill" data-m="mabel" onclick="filter(this)">Mabel</div>
-  </div>
-
-  <div class="summary">
-    <div class="scard"><div class="num" id="s-today">0</div><div class="lbl">events today</div></div>
-    <div class="scard"><div class="num" id="s-week">0</div><div class="lbl">events this week</div></div>
-    <div class="scard"><div class="num" id="s-unread">0</div><div class="lbl">unread emails</div></div>
-    <div class="scard"><div class="num" id="s-tasks">0</div><div class="lbl">action items</div></div>
-  </div>
-
-  <div class="grid">
-
-    <div class="card">
-      <div class="ctitle">
-        <span class="cdot" style="background:#378ADD"></span> Calendar
-        <div class="day-nav">
-          <button class="dnav" onclick="prevDay()">‹</button>
-          <span class="dlabel" id="dlabel"></span>
-          <button class="dnav" onclick="nextDay()">›</button>
-        </div>
-      </div>
-      <div id="cal-day"></div>
-    </div>
-
-    <div class="card">
-      <div class="ctitle"><span class="cdot" style="background:#D85A30"></span> Inbox</div>
-      <div id="inbox"></div>
-    </div>
-
-    <div class="card full">
-      <div class="ctitle"><span class="cdot" style="background:#1D9E75"></span> Upcoming this week</div>
-      <div id="cal-week"></div>
-    </div>
-
-    <div class="card full">
-      <div class="ctitle"><span class="cdot" style="background:#BA7517"></span> Action items from email</div>
-      <div id="tasks"></div>
-    </div>
-
+<div class="header">
+  <div>
+    <h1>Jarrett Family Hub</h1>
+    <div class="header-sub">Wednesday 8 April 2026 &middot; Auto-updated daily</div>
   </div>
 </div>
 
+<div class="note">
+  &#128204; This page updates automatically every morning at 7am from Ellen's Google account.
+  Last updated: <strong>Wednesday 8 April 2026</strong>
+</div>
+
+<div class="pills" id="pills">
+  <div class="pill active" data-m="all" onclick="filter(this)">All</div>
+  <div class="pill" data-m="ellen" onclick="filter(this)">Ellen</div>
+  <div class="pill" data-m="chris" onclick="filter(this)">Chris</div>
+  <div class="pill" data-m="arthur" onclick="filter(this)">Arthur</div>
+  <div class="pill" data-m="wilfred" onclick="filter(this)">Wilfred</div>
+  <div class="pill" data-m="mabel" onclick="filter(this)">Mabel</div>
+</div>
+
+<div class="summary">
+  <div class="scard"><div class="num" id="s-today">1</div><div class="lbl">events today</div></div>
+  <div class="scard"><div class="num" id="s-week">2</div><div class="lbl">upcoming this week</div></div>
+  <div class="scard"><div class="num" id="s-unread">2</div><div class="lbl">unread emails</div></div>
+  <div class="scard"><div class="num" id="s-tasks">4</div><div class="lbl">action items</div></div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+  <div class="ctitle">
+    <span class="cdot" style="background:#378ADD"></span> Calendar
+    <div class="day-nav">
+      <button class="dnav" onclick="prevDay()">&#8249;</button>
+      <span class="dlabel" id="dlabel"></span>
+      <button class="dnav" onclick="nextDay()">&#8250;</button>
+    </div>
+  </div>
+  <div id="cal-day"></div>
+</div>
+
+<div class="card">
+  <div class="ctitle"><span class="cdot" style="background:#D85A30"></span> Inbox</div>
+  <div id="inbox"><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="unread-dot"></div><div class="avatar">G</div><div class="mail-body"><div class="mail-from">Google</div><div class="mail-subject">Security alert</div><div class="mail-snip">[image: Google] You allowed Claude for Google Drive access to some of your Google Account data ellenvjarrett@gmai</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">Just now</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="unread-dot"></div><div class="avatar">G</div><div class="mail-body"><div class="mail-from">GitHub</div><div class="mail-subject">[GitHub] A personal access token (classic) has been added to your account</div><div class="mail-snip">Hey ellenvjarrett-78! A personal access token (classic) &quot;family-hub&quot; with repo scope was recently added to your accou</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">Just now</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">MM</div><div class="mail-body"><div class="mail-from">MSE&#39;s Money Tips</div><div class="mail-subject">Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth</div><div class="mail-snip">* {mso-line-height-rule: exactly; line-height: 110%;} p {mso-line-height-rule: exactly; line-height: 150% !important;} b</div><div></div></div><div class="mail-time">12h ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">EJ</div><div class="mail-body"><div class="mail-from">Ellen Jarrett</div><div class="mail-subject">My Strengths report</div><div class="mail-snip">Hey beautfiul - based on chat yesterday, at MQ they use Clifton Strengths rather than Insight - looks at your strengths</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">18h ago</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">V</div><div class="mail-body"><div class="mail-from">VetSuccess</div><div class="mail-subject">Your subscription for Morrisey is due for renewal</div><div class="mail-snip"> Your monthly subscription of £15.90 on the 5th of the month with Larkmead Vets Sutton Courtenay for Morrisey is due </div><div></div></div><div class="mail-time">2 days ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">H</div><div class="mail-body"><div class="mail-from">HomeExchange</div><div class="mail-subject">Rate your exchange with Rio &amp; Jillian Joy</div><div class="mail-snip">&lt;https://www.homeexchange.com/&gt; Tell us everything Ellen! Your stay at Rio &amp; Jillian Joy ended yesterday. We hop</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">3 days ago</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">PR</div><div class="mail-body"><div class="mail-from">Philip Read</div><div class="mail-subject">Spooky Men&#39;s Chorale in Oxford - tickets NOW ON SALE!</div><div class="mail-snip">Hi friends, Thank you so much for signing up to be notified when tickets are available - and thank you for your pati</div><div></div></div><div class="mail-time">5 days ago</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">H</div><div class="mail-body"><div class="mail-from">HomeExchange</div><div class="mail-subject">You have a new request from Anna</div><div class="mail-snip">Make sure to respond within 4 days to help them in their search &lt;https://www.homeexchange.com/&gt; Anna woul</div><div></div></div><div class="mail-time">6 days ago</div></div></div>
+</div>
+
+<div class="card full">
+  <div class="ctitle"><span class="cdot" style="background:#1D9E75"></span> Upcoming this week</div>
+  <div id="cal-week"><div class="ev" data-date="2026-04-12" data-members="[]"><div class="ev-time" style="min-width:80px">Sun 12 Apr</div><div><div class="ev-title">Europa Titans – Heyford Park</div><div class="ev-meta">9:30 AM · Europa School UK</div><div></div></div></div><div class="ev" data-date="2026-04-12" data-members="[]"><div class="ev-time" style="min-width:80px">Sun 12 Apr</div><div><div class="ev-title">Europa Titans Under-12&#39;s – TBC</div><div class="ev-meta">10:00 AM · High Street</div><div></div></div></div></div>
+</div>
+
+<div class="card full">
+  <div class="ctitle"><span class="cdot" style="background:#BA7517"></span> Action items from email</div>
+  <div id="tasks"><div class="task" data-id="0" data-member="family"><div class="chk" id="chk0" onclick="toggleTask(0)"></div><div><div class="task-txt" id="txt0">Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth</div><div class="task-src"><span class="tag tag-family">Family</span> From: MSE&#39;s Money Tips</div></div></div><div class="task" data-id="1" data-member="family"><div class="chk" id="chk1" onclick="toggleTask(1)"></div><div><div class="task-txt" id="txt1">Your subscription for Morrisey is due for renewal</div><div class="task-src"><span class="tag tag-family">Family</span> From: VetSuccess</div></div></div><div class="task" data-id="2" data-member="family"><div class="chk" id="chk2" onclick="toggleTask(2)"></div><div><div class="task-txt" id="txt2">You have a new request from Anna</div><div class="task-src"><span class="tag tag-family">Family</span> From: HomeExchange</div></div></div><div class="task" data-id="3" data-member="family"><div class="chk" id="chk3" onclick="toggleTask(3)"></div><div><div class="task-txt" id="txt3">Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25</div><div class="task-src"><span class="tag tag-family">Family</span> From: MSE&#39;s Money Tips</div></div></div></div>
+</div>
+
+</div>
+</div>
+
 <script>
-// ─── DATA (update this section when refreshing) ───────────────────────────────
+var EVENTS = [{"date":"2026-04-08","time":"All day","endTime":"","title":"Chris J's birthday","loc":"","allDay":true,"members":["Chris"]},{"date":"2026-04-12","time":"9:30 AM","endTime":"11:30 AM","title":"Europa Titans – Heyford Park","loc":"Europa School UK","allDay":false,"members":[]},{"date":"2026-04-12","time":"10:00 AM","endTime":"11:00 AM","title":"Europa Titans Under-12's – TBC","loc":"High Street","allDay":false,"members":[]}];
+var TASKS  = [{"id":0,"text":"Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth","src":"From: MSE's Money Tips","member":"Family","due":null},{"id":1,"text":"Your subscription for Morrisey is due for renewal","src":"From: VetSuccess","member":"Family","due":null},{"id":2,"text":"You have a new request from Anna","src":"From: HomeExchange","member":"Family","due":null},{"id":3,"text":"Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25","src":"From: MSE's Money Tips","member":"Family","due":null}];
+var TODAY  = "2026-04-08";
+var activeMember = "all";
+var viewDate = new Date(TODAY + "T12:00:00");
+var doneMap = {};
+try { var s = localStorage.getItem("fh-tasks"); if(s) doneMap = JSON.parse(s); } catch(e){}
 
-const EVENTS = [
-  { date:'2026-04-08', allDay:true,  time:'All day', title:"🎂 Chris J's birthday", loc:'', members:['Chris'] },
-  { date:'2026-04-12', allDay:false, time:'9:30 AM', endTime:'11:30 AM', title:'Europa Titans – Heyford Park', loc:'Europa School UK', members:['Arthur','Wilfred','Mabel'] },
-  { date:'2026-04-12', allDay:false, time:'10:00 AM', endTime:'11:00 AM', title:"Europa Titans Under-12's – TBC", loc:'High Street', desc:'Potential friendly', members:['Arthur','Wilfred','Mabel'] },
-];
+function fmtDate(d){ return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}); }
+function matchFilter(members){ if(activeMember==="all") return true; return members.some(function(m){return m.toLowerCase()===activeMember;}); }
 
-const EMAILS = [
-  { from:'Google', time:'Today 7:51', subject:'Security alert', snip:'You allowed Claude for Gmail access…', unread:true, members:[] },
-  { from:'MoneySavingExpert', time:'Yesterday', subject:"Urgent new tax year checks, 2for1 at 360+ gardens…", snip:'Are solar panels worth it? Free Ideal Home tix…', unread:false, members:[] },
-  { from:'Chris Jarrett', time:'Yesterday', subject:'My Strengths report', snip:'Hey beautiful – at MQ they use Clifton Strengths rather than Insight…', unread:false, members:['Chris','Ellen'] },
-  { from:'VetSuccess', time:'Mon', subject:'Your subscription for Morrisey is due for renewal', snip:'Monthly subscription of £15.90 on the 5th – Larkmead Vets Sutton Courtenay', unread:false, members:[] },
-  { from:'HomeExchange', time:'Sat', subject:'Rate your exchange with Rio & Jillian Joy', snip:'Your stay ended yesterday – please leave your review', unread:false, members:['Ellen'] },
-  { from:'Philip Read', time:'Thu', subject:"Spooky Men's Chorale in Oxford – tickets NOW ON SALE!", snip:'Tickets for the Spooky Men\'s Chorale are now available', unread:false, members:['Ellen'] },
-  { from:'HomeExchange', time:'Wed', subject:'You have a new request from Anna', snip:'Anna would like to arrange a GuestPoints exchange in your home', unread:false, members:['Ellen'] },
-  { from:'Premier Inn', time:'Mon 30 Mar', subject:'A few weeks until your stay at London Stratford hotel!', snip:'Booking ref BAF0472659 – handy info for your stay', unread:false, members:['Ellen','Chris'] },
-  { from:'Chris Jarrett', time:'Thu 26 Mar', subject:'Monthly income summary', snip:'Income and bonus scenarios – base salary £110,000…', unread:false, members:['Chris','Ellen'] },
-  { from:'Vinted', time:'Tue 31 Mar', subject:'New offer for Unique & Flattering Panel Skirt, Zara M', snip:'beefeater2 offered £8 instead of £10', unread:false, members:['Ellen'] },
-];
-
-const TASKS = [
-  { id:0, text:'Renew vet subscription for Morrisey (£15.90/month)', src:'VetSuccess email', member:'Ellen', due:'5 May' },
-  { id:1, text:'Leave review for HomeExchange stay with Rio & Jillian Joy', src:'HomeExchange email', member:'Ellen', due:null },
-  { id:2, text:'Respond to HomeExchange request from Anna (within 4 days)', src:'HomeExchange email', member:'Ellen', due:'5 Apr' },
-  { id:3, text:"Buy tickets – Spooky Men's Chorale in Oxford", src:'Philip Read email', member:'Ellen', due:null },
-  { id:4, text:'Check in for Premier Inn London Stratford stay', src:'Premier Inn confirmation', member:'Chris', due:null },
-  { id:5, text:"Confirm Europa Titans Under-12's friendly (TBC)", src:'Calendar event', member:'Arthur', due:'12 Apr' },
-];
-
-// ─── APP ──────────────────────────────────────────────────────────────────────
-
-const TAG = { ellen:'tag-ellen', chris:'tag-chris', arthur:'tag-arthur', wilfred:'tag-wilfred', mabel:'tag-mabel' };
-const TODAY_STR = '2026-04-08';
-
-let activeMember = 'all';
-let viewDate = new Date(TODAY_STR + 'T12:00:00');
-let doneMap = {};
-
-// Load persisted task states from localStorage
-try {
-  const saved = localStorage.getItem('family-hub-tasks');
-  if (saved) doneMap = JSON.parse(saved);
-} catch(e) {}
-
-function saveTasks() {
-  try { localStorage.setItem('family-hub-tasks', JSON.stringify(doneMap)); } catch(e) {}
+function renderCalDay(){
+  var ds = viewDate.toISOString().split("T")[0];
+  document.getElementById("dlabel").textContent = fmtDate(viewDate);
+  var evs = EVENTS.filter(function(e){ return e.date===ds && matchFilter(e.members); });
+  var el = document.getElementById("cal-day");
+  if(!evs.length){ el.innerHTML="<div class=\"empty\">No events this day</div>"; return; }
+  el.innerHTML = evs.map(function(e){
+    var tags = e.members.map(function(m){ return "<span class=\"tag tag-"+m.toLowerCase()+"\">"+m+"</span>"; }).join("");
+    var meta = [e.loc, e.endTime?"until "+e.endTime:""].filter(Boolean).join(" · ");
+    return "<div class=\"ev\"><div class=\"ev-time\">"+e.time+"</div><div><div class=\"ev-title\">"+e.title+"</div><div class=\"ev-meta\">"+meta+"</div><div>"+tags+"</div></div></div>";
+  }).join("");
 }
 
-document.getElementById('date-display').textContent =
-  new Date(TODAY_STR + 'T12:00:00').toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-
-function fmtDate(d) {
-  return d.toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+function filterSection(selector){
+  document.querySelectorAll(selector).forEach(function(el){
+    var members = JSON.parse(el.dataset.members||"[]");
+    el.style.display = matchFilter(members) ? "" : "none";
+  });
 }
 
-function initials(name) {
-  return name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-}
-
-function memberTags(members) {
-  if (!members.length) return '';
-  return members.map(m => `<span class="tag ${TAG[m.toLowerCase()] || 'tag-family'}">${m}</span>`).join('');
-}
-
-function matchFilter(members) {
-  if (activeMember === 'all') return true;
-  return members.some(m => m.toLowerCase() === activeMember);
-}
-
-function renderCalDay() {
-  const ds = viewDate.toISOString().split('T')[0];
-  document.getElementById('dlabel').textContent = fmtDate(viewDate);
-  const evs = EVENTS.filter(e => e.date === ds && matchFilter(e.members));
-  const el = document.getElementById('cal-day');
-  if (!evs.length) { el.innerHTML = '<div class="empty">No events this day</div>'; return; }
-  el.innerHTML = evs.map(e => `
-    <div class="ev">
-      <div class="ev-time">${e.time}</div>
-      <div>
-        <div class="ev-title">${e.title}</div>
-        <div class="ev-meta">${[e.loc, e.endTime ? 'until ' + e.endTime : ''].filter(Boolean).join(' · ')}</div>
-        <div>${memberTags(e.members)}</div>
-      </div>
-    </div>`).join('');
-}
-
-function renderCalWeek() {
-  const end = '2026-04-15';
-  const evs = EVENTS.filter(e => e.date >= TODAY_STR && e.date <= end && matchFilter(e.members));
-  const el = document.getElementById('cal-week');
-  if (!evs.length) { el.innerHTML = '<div class="empty">No upcoming events this week</div>'; return; }
-  el.innerHTML = evs.map(e => {
-    const d = new Date(e.date + 'T12:00:00');
-    const day = d.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' });
-    return `<div class="ev">
-      <div class="ev-time" style="min-width:80px">${day}</div>
-      <div>
-        <div class="ev-title">${e.title}</div>
-        <div class="ev-meta">${[e.time !== 'All day' ? e.time : 'All day', e.loc].filter(Boolean).join(' · ')}</div>
-        <div>${memberTags(e.members)}</div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function renderInbox() {
-  const mails = EMAILS.filter(e => matchFilter(e.members));
-  const el = document.getElementById('inbox');
-  if (!mails.length) { el.innerHTML = '<div class="empty">No emails</div>'; return; }
-  el.innerHTML = mails.slice(0,7).map(m => `
-    <div class="mail">
-      ${m.unread ? '<div class="unread-dot"></div>' : '<div class="spacer-dot"></div>'}
-      <div class="avatar">${initials(m.from)}</div>
-      <div class="mail-body">
-        <div class="mail-from">${m.from}</div>
-        <div class="mail-subject">${m.subject}</div>
-        <div class="mail-snip">${m.snip}</div>
-        <div>${memberTags(m.members)}</div>
-      </div>
-      <div class="mail-time">${m.time}</div>
-    </div>`).join('');
-}
-
-function renderTasks() {
-  const tasks = TASKS.filter(t => activeMember === 'all' || t.member.toLowerCase() === activeMember);
-  const el = document.getElementById('tasks');
-  if (!tasks.length) { el.innerHTML = '<div class="empty">No action items</div>'; return; }
-  el.innerHTML = tasks.map(t => `
-    <div class="task">
-      <div class="chk${doneMap[t.id] ? ' done' : ''}" onclick="toggleTask(${t.id})"></div>
-      <div>
-        <div class="task-txt${doneMap[t.id] ? ' done' : ''}">${t.text}</div>
-        <div class="task-src">
-          <span class="tag ${TAG[t.member.toLowerCase()] || 'tag-family'}">${t.member}</span>
-          ${t.src}${t.due ? ' · Due ' + t.due : ''}
-        </div>
-      </div>
-    </div>`).join('');
-}
-
-function updateSummary() {
-  document.getElementById('s-today').textContent  = EVENTS.filter(e => e.date === TODAY_STR && matchFilter(e.members)).length;
-  document.getElementById('s-week').textContent   = EVENTS.filter(e => e.date >= TODAY_STR && e.date <= '2026-04-15' && matchFilter(e.members)).length;
-  document.getElementById('s-unread').textContent = EMAILS.filter(e => e.unread && matchFilter(e.members)).length;
-  document.getElementById('s-tasks').textContent  = TASKS.filter(t => (activeMember === 'all' || t.member.toLowerCase() === activeMember) && !doneMap[t.id]).length;
-}
-
-function filter(el) {
-  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
+function filter(el){
+  document.querySelectorAll(".pill").forEach(function(p){p.classList.remove("active");});
+  el.classList.add("active");
   activeMember = el.dataset.m;
-  renderAll();
-}
-
-function prevDay() { viewDate = new Date(viewDate); viewDate.setDate(viewDate.getDate() - 1); renderCalDay(); }
-function nextDay() { viewDate = new Date(viewDate); viewDate.setDate(viewDate.getDate() + 1); renderCalDay(); }
-
-function toggleTask(id) {
-  doneMap[id] = !doneMap[id];
-  saveTasks();
-  renderTasks();
+  renderCalDay();
+  filterSection(".mail");
+  filterSection(".ev");
+  document.querySelectorAll(".task").forEach(function(el){
+    el.style.display = (activeMember==="all"||el.dataset.member===activeMember) ? "" : "none";
+  });
   updateSummary();
 }
 
-function renderAll() { renderCalDay(); renderCalWeek(); renderInbox(); renderTasks(); updateSummary(); }
-renderAll();
+function prevDay(){ viewDate=new Date(viewDate); viewDate.setDate(viewDate.getDate()-1); renderCalDay(); }
+function nextDay(){ viewDate=new Date(viewDate); viewDate.setDate(viewDate.getDate()+1); renderCalDay(); }
+
+function toggleTask(id){
+  doneMap[id]=!doneMap[id];
+  try{ localStorage.setItem("fh-tasks",JSON.stringify(doneMap)); }catch(e){}
+  var chk = document.getElementById("chk"+id);
+  var txt = document.getElementById("txt"+id);
+  if(chk) chk.className = "chk"+(doneMap[id]?" done":"");
+  if(txt) txt.className = "task-txt"+(doneMap[id]?" done":"");
+  updateSummary();
+}
+
+function updateSummary(){
+  var todayEvs  = EVENTS.filter(function(e){ return e.date===TODAY && matchFilter(e.members); }).length;
+  var weekEvs   = EVENTS.filter(function(e){ return e.date>TODAY && matchFilter(e.members); }).length;
+  var unread    = document.querySelectorAll(".unread-dot").length;
+  var pending   = TASKS.filter(function(t){ return !doneMap[t.id] && (activeMember==="all"||t.member.toLowerCase()===activeMember); }).length;
+  document.getElementById("s-today").textContent  = todayEvs;
+  document.getElementById("s-week").textContent   = weekEvs;
+  document.getElementById("s-unread").textContent = unread;
+  document.getElementById("s-tasks").textContent  = pending;
+}
+
+renderCalDay();
+updateSummary();
 </script>
 </body>
 </html>
