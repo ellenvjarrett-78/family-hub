@@ -63,8 +63,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .dlabel{font-size:12px;font-weight:600;color:var(--text);min-width:54px;text-align:center}
 .empty{font-size:13px;color:var(--text3);text-align:center;padding:1.5rem 0}
 </style>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
+  
+  <div id="auth-wall" style="display:none;position:fixed;inset:0;background:var(--bg3);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+  <h2 style="font-size:20px;font-weight:600;color:var(--text)">Jarrett Family Hub</h2>
+  <p style="font-size:14px;color:var(--text2)">Sign in with your Google account to continue</p>
+  <div id="g_id_onload"
+    data-client_id="405796403274-1opnf75su600i6hnga2moeait2pqr1tb.apps.googleusercontent.com"
+    data-callback="handleSignIn"
+    data-auto_select="true">
+  </div>
+  <div class="g_id_signin" data-type="standard" data-theme="outline" data-size="large"></div>
+  <p id="auth-error" style="font-size:13px;color:var(--coral);display:none">Sorry, that account isn't authorised.</p>
+</div>
+  
+<div id="app-content">
+<div id="app-content">
 <div class="container">
 
 <div class="header">
@@ -128,7 +144,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 
 </div>
 </div>
+var ALLOWED = ["youremail@gmail.com", "husbands@gmail.com"];
 
+function handleSignIn(response) {
+  var payload = JSON.parse(atob(response.credential.split(".")[1]));
+  if (ALLOWED.includes(payload.email)) {
+    document.getElementById("auth-wall").style.display = "none";
+    document.getElementById("app-content").style.display = "";
+  } else {
+    document.getElementById("auth-error").style.display = "block";
+  }
+}
+
+// Hide app until signed in
+document.getElementById("app-content").style.display = "none";
+document.getElementById("auth-wall").style.display = "flex";
 <script>
 var EVENTS = [{"date":"2026-04-12","time":"9:30 AM","endTime":"11:30 AM","title":"Europa Titans – Heyford Park","loc":"Europa School UK","allDay":false,"members":[]},{"date":"2026-04-12","time":"10:00 AM","endTime":"11:00 AM","title":"Europa Titans Under-12's – TBC","loc":"High Street","allDay":false,"members":[]}];
 var TODAY  = "2026-04-10";
@@ -200,5 +230,7 @@ function updateSummary(){
 renderCalDay();
 updateSummary();
 </script>
+  </div><!-- end app-content -->
+
 </body>
 </html>
