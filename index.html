@@ -96,11 +96,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   </div>
 </div>
 
-<div class="note">
-  &#128204; This page updates automatically every morning at 7am from Ellen's Google account.
-  Last updated: <strong>Friday 10 April 2026</strong>
-</div>
-
 <div class="pills" id="pills">
   <div class="pill active" data-m="all" onclick="filter(this)">All</div>
   <div class="pill" data-m="ellen" onclick="filter(this)">Ellen</div>
@@ -114,7 +109,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   <div class="scard"><div class="num" id="s-today">0</div><div class="lbl">events today</div></div>
   <div class="scard"><div class="num" id="s-week">2</div><div class="lbl">upcoming this week</div></div>
   <div class="scard"><div class="num" id="s-unread">1</div><div class="lbl">unread emails</div></div>
-  <div class="scard"><div class="num" id="s-tasks">0</div><div class="lbl">family tasks</div></div>
+  <div class="scard"><div class="num" id="s-tasks">1</div><div class="lbl">family tasks</div></div>
 </div>
 
 <div class="grid">
@@ -150,7 +145,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
     <button onclick="addTask()">Add task</button>
   </div>
   <div class="add-msg" id="add-msg">Task added!</div>
-  <div id="gtasks"><div class="empty" id="gtasks-empty">No tasks yet — add one above</div></div>
+  <div id="gtasks"><div class="gtask"><div class="chk"></div><div><div class="gtask-title">test 2</div><div class="gtask-due">Due 2026-04-17</div><div class="gtask-notes">please work</div></div></div></div>
 </div>
 
 <div class="card full">
@@ -264,7 +259,7 @@ function updateSummary(){
   document.getElementById("s-today").textContent = todayEvs;
   document.getElementById("s-week").textContent  = weekEvs;
   document.getElementById("s-unread").textContent = unread;
-  document.getElementById("s-tasks").textContent  = 0;
+  document.getElementById("s-tasks").textContent  = 1;
 }
 
 renderCalDay();
