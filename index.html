@@ -63,6 +63,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .gtask-title{font-size:13px;color:var(--text);line-height:1.4}
 .gtask-due{font-size:11px;color:var(--amber);margin-top:2px}
 .gtask-notes{font-size:11px;color:var(--text3);margin-top:2px}
+.add-task{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.add-task input{flex:1;min-width:140px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg2);color:var(--text);outline:none}
+.add-task input:focus{border-color:var(--blue)}
+.add-task button{font-size:12px;padding:7px 14px;border-radius:var(--radius);border:1px solid var(--blue);background:var(--blue-bg);color:var(--blue-text);cursor:pointer;font-weight:600;white-space:nowrap}
+.add-task button:hover{background:var(--blue);color:#fff}
+.add-msg{font-size:12px;margin-top:6px;color:var(--green);display:none}
 .day-nav{display:flex;align-items:center;gap:6px;margin-left:auto}
 .dnav{width:24px;height:24px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
 .dnav:hover{background:var(--bg2)}
@@ -86,8 +92,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 <div class="header">
   <div>
     <h1>Jarrett Family Hub</h1>
-    <div class="header-sub">Friday 10 April 2026</div>
+    <div class="header-sub">Friday 10 April 2026 &middot; Auto-updated daily</div>
   </div>
+</div>
+
+<div class="note">
+  &#128204; This page updates automatically every morning at 7am from Ellen's Google account.
+  Last updated: <strong>Friday 10 April 2026</strong>
 </div>
 
 <div class="pills" id="pills">
@@ -132,7 +143,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 
 <div class="card full">
   <div class="ctitle"><span class="cdot" style="background:#1D9E75"></span> Family Tasks</div>
-  <div id="gtasks"><div class="empty">No tasks yet — tasks you add will appear here</div></div>
+  <div class="add-task">
+    <input type="text" id="new-task-title" placeholder="Add a task..." />
+    <input type="date" id="new-task-due" />
+    <input type="text" id="new-task-notes" placeholder="Notes (optional)" />
+    <button onclick="addTask()">Add task</button>
+  </div>
+  <div class="add-msg" id="add-msg">Task added!</div>
+  <div id="gtasks"><div class="empty" id="gtasks-empty">No tasks yet — add one above</div></div>
 </div>
 
 <div class="card full">
@@ -148,6 +166,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 var EVENTS = [{"date":"2026-04-12","time":"9:30 AM","endTime":"11:30 AM","title":"Europa Titans – Heyford Park","loc":"Europa School UK","allDay":false,"members":[]},{"date":"2026-04-12","time":"10:00 AM","endTime":"11:00 AM","title":"Europa Titans Under-12's – TBC","loc":"High Street","allDay":false,"members":[]}];
 var TASKS  = [{"id":0,"text":"Your Booking Confirmation","src":"From: Gravitee Golf","member":"Ellen","due":null},{"id":1,"text":"Fwd: Your Booking Confirmation from Brayleys","src":"From: Chris Jarrett","member":"Chris","due":null},{"id":2,"text":"Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth","src":"From: MSE's Money Tips","member":"Family","due":null},{"id":3,"text":"You have a new request from Anna","src":"From: HomeExchange","member":"Family","due":null},{"id":4,"text":"Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25","src":"From: MSE's Money Tips","member":"Family","due":null}];
 var TODAY  = "2026-04-10";
+var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwLPCaXZ0AqedytO8Z-b5ueyIfoFmzmso0rC2W2jZqpGqq00vvwjHMXCB-q-QHHWc6a/exec";
 var activeMember = "all";
 var viewDate = new Date(TODAY + "T12:00:00");
 var doneMap = {};
@@ -155,6 +174,41 @@ try { var s = localStorage.getItem("fh-tasks"); if(s) doneMap = JSON.parse(s); }
 
 function fmtDate(d){ return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}); }
 function matchFilter(members){ if(activeMember==="all") return true; return members.some(function(m){return m.toLowerCase()===activeMember;}); }
+
+function addTask(){
+  var title = document.getElementById("new-task-title").value.trim();
+  if(!title) return;
+  var due   = document.getElementById("new-task-due").value;
+  var notes = document.getElementById("new-task-notes").value.trim();
+  var btn   = document.querySelector(".add-task button");
+  btn.textContent = "Adding...";
+  btn.disabled = true;
+  fetch(WEB_APP_URL, {
+    method: "POST",
+    body: JSON.stringify({ title: title, due: due, notes: notes })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(data.success){
+      var el = document.getElementById("gtasks");
+      var empty = document.getElementById("gtasks-empty");
+      if(empty) empty.remove();
+      var dueHtml  = due   ? "<div class=\"gtask-due\">Due "+due+"</div>" : "";
+      var notesHtml = notes ? "<div class=\"gtask-notes\">"+notes+"</div>" : "";
+      el.innerHTML += "<div class=\"gtask\"><div class=\"chk\"></div><div><div class=\"gtask-title\">" + title + "</div>" + dueHtml + notesHtml + "</div></div>";
+      document.getElementById("new-task-title").value = "";
+      document.getElementById("new-task-due").value = "";
+      document.getElementById("new-task-notes").value = "";
+      var msg = document.getElementById("add-msg");
+      msg.style.display = "block";
+      setTimeout(function(){ msg.style.display = "none"; }, 3000);
+    }
+  })
+  .finally(function(){
+    btn.textContent = "Add task";
+    btn.disabled = false;
+  });
+}
 
 function renderCalDay(){
   var ds = viewDate.toISOString().split("T")[0];
@@ -203,12 +257,12 @@ function toggleTask(id){
 }
 
 function updateSummary(){
-  var todayEvs  = EVENTS.filter(function(e){ return e.date===TODAY && matchFilter(e.members); }).length;
-  var weekEvs   = EVENTS.filter(function(e){ return e.date>TODAY && matchFilter(e.members); }).length;
-  var unread    = document.querySelectorAll(".unread-dot").length;
-  var pending   = TASKS.filter(function(t){ return !doneMap[t.id] && (activeMember==="all"||t.member.toLowerCase()===activeMember); }).length;
-  document.getElementById("s-today").textContent  = todayEvs;
-  document.getElementById("s-week").textContent   = weekEvs;
+  var todayEvs = EVENTS.filter(function(e){ return e.date===TODAY && matchFilter(e.members); }).length;
+  var weekEvs  = EVENTS.filter(function(e){ return e.date>TODAY && matchFilter(e.members); }).length;
+  var unread   = document.querySelectorAll(".unread-dot").length;
+  var pending  = TASKS.filter(function(t){ return !doneMap[t.id] && (activeMember==="all"||t.member.toLowerCase()===activeMember); }).length;
+  document.getElementById("s-today").textContent = todayEvs;
+  document.getElementById("s-week").textContent  = weekEvs;
   document.getElementById("s-unread").textContent = unread;
   document.getElementById("s-tasks").textContent  = 0;
 }
