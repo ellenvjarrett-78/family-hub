@@ -58,11 +58,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .task-txt{font-size:13px;color:var(--text);line-height:1.4}
 .task-txt.done{text-decoration:line-through;color:var(--text3)}
 .task-src{font-size:11px;color:var(--text3);margin-top:3px}
-.gtask{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.gtask{padding:10px 0;border-bottom:1px solid var(--border)}
 .gtask:last-child{border-bottom:none;padding-bottom:0}
-.gtask-title{font-size:13px;color:var(--text);line-height:1.4}
+.gtask-row{display:flex;gap:10px;align-items:flex-start}
+.gtask-title{font-size:13px;color:var(--text);line-height:1.4;flex:1}
+.gtask-title.done{text-decoration:line-through;color:var(--text3)}
 .gtask-due{font-size:11px;color:var(--amber);margin-top:2px}
 .gtask-notes{font-size:11px;color:var(--text3);margin-top:2px}
+.gtask-edit-btn{font-size:11px;color:var(--blue-text);cursor:pointer;margin-top:2px;background:none;border:none;padding:0;text-decoration:underline}
+.gtask-edit-form{margin-top:8px;display:none;flex-direction:column;gap:6px}
+.gtask-edit-form input{font-size:12px;padding:5px 8px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg2);color:var(--text);outline:none}
+.gtask-edit-form input:focus{border-color:var(--blue)}
+.gtask-edit-actions{display:flex;gap:6px}
+.gtask-save-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius);border:1px solid var(--blue);background:var(--blue-bg);color:var(--blue-text);cursor:pointer;font-weight:600}
+.gtask-cancel-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer}
 .add-task{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .add-task input{flex:1;min-width:140px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg2);color:var(--text);outline:none}
 .add-task input:focus{border-color:var(--blue)}
@@ -92,7 +101,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 <div class="header">
   <div>
     <h1>Jarrett Family Hub</h1>
-    <div class="header-sub">Friday 10 April 2026 &middot; Auto-updated daily</div>
+    <div class="header-sub">Friday 10 April 2026</div>
   </div>
 </div>
 
@@ -108,15 +117,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 <div class="summary">
   <div class="scard"><div class="num" id="s-today">0</div><div class="lbl">events today</div></div>
   <div class="scard"><div class="num" id="s-week">2</div><div class="lbl">upcoming this week</div></div>
-  <div class="scard"><div class="num" id="s-unread">1</div><div class="lbl">unread emails</div></div>
-  <div class="scard"><div class="num" id="s-tasks">1</div><div class="lbl">family tasks</div></div>
+  <div class="scard"><div class="num" id="s-unread">2</div><div class="lbl">unread emails</div></div>
+  <div class="scard"><div class="num" id="s-tasks">2</div><div class="lbl">family tasks</div></div>
 </div>
 
 <div class="grid">
 
 <div class="card">
-  <div class="ctitle">
-    <span class="cdot" style="background:#378ADD"></span> Calendar
+  <div class="ctitle"><span class="cdot" style="background:#378ADD"></span> Calendar
     <div class="day-nav">
       <button class="dnav" onclick="prevDay()">&#8249;</button>
       <span class="dlabel" id="dlabel"></span>
@@ -128,7 +136,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 
 <div class="card">
   <div class="ctitle"><span class="cdot" style="background:#D85A30"></span> Inbox</div>
-  <div id="inbox"><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="unread-dot"></div><div class="avatar">G</div><div class="mail-body"><div class="mail-from">Google</div><div class="mail-subject">Security alert</div><div class="mail-snip">[image: Google] You allowed Untitled project access to some of your Google Account data ellenvjarrett@gmail.com </div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">Just now</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">GG</div><div class="mail-body"><div class="mail-from">Gravitee Golf</div><div class="mail-subject">Your Booking Confirmation</div><div class="mail-snip"> Ellen Jarrett *Here&#39;s your booking Details:* *Venue* Oxford [image: qrcode_75999] *Activity* 1 x Comet Darts </div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">1h ago</div></div><div class="mail" data-members="[&quot;Chris&quot;]"><div class="spacer-dot"></div><div class="avatar">CJ</div><div class="mail-body"><div class="mail-from">Chris Jarrett</div><div class="mail-subject">Fwd: Your Booking Confirmation from Brayleys</div><div class="mail-snip">---------- Forwarded message --------- From: Lisa Barclay &lt;lisa.barclay@brayleys.co.uk&gt; Date: Fri, 10 Apr 2026 at 08:5</div><div><span class="tag tag-chris">Chris</span></div></div><div class="mail-time">6h ago</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">MM</div><div class="mail-body"><div class="mail-from">MSE&#39;s Money Tips</div><div class="mail-subject">Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth</div><div class="mail-snip">* {mso-line-height-rule: exactly; line-height: 110%;} p {mso-line-height-rule: exactly; line-height: 150% !important;} b</div><div></div></div><div class="mail-time">2 days ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">EJ</div><div class="mail-body"><div class="mail-from">Ellen Jarrett</div><div class="mail-subject">My Strengths report</div><div class="mail-snip">Hey beautfiul - based on chat yesterday, at MQ they use Clifton Strengths rather than Insight - looks at your strengths</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">3 days ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">H</div><div class="mail-body"><div class="mail-from">HomeExchange</div><div class="mail-subject">Rate your exchange with Rio &amp; Jillian Joy</div><div class="mail-snip">&lt;https://www.homeexchange.com/&gt; Tell us everything Ellen! Your stay at Rio &amp; Jillian Joy ended yesterday. We hop</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">6 days ago</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">PR</div><div class="mail-body"><div class="mail-from">Philip Read</div><div class="mail-subject">Spooky Men&#39;s Chorale in Oxford - tickets NOW ON SALE!</div><div class="mail-snip">Hi friends, Thank you so much for signing up to be notified when tickets are available - and thank you for your pati</div><div></div></div><div class="mail-time">2 Apr</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">H</div><div class="mail-body"><div class="mail-from">HomeExchange</div><div class="mail-subject">You have a new request from Anna</div><div class="mail-snip">Make sure to respond within 4 days to help them in their search &lt;https://www.homeexchange.com/&gt; Anna woul</div><div></div></div><div class="mail-time">1 Apr</div></div></div>
+  <div id="inbox"><div class="mail" data-members="[]"><div class="unread-dot"></div><div class="avatar"><</div><div class="mail-body"><div class="mail-from">&lt;Cloud*/Storage@bag-tax.kcgxtreme.com&gt;</div><div class="mail-subject">Membership May Be Due April 10-2026 – Digest Alert</div><div class="mail-snip"> Reset your password Washingtonpost.com ------------------- Reset your password ------------------- Follow t</div><div></div></div><div class="mail-time">Just now</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="unread-dot"></div><div class="avatar">G</div><div class="mail-body"><div class="mail-from">Google</div><div class="mail-subject">Security alert</div><div class="mail-snip">[image: Google] You allowed Untitled project access to some of your Google Account data ellenvjarrett@gmail.com </div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">1h ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">GG</div><div class="mail-body"><div class="mail-from">Gravitee Golf</div><div class="mail-subject">Your Booking Confirmation</div><div class="mail-snip"> Ellen Jarrett *Here&#39;s your booking Details:* *Venue* Oxford [image: qrcode_75999] *Activity* 1 x Comet Darts </div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">1h ago</div></div><div class="mail" data-members="[&quot;Chris&quot;]"><div class="spacer-dot"></div><div class="avatar">CJ</div><div class="mail-body"><div class="mail-from">Chris Jarrett</div><div class="mail-subject">Fwd: Your Booking Confirmation from Brayleys</div><div class="mail-snip">---------- Forwarded message --------- From: Lisa Barclay &lt;lisa.barclay@brayleys.co.uk&gt; Date: Fri, 10 Apr 2026 at 08:5</div><div><span class="tag tag-chris">Chris</span></div></div><div class="mail-time">6h ago</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">MM</div><div class="mail-body"><div class="mail-from">MSE&#39;s Money Tips</div><div class="mail-subject">Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth</div><div class="mail-snip">* {mso-line-height-rule: exactly; line-height: 110%;} p {mso-line-height-rule: exactly; line-height: 150% !important;} b</div><div></div></div><div class="mail-time">2 days ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">EJ</div><div class="mail-body"><div class="mail-from">Ellen Jarrett</div><div class="mail-subject">My Strengths report</div><div class="mail-snip">Hey beautfiul - based on chat yesterday, at MQ they use Clifton Strengths rather than Insight - looks at your strengths</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">3 days ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">H</div><div class="mail-body"><div class="mail-from">HomeExchange</div><div class="mail-subject">Rate your exchange with Rio &amp; Jillian Joy</div><div class="mail-snip">&lt;https://www.homeexchange.com/&gt; Tell us everything Ellen! Your stay at Rio &amp; Jillian Joy ended yesterday. We hop</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">6 days ago</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">PR</div><div class="mail-body"><div class="mail-from">Philip Read</div><div class="mail-subject">Spooky Men&#39;s Chorale in Oxford - tickets NOW ON SALE!</div><div class="mail-snip">Hi friends, Thank you so much for signing up to be notified when tickets are available - and thank you for your pati</div><div></div></div><div class="mail-time">2 Apr</div></div></div>
 </div>
 
 <div class="card full">
@@ -145,12 +153,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
     <button onclick="addTask()">Add task</button>
   </div>
   <div class="add-msg" id="add-msg">Task added!</div>
-  <div id="gtasks"><div class="gtask"><div class="chk"></div><div><div class="gtask-title">test 2</div><div class="gtask-due">Due 2026-04-17</div><div class="gtask-notes">please work</div></div></div></div>
+  <div id="gtasks"><div class="gtask" data-id="emZqUnlDU09Wd2NES1NJRg"><div class="gtask-row"><div class="chk" onclick="completeGTask(this)"></div><div style="flex:1"><div class="gtask-title">test 3</div><div class="gtask-due">Due 2026-04-16</div><div class="gtask-notes">yey</div><button class="gtask-edit-btn" onclick="toggleEditGTask(this)">Edit</button></div></div><div class="gtask-edit-form"><input type="text" class="gtask-edit-title" value="test 3" placeholder="Task title" /><input type="date" class="gtask-edit-due" value="2026-04-16" /><input type="text" class="gtask-edit-notes" value="yey" placeholder="Notes" /><div class="gtask-edit-actions"><button class="gtask-save-btn" onclick="saveGTask(this)">Save</button><button class="gtask-cancel-btn" onclick="cancelEditGTask(this)">Cancel</button></div></div></div><div class="gtask" data-id="SUpCTWZEckQ4Skx2a3hhSQ"><div class="gtask-row"><div class="chk" onclick="completeGTask(this)"></div><div style="flex:1"><div class="gtask-title">test 2</div><div class="gtask-due">Due 2026-04-17</div><div class="gtask-notes">please work</div><button class="gtask-edit-btn" onclick="toggleEditGTask(this)">Edit</button></div></div><div class="gtask-edit-form"><input type="text" class="gtask-edit-title" value="test 2" placeholder="Task title" /><input type="date" class="gtask-edit-due" value="2026-04-17" /><input type="text" class="gtask-edit-notes" value="please work" placeholder="Notes" /><div class="gtask-edit-actions"><button class="gtask-save-btn" onclick="saveGTask(this)">Save</button><button class="gtask-cancel-btn" onclick="cancelEditGTask(this)">Cancel</button></div></div></div></div>
 </div>
 
 <div class="card full">
   <div class="ctitle"><span class="cdot" style="background:#BA7517"></span> Action items from email</div>
-  <div id="tasks"><div class="task" data-id="0" data-member="ellen"><div class="chk" id="chk0" onclick="toggleTask(0)"></div><div><div class="task-txt" id="txt0">Your Booking Confirmation</div><div class="task-src"><span class="tag tag-ellen">Ellen</span> From: Gravitee Golf</div></div></div><div class="task" data-id="1" data-member="chris"><div class="chk" id="chk1" onclick="toggleTask(1)"></div><div><div class="task-txt" id="txt1">Fwd: Your Booking Confirmation from Brayleys</div><div class="task-src"><span class="tag tag-chris">Chris</span> From: Chris Jarrett</div></div></div><div class="task" data-id="2" data-member="family"><div class="chk" id="chk2" onclick="toggleTask(2)"></div><div><div class="task-txt" id="txt2">Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth</div><div class="task-src"><span class="tag tag-family">Family</span> From: MSE&#39;s Money Tips</div></div></div><div class="task" data-id="3" data-member="family"><div class="chk" id="chk3" onclick="toggleTask(3)"></div><div><div class="task-txt" id="txt3">You have a new request from Anna</div><div class="task-src"><span class="tag tag-family">Family</span> From: HomeExchange</div></div></div><div class="task" data-id="4" data-member="family"><div class="chk" id="chk4" onclick="toggleTask(4)"></div><div><div class="task-txt" id="txt4">Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25</div><div class="task-src"><span class="tag tag-family">Family</span> From: MSE&#39;s Money Tips</div></div></div></div>
+  <div id="tasks"><div class="task" data-id="0" data-member="family"><div class="chk" id="chk0" onclick="toggleTask(0)"></div><div><div class="task-txt" id="txt0">Membership May Be Due April 10-2026 – Digest Alert</div><div class="task-src"><span class="tag tag-family">Family</span> From: &lt;Cloud*/Storage@bag-tax.kcgxtreme.com&gt;</div></div></div><div class="task" data-id="1" data-member="ellen"><div class="chk" id="chk1" onclick="toggleTask(1)"></div><div><div class="task-txt" id="txt1">Your Booking Confirmation</div><div class="task-src"><span class="tag tag-ellen">Ellen</span> From: Gravitee Golf</div></div></div><div class="task" data-id="2" data-member="chris"><div class="chk" id="chk2" onclick="toggleTask(2)"></div><div><div class="task-txt" id="txt2">Fwd: Your Booking Confirmation from Brayleys</div><div class="task-src"><span class="tag tag-chris">Chris</span> From: Chris Jarrett</div></div></div><div class="task" data-id="3" data-member="family"><div class="chk" id="chk3" onclick="toggleTask(3)"></div><div><div class="task-txt" id="txt3">Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth</div><div class="task-src"><span class="tag tag-family">Family</span> From: MSE&#39;s Money Tips</div></div></div><div class="task" data-id="4" data-member="family"><div class="chk" id="chk4" onclick="toggleTask(4)"></div><div><div class="task-txt" id="txt4">You have a new request from Anna</div><div class="task-src"><span class="tag tag-family">Family</span> From: HomeExchange</div></div></div><div class="task" data-id="5" data-member="family"><div class="chk" id="chk5" onclick="toggleTask(5)"></div><div><div class="task-txt" id="txt5">Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25</div><div class="task-src"><span class="tag tag-family">Family</span> From: MSE&#39;s Money Tips</div></div></div></div>
 </div>
 
 </div>
@@ -159,16 +167,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 
 <script>
 var EVENTS = [{"date":"2026-04-12","time":"9:30 AM","endTime":"11:30 AM","title":"Europa Titans – Heyford Park","loc":"Europa School UK","allDay":false,"members":[]},{"date":"2026-04-12","time":"10:00 AM","endTime":"11:00 AM","title":"Europa Titans Under-12's – TBC","loc":"High Street","allDay":false,"members":[]}];
-var TASKS  = [{"id":0,"text":"Your Booking Confirmation","src":"From: Gravitee Golf","member":"Ellen","due":null},{"id":1,"text":"Fwd: Your Booking Confirmation from Brayleys","src":"From: Chris Jarrett","member":"Chris","due":null},{"id":2,"text":"Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth","src":"From: MSE's Money Tips","member":"Family","due":null},{"id":3,"text":"You have a new request from Anna","src":"From: HomeExchange","member":"Family","due":null},{"id":4,"text":"Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25","src":"From: MSE's Money Tips","member":"Family","due":null}];
+var TASKS  = [{"id":0,"text":"Membership May Be Due April 10-2026 – Digest Alert","src":"From: <Cloud*/Storage@bag-tax.kcgxtreme.com>","member":"Family","due":null},{"id":1,"text":"Your Booking Confirmation","src":"From: Gravitee Golf","member":"Ellen","due":null},{"id":2,"text":"Fwd: Your Booking Confirmation from Brayleys","src":"From: Chris Jarrett","member":"Chris","due":null},{"id":3,"text":"Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth","src":"From: MSE's Money Tips","member":"Family","due":null},{"id":4,"text":"You have a new request from Anna","src":"From: HomeExchange","member":"Family","due":null},{"id":5,"text":"Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25","src":"From: MSE's Money Tips","member":"Family","due":null}];
 var TODAY  = "2026-04-10";
-var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwLPCaXZ0AqedytO8Z-b5ueyIfoFmzmso0rC2W2jZqpGqq00vvwjHMXCB-q-QHHWc6a/exec";
+var WEB_APP_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
 var activeMember = "all";
 var viewDate = new Date(TODAY + "T12:00:00");
 var doneMap = {};
 try { var s = localStorage.getItem("fh-tasks"); if(s) doneMap = JSON.parse(s); } catch(e){}
 
-function fmtDate(d){ return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}); }
-function matchFilter(members){ if(activeMember==="all") return true; return members.some(function(m){return m.toLowerCase()===activeMember;}); }
+function postToApp(data, cb){
+  fetch(WEB_APP_URL, { method:"POST", body:JSON.stringify(data) })
+  .then(function(r){ return r.json(); })
+  .then(function(d){ if(cb) cb(d); })
+  .catch(function(e){ console.error(e); });
+}
 
 function addTask(){
   var title = document.getElementById("new-task-title").value.trim();
@@ -176,21 +188,15 @@ function addTask(){
   var due   = document.getElementById("new-task-due").value;
   var notes = document.getElementById("new-task-notes").value.trim();
   var btn   = document.querySelector(".add-task button");
-  btn.textContent = "Adding...";
-  btn.disabled = true;
-  fetch(WEB_APP_URL, {
-    method: "POST",
-    body: JSON.stringify({ title: title, due: due, notes: notes })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
+  btn.textContent = "Adding..."; btn.disabled = true;
+  postToApp({ action:"add", title:title, due:due, notes:notes }, function(data){
     if(data.success){
       var el = document.getElementById("gtasks");
       var empty = document.getElementById("gtasks-empty");
       if(empty) empty.remove();
-      var dueHtml  = due   ? "<div class=\"gtask-due\">Due "+due+"</div>" : "";
+      var dueHtml   = due   ? "<div class=\"gtask-due\">Due "+due+"</div>" : "";
       var notesHtml = notes ? "<div class=\"gtask-notes\">"+notes+"</div>" : "";
-      el.innerHTML += "<div class=\"gtask\"><div class=\"chk\"></div><div><div class=\"gtask-title\">" + title + "</div>" + dueHtml + notesHtml + "</div></div>";
+      el.innerHTML += "<div class=\"gtask\"><div class=\"gtask-row\"><div class=\"chk\" onclick=\"completeGTask(this)\"></div><div style=\"flex:1\"><div class=\"gtask-title\">"+title+"</div>"+dueHtml+notesHtml+"</div></div></div>";
       document.getElementById("new-task-title").value = "";
       document.getElementById("new-task-due").value = "";
       document.getElementById("new-task-notes").value = "";
@@ -198,12 +204,52 @@ function addTask(){
       msg.style.display = "block";
       setTimeout(function(){ msg.style.display = "none"; }, 3000);
     }
-  })
-  .finally(function(){
-    btn.textContent = "Add task";
-    btn.disabled = false;
+    btn.textContent = "Add task"; btn.disabled = false;
   });
 }
+
+function completeGTask(chk){
+  var gtask = chk.closest(".gtask");
+  var id    = gtask ? gtask.dataset.id : null;
+  chk.className = "chk done";
+  var titleEl = gtask ? gtask.querySelector(".gtask-title") : null;
+  if(titleEl) titleEl.className = "gtask-title done";
+  if(id) postToApp({ action:"complete", id:id });
+  setTimeout(function(){ if(gtask) gtask.remove(); }, 600);
+}
+
+function toggleEditGTask(btn){
+  var form = btn.closest(".gtask").querySelector(".gtask-edit-form");
+  form.style.display = form.style.display === "flex" ? "none" : "flex";
+}
+
+function cancelEditGTask(btn){
+  btn.closest(".gtask-edit-form").style.display = "none";
+}
+
+function saveGTask(btn){
+  var form   = btn.closest(".gtask-edit-form");
+  var gtask  = btn.closest(".gtask");
+  var id     = gtask.dataset.id;
+  var title  = form.querySelector(".gtask-edit-title").value.trim();
+  var due    = form.querySelector(".gtask-edit-due").value;
+  var notes  = form.querySelector(".gtask-edit-notes").value.trim();
+  if(!title) return;
+  btn.textContent = "Saving...";
+  postToApp({ action:"edit", id:id, title:title, due:due, notes:notes }, function(data){
+    if(data.success){
+      gtask.querySelector(".gtask-title").textContent = title;
+      var dueEl = gtask.querySelector(".gtask-due");
+      if(due){ if(dueEl) dueEl.textContent = "Due "+due; else { var d=document.createElement("div"); d.className="gtask-due"; d.textContent="Due "+due; gtask.querySelector(".gtask-title").after(d); }}
+      else { if(dueEl) dueEl.remove(); }
+      form.style.display = "none";
+    }
+    btn.textContent = "Save";
+  });
+}
+
+function fmtDate(d){ return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}); }
+function matchFilter(members){ if(activeMember==="all") return true; return members.some(function(m){return m.toLowerCase()===activeMember;}); }
 
 function renderCalDay(){
   var ds = viewDate.toISOString().split("T")[0];
@@ -227,11 +273,8 @@ function filterSection(selector){
 
 function filter(el){
   document.querySelectorAll(".pill").forEach(function(p){p.classList.remove("active");});
-  el.classList.add("active");
-  activeMember = el.dataset.m;
-  renderCalDay();
-  filterSection(".mail");
-  filterSection(".ev");
+  el.classList.add("active"); activeMember = el.dataset.m;
+  renderCalDay(); filterSection(".mail"); filterSection(".ev");
   document.querySelectorAll(".task").forEach(function(el){
     el.style.display = (activeMember==="all"||el.dataset.member===activeMember) ? "" : "none";
   });
@@ -256,14 +299,13 @@ function updateSummary(){
   var weekEvs  = EVENTS.filter(function(e){ return e.date>TODAY && matchFilter(e.members); }).length;
   var unread   = document.querySelectorAll(".unread-dot").length;
   var pending  = TASKS.filter(function(t){ return !doneMap[t.id] && (activeMember==="all"||t.member.toLowerCase()===activeMember); }).length;
-  document.getElementById("s-today").textContent = todayEvs;
-  document.getElementById("s-week").textContent  = weekEvs;
+  document.getElementById("s-today").textContent  = todayEvs;
+  document.getElementById("s-week").textContent   = weekEvs;
   document.getElementById("s-unread").textContent = unread;
-  document.getElementById("s-tasks").textContent  = 1;
+  document.getElementById("s-tasks").textContent  = 2;
 }
 
-renderCalDay();
-updateSummary();
+renderCalDay(); updateSummary();
 
 var ALLOWED = ["ellenvjarrett@gmail.com","chrisjjarrett@gmail.com"];
 function handleSignIn(r){
@@ -271,9 +313,7 @@ function handleSignIn(r){
   if(ALLOWED.includes(p.email)){
     document.getElementById("auth-wall").style.display="none";
     document.getElementById("app-content").style.display="";
-  } else {
-    document.getElementById("auth-error").style.display="block";
-  }
+  } else { document.getElementById("auth-error").style.display="block"; }
 }
 document.getElementById("app-content").style.display="none";
 document.getElementById("auth-wall").style.display="flex";
