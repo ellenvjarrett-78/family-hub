@@ -2,379 +2,495 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Jarrett Family Hub</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#fff;--bg2:#f5f5f3;--bg3:#efefed;--text:#1a1a18;--text2:#6b6b67;--text3:#9e9e9a;--border:rgba(0,0,0,0.12);--border2:rgba(0,0,0,0.22);--radius:10px;--radius-lg:14px;--blue:#378ADD;--blue-bg:#E6F1FB;--blue-text:#0C447C;--green:#1D9E75;--amber:#BA7517;--coral:#D85A30}
-@media(prefers-color-scheme:dark){:root{--bg:#1c1c1a;--bg2:#252523;--bg3:#2e2e2c;--text:#f0f0ee;--text2:#a0a09c;--text3:#6e6e6a;--border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.2);--blue-bg:#0c2a44;--blue-text:#85B7EB}}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg3);color:var(--text);min-height:100vh;padding:1.5rem 1rem}
-.container{max-width:860px;margin:0 auto}
-.header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1.25rem}
-.header h1{font-size:22px;font-weight:600;color:var(--text)}
-.header-sub{font-size:13px;color:var(--text2);margin-top:3px}
-.note{background:#FAEEDA;color:#633806;border:1px solid #FAC775;border-radius:var(--radius);padding:10px 14px;font-size:12px;margin-bottom:1.25rem;line-height:1.5}
-@media(prefers-color-scheme:dark){.note{background:#412402;color:#FAC775;border-color:#633806}}
-.pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
-.pill{font-size:12px;padding:5px 13px;border-radius:20px;cursor:pointer;border:1px solid var(--border);background:var(--bg2);color:var(--text2);transition:all .12s}
-.pill.active{background:var(--blue-bg);color:var(--blue-text);border-color:var(--blue)}
-.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
-@media(max-width:520px){.summary{grid-template-columns:repeat(2,1fr)}}
-.scard{background:var(--bg);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border)}
-.scard .num{font-size:26px;font-weight:600;color:var(--text)}
-.scard .lbl{font-size:12px;color:var(--text2);margin-top:3px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:580px){.grid{grid-template-columns:1fr}}
-.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem}
-.card.full{grid-column:1/-1}
-.ctitle{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px;display:flex;align-items:center;gap:7px}
-.cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.ev{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
-.ev:last-child{border-bottom:none;padding-bottom:0}
-.ev-time{font-size:11px;color:var(--text3);min-width:58px;padding-top:2px;flex-shrink:0}
-.ev-title{font-size:13px;color:var(--text);line-height:1.4;font-weight:500}
-.ev-meta{font-size:11px;color:var(--text2);margin-top:2px}
-.tag{font-size:10px;padding:2px 7px;border-radius:10px;display:inline-block;margin:3px 2px 0 0;font-weight:500}
-.tag-ellen{background:#EEEDFE;color:#3C3489}.tag-chris{background:#E6F1FB;color:#0C447C}
-.tag-arthur{background:#E1F5EE;color:#085041}.tag-wilfred{background:#FAECE7;color:#712B13}
-.tag-mabel{background:#FBEAF0;color:#72243E}.tag-family{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
-@media(prefers-color-scheme:dark){.tag-ellen{background:#26215C;color:#CECBF6}.tag-chris{background:#042C53;color:#B5D4F4}.tag-arthur{background:#04342C;color:#9FE1CB}.tag-wilfred{background:#4A1B0C;color:#F5C4B3}.tag-mabel{background:#4B1528;color:#F4C0D1}}
-.mail{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);align-items:flex-start}
-.mail:last-child{border-bottom:none}
-.avatar{width:30px;height:30px;border-radius:50%;background:var(--blue-bg);color:var(--blue-text);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
-.mail-body{flex:1;min-width:0}
-.mail-from{font-size:13px;font-weight:600;color:var(--text)}
-.mail-subject{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mail-snip{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mail-time{font-size:11px;color:var(--text3);flex-shrink:0;padding-top:2px}
-.unread-dot{width:7px;height:7px;background:var(--blue);border-radius:50%;margin-top:11px;flex-shrink:0}
-.spacer-dot{width:7px;flex-shrink:0}
-.task{display:flex;gap:10px;padding:9px 12px;border-radius:var(--radius);background:var(--bg2);margin-bottom:7px;border:1px solid var(--border)}
-.task:last-child{margin-bottom:0}
-.chk{width:17px;height:17px;border:1.5px solid var(--border2);border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s}
-.chk.done{background:var(--green);border-color:var(--green)}
-.chk.done::after{content:"";width:8px;height:5px;border-left:2px solid white;border-bottom:2px solid white;transform:rotate(-45deg) translate(1px,-1px);display:block}
-.task-txt{font-size:13px;color:var(--text);line-height:1.4}
-.task-txt.done{text-decoration:line-through;color:var(--text3)}
-.task-src{font-size:11px;color:var(--text3);margin-top:3px}
-.gtask{padding:10px 0;border-bottom:1px solid var(--border)}
-.gtask:last-child{border-bottom:none;padding-bottom:0}
-.gtask-row{display:flex;gap:10px;align-items:flex-start}
-.gtask-title{font-size:13px;color:var(--text);line-height:1.4;flex:1}
-.gtask-title.done{text-decoration:line-through;color:var(--text3)}
-.gtask-due{font-size:11px;color:var(--amber);margin-top:2px}
-.gtask-notes{font-size:11px;color:var(--text3);margin-top:2px}
-.gtask-edit-btn{font-size:11px;color:var(--blue-text);cursor:pointer;margin-top:2px;background:none;border:none;padding:0;text-decoration:underline}
-.gtask-edit-form{margin-top:8px;display:none;flex-direction:column;gap:6px}
-.gtask-edit-form input{font-size:12px;padding:5px 8px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg2);color:var(--text);outline:none}
-.gtask-edit-form input:focus{border-color:var(--blue)}
-.gtask-edit-actions{display:flex;gap:6px}
-.gtask-save-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius);border:1px solid var(--blue);background:var(--blue-bg);color:var(--blue-text);cursor:pointer;font-weight:600}
-.gtask-cancel-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer}
-.add-task{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.add-task input{flex:1;min-width:140px;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--bg2);color:var(--text);outline:none}
-.add-task input:focus{border-color:var(--blue)}
-.add-task button{font-size:12px;padding:7px 14px;border-radius:var(--radius);border:1px solid var(--blue);background:var(--blue-bg);color:var(--blue-text);cursor:pointer;font-weight:600;white-space:nowrap}
-.add-task button:hover{background:var(--blue);color:#fff}
-.add-msg{font-size:12px;margin-top:6px;color:var(--green);display:none}
-.day-nav{display:flex;align-items:center;gap:6px;margin-left:auto}
-.dnav{width:24px;height:24px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
-.dnav:hover{background:var(--bg2)}
-.dlabel{font-size:12px;font-weight:600;color:var(--text);min-width:54px;text-align:center}
-.empty{font-size:13px;color:var(--text3);text-align:center;padding:1.5rem 0}
-.nl-match{padding:12px 14px;border-radius:var(--radius);background:var(--bg2);border:1px solid var(--border);margin-bottom:10px}
-.nl-match:last-child{margin-bottom:0}
-.nl-keyword{font-size:12px;font-weight:700;color:var(--amber);margin-bottom:3px}
-.nl-source{font-size:11px;color:var(--text3);margin-bottom:6px}
-.nl-source a{color:var(--blue-text);text-decoration:underline}
-.nl-snippet{font-size:12px;color:var(--text);line-height:1.5;margin-bottom:10px;font-style:italic}
-.nl-snippet-long{display:none;font-size:12px;color:var(--text);line-height:1.6;margin-bottom:10px;font-style:italic;background:var(--bg3);padding:8px 10px;border-radius:var(--radius)}
-.nl-actions{display:flex;gap:7px;flex-wrap:wrap}
-.nl-btn{font-size:12px;padding:5px 12px;border-radius:var(--radius);cursor:pointer;font-weight:600;border:1px solid;transition:opacity .12s}
-.nl-btn:disabled{opacity:0.5;cursor:default}
-.nl-btn-cal{background:var(--blue-bg);color:var(--blue-text);border-color:var(--blue)}
-.nl-btn-task{background:#E1F5EE;color:#085041;border-color:#1D9E75}
-.nl-btn-dismiss{background:transparent;color:var(--text3);border-color:var(--border)}
-.nl-btn-more{background:transparent;color:var(--text2);border-color:var(--border)}
-@media(prefers-color-scheme:dark){.nl-btn-task{background:#04342C;color:#9FE1CB}}
-.nl-done-msg{font-size:12px;color:var(--green);margin-top:6px;display:none}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111;min-height:100vh}
+.hub{max-width:980px;margin:0 auto;padding:14px}
+.hdr{background:#1a2a6c;border-radius:22px;padding:16px 22px 0;margin-bottom:14px;position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:50%;pointer-events:none}
+.b1{width:180px;height:180px;background:#e84393;top:-60px;right:80px;opacity:.18}
+.b2{width:120px;height:120px;background:#f5a623;top:-30px;right:20px;opacity:.2}
+.b3{width:100px;height:100px;background:#4ecdc4;bottom:-40px;left:30px;opacity:.15}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;position:relative;z-index:1}
+.hdr-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.4px}
+.hdr-date{font-size:13px;color:#a8c0f0;margin-top:2px;font-weight:500}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1;border-top:2px solid rgba(255,255,255,0.15);padding-top:4px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px 0;cursor:pointer;border-bottom:3px solid transparent;user-select:none;transition:border-color .15s;border-radius:10px 10px 0 0;margin-bottom:-2px}
+.tab-face{width:48px;height:48px;border-radius:50%;transition:transform .18s;border:3px solid rgba(255,255,255,0.3);overflow:hidden;flex-shrink:0}
+.tab:hover .tab-face{transform:scale(1.08) translateY(-2px)}
+.tab.active .tab-face{border-color:#ffd700;transform:scale(1.12) translateY(-2px)}
+.tab-lbl{font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:7px;white-space:nowrap;text-align:center}
+.tab.active{border-bottom-color:#ffd700}.tab.active .tab-lbl{color:#ffd700}
+.main-grid{display:flex;flex-direction:column;gap:13px;margin-top:14px}
+.equal-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:13px}
+.pgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:13px}
+@media(max-width:620px){.equal-row,.pgrid{grid-template-columns:1fr}}
+.full{grid-column:1/-1}
+.card{background:#fff;border-radius:18px;padding:16px 18px;border-top:5px solid #ccc;box-shadow:0 2px 0 rgba(0,0,0,0.06)}
+.c-blue{border-top-color:#3b82f6}.c-amber{border-top-color:#f5a623}.c-red{border-top-color:#ef4444}
+.c-green{border-top-color:#10b981}.c-purple{border-top-color:#8b5cf6}.c-pink{border-top-color:#ec4899}
+.card-title{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;display:flex;align-items:center;gap:7px;margin-bottom:14px;color:#374151}
+.week-row{display:flex;gap:10px;padding:8px 0;border-bottom:2px dashed #f0f0f0;align-items:flex-start}
+.week-row:last-child{border-bottom:none;padding-bottom:0}
+.wd{min-width:44px;flex-shrink:0;text-align:center;padding-top:2px}
+.wd-d{font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#9ca3af}
+.wd-n{font-size:20px;font-weight:800;color:#111;line-height:1}
+.wd-w{font-size:14px;line-height:1;margin-top:2px}
+.evs{flex:1;display:flex;flex-direction:column;gap:4px}
+.ev{border-radius:9px;padding:5px 10px;border-left:4px solid;cursor:pointer;transition:filter .12s}
+.ev:hover{filter:brightness(.93)}
+.ev-title{font-size:13px;font-weight:700;line-height:1.3}
+.ev-meta{font-size:11px;margin-top:1px;opacity:.7}
+.ev-ellen{background:#fff0f3;border-color:#e84393;color:#7b0032}
+.ev-ec{background:#fdf4ff;border-color:#a855f7;color:#5b21b6}
+.ev-arthur{background:#fffbeb;border-color:#f5a623;color:#78350f}
+.ev-wilfred{background:#fff5f5;border-color:#ef4444;color:#7f1d1d}
+.ev-mabel{background:#fdf2f8;border-color:#ec4899;color:#831843}
+.ev-family{background:#f0fdf4;border-color:#10b981;color:#064e3b}
+.horizon-scroll{overflow-y:auto;flex:1}
+.ahead-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f3f4f6}
+.ahead-row:last-child{border-bottom:none}
+.a-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.a-title{flex:1;font-size:13px;font-weight:600;color:#111}
+.a-when{font-size:11px;font-weight:700;color:#6b7280;white-space:nowrap}
+.gtask{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1.5px dashed #f0f0f0}
+.gtask:last-child{border-bottom:none}
+.chk{width:18px;height:18px;border:2.5px solid #d1d5db;border-radius:5px;flex-shrink:0;cursor:pointer;transition:all .15s;position:relative;background:#fff}
+.chk.done{background:#10b981;border-color:#10b981}
+.chk.done::after{content:"";position:absolute;left:3px;top:1px;width:8px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg)}
+.gt-title{font-size:13px;color:#111;font-weight:600;flex:1}
+.gt-due{font-size:11px;font-weight:700;color:#d97706;white-space:nowrap;flex-shrink:0}
+.add-task-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:6px 14px;border-radius:20px;border:2px solid #6ee7b7;background:#d1fae5;color:#065f46;cursor:pointer;margin-top:12px;transition:filter .12s}
+.add-task-btn:hover{filter:brightness(.93)}
+.em-item{border-radius:13px;padding:12px 14px;margin-bottom:9px;border-left:5px solid}
+.em-item:last-child{margin-bottom:0}
+.em-from{font-size:13px;font-weight:800;color:#111}
+.em-subj{font-size:13px;color:#374151;margin-top:1px;font-weight:600}
+.em-snip{font-size:11px;color:#6b7280;margin:3px 0 10px;line-height:1.45}
+.em-btns{display:flex;gap:6px;flex-wrap:wrap}
+.ebtn{font-size:12px;font-weight:700;padding:5px 11px;border-radius:8px;cursor:pointer;border:2px solid}
+.ebtn:disabled{opacity:.3;cursor:default}
+.ebtn-cal{background:#dbeafe;color:#1e40af;border-color:#93c5fd}
+.ebtn-task{background:#d1fae5;color:#065f46;border-color:#6ee7b7}
+.ebtn-arch{background:#f3f4f6;color:#374151;border-color:#d1d5db}
+.em-done{font-size:12px;font-weight:700;color:#059669;margin-top:7px;display:none}
+.em-clear{font-size:14px;font-weight:700;color:#059669;text-align:center;padding:1.5rem 0}
+.nl-item{border-radius:12px;padding:12px 14px;margin-bottom:9px;background:#fffbeb;border:2px solid #fcd34d}
+.nl-item:last-child{margin-bottom:0}
+.nl-kw{font-size:13px;font-weight:800;color:#92400e;margin-bottom:2px}
+.nl-src{font-size:11px;color:#a16207;margin-bottom:5px}
+.nl-snip{font-size:12px;color:#5a4010;font-style:italic;line-height:1.5;margin-bottom:9px}
+.nl-btns{display:flex;gap:6px;flex-wrap:wrap}
+.nlbtn{font-size:12px;font-weight:700;padding:4px 10px;border-radius:7px;cursor:pointer;border:2px solid}
+.nlbtn-cal{background:#dbeafe;color:#1e40af;border-color:#93c5fd}
+.nlbtn-task{background:#d1fae5;color:#065f46;border-color:#6ee7b7}
+.nlbtn-dis{background:transparent;color:#9ca3af;border-color:#d1d5db}
+.hw-item{border-radius:9px;padding:8px 11px;margin-bottom:7px;border-left:4px solid;display:flex;align-items:flex-start;gap:9px}
+.hw-item:last-child{margin-bottom:0}
+.hw-chk{width:17px;height:17px;border:2.5px solid #d1d5db;border-radius:4px;flex-shrink:0;margin-top:1px;cursor:pointer;position:relative;background:#fff;transition:all .15s}
+.hw-chk.done{background:#10b981;border-color:#10b981}
+.hw-chk.done::after{content:"";position:absolute;left:2px;top:0;width:8px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg)}
+.hw-subject{font-size:12px;font-weight:800;margin-bottom:1px}
+.hw-desc{font-size:12px;color:#374151;line-height:1.35}
+.hw-due{font-size:11px;font-weight:700;color:#d97706;margin-top:2px}
+.goals-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:10px}
+.goal-tick{display:flex;flex-direction:column;align-items:center;gap:5px}
+.goal-circle{width:44px;height:44px;border-radius:50%;border:3px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;background:#f9fafb}
+.goal-tick-label{font-size:10px;font-weight:700;color:#9ca3af;text-align:center;max-width:64px;line-height:1.2;cursor:pointer;min-height:28px}
+.goal-title{font-size:13px;font-weight:700;margin-bottom:10px}
+.goal-reset{font-size:10px;color:#d1d5db;text-align:right;margin-top:4px}
+.p-banner{border-radius:18px;padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;border:3px solid}
+.p-av-lg{width:58px;height:58px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid rgba(255,255,255,0.5)}
+.p-name{font-size:20px;font-weight:800;letter-spacing:-.3px}
+.p-sub{font-size:13px;margin-top:3px;opacity:.8;font-weight:600}
+.banner-ec{background:#fdf4ff;border-color:#a855f7;color:#5b21b6}
+.banner-arthur{background:#fffbeb;border-color:#f5a623;color:#78350f}
+.banner-wilfred{background:#fff5f5;border-color:#ef4444;color:#7f1d1d}
+.banner-mabel{background:#fdf2f8;border-color:#ec4899;color:#831843}
+.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:8px}
+.lnk-card{display:block;border-radius:11px;padding:10px 12px;text-decoration:none;cursor:pointer;transition:filter .12s;border:2px solid}
+.lnk-card:hover{filter:brightness(.93)}
+.lnk-label{font-size:13px;font-weight:800}
+.lnk-sub{font-size:11px;margin-top:2px;opacity:.75;font-weight:600}
+.lnk-ec{background:#f5f3ff;border-color:#c4b5fd;color:#4c1d95}
+.lnk-arthur{background:#fffbeb;border-color:#fcd34d;color:#78350f}
+.lnk-wilfred{background:#fff5f5;border-color:#fca5a5;color:#7f1d1d}
+.lnk-mabel{background:#fdf2f8;border-color:#f9a8d4;color:#831843}
+.subtabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.stab{font-size:12px;font-weight:700;padding:5px 13px;border-radius:20px;cursor:pointer;border:2px solid;background:transparent}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.hidden{display:none}
+.modal{background:#fff;border-radius:20px;padding:24px;width:100%;max-width:400px;border-top:6px solid #3b82f6;position:relative}
+.modal-close{position:absolute;top:14px;right:16px;font-size:20px;cursor:pointer;color:#9ca3af;background:none;border:none;font-weight:700;line-height:1}
+.modal h3{font-size:16px;font-weight:800;margin-bottom:16px;color:#111;padding-right:28px}
+.mf{margin-bottom:12px}
+.mf label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#9ca3af;display:block;margin-bottom:4px}
+.mf input,.mf textarea{width:100%;font-size:13px;padding:8px 10px;border:2px solid #e5e7eb;border-radius:9px;background:#f9fafb;color:#111;outline:none;font-family:inherit}
+.mf input:focus,.mf textarea:focus{border-color:#3b82f6}
+.modal-actions{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+.mbtn-save{font-size:13px;font-weight:800;padding:8px 18px;border-radius:9px;border:2px solid #3b82f6;background:#dbeafe;color:#1e40af;cursor:pointer}
+.mbtn-cancel{font-size:13px;font-weight:700;padding:8px 14px;border-radius:9px;border:2px solid #e5e7eb;background:transparent;color:#6b7280;cursor:pointer}
+.view{display:none}.view.active{display:block}
+.subview{display:none}.subview.active{display:block}
+.sec-lbl{font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.6px;margin:12px 0 8px}
+.empty{font-size:13px;color:#9ca3af;text-align:center;padding:1.5rem 0}
 </style>
 </head>
-<body>
+<body style="background-image:url('peacock.jpg');background-size:400px;background-repeat:repeat;background-color:#0a4a3a">
 
-<div id="auth-wall" style="display:none;position:fixed;inset:0;background:var(--bg3);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
-  <h2 style="font-size:20px;font-weight:600;color:var(--text)">Jarrett Family Hub</h2>
-  <p style="font-size:14px;color:var(--text2)">Sign in with your Google account to continue</p>
-  <div id="g_id_onload" data-client_id="405796403274-1opnf75su600i6hnga2moeait2pqr1tb.apps.googleusercontent.com" data-callback="handleSignIn" data-auto_select="true"></div>
-  <div class="g_id_signin" data-type="standard" data-theme="outline" data-size="large"></div>
-  <p id="auth-error" style="font-size:13px;color:var(--coral);display:none">Sorry, that account isn't authorised.</p>
+<div id="auth-wall" style="display:none;position:fixed;inset:0;background:rgba(10,60,50,0.97);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem"><h2 style="font-size:24px;font-weight:800;color:#fff">Jarrett Family Hub</h2><p style="font-size:14px;color:#a8d8c8">Sign in with your Google account</p><div id="g_id_onload" data-client_id="405796403274-1opnf75su600i6hnga2moeait2pqr1tb.apps.googleusercontent.com" data-callback="handleSignIn" data-auto_select="true"></div><div class="g_id_signin" data-type="standard" data-theme="outline" data-size="large"></div><p id="auth-error" style="font-size:13px;color:#f87171;display:none">Sorry, that account isn't authorised.</p></div>
+<div id="app">
+<div class="hdr">
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="hdr-top">
+  <div><div class="hdr-title">Good morning, Jarretts!</div><div class="hdr-date">Saturday 11 April 2026</div></div>
 </div>
-
-<div id="app-content">
-<div class="container">
-
-<div class="header">
-  <div>
-    <h1>Jarrett Family Hub</h1>
-    <div class="header-sub">Saturday 11 April 2026</div>
+<div class="tabs">
+<div class="tab active" onclick="sw('all',this)"><div class="tab-face" style="background:linear-gradient(135deg,#1a2a6c,#4a6cf7)"><svg viewBox="0 0 48 48" width="48" height="48"><text x="24" y="34" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="900" fill="#ffd700">J</text><ellipse cx="24" cy="39" rx="10" ry="3" fill="#ffd700" opacity=".25"/></svg></div><div class="tab-lbl">Everyone</div></div>
+<div class="tab" onclick="sw('ec',this)"><div class="tab-face" style="background:linear-gradient(135deg,#9333ea,#c026d3)"><svg viewBox="0 0 48 48" width="48" height="48"><ellipse cx="14" cy="27" rx="8" ry="10" fill="#f5c8a0"/><path d="M6 21 Q6 38 10 44 Q12 47 14 47 Q11 43 10 35 Q9 27 10 20" fill="#6b3a1f"/><path d="M22 21 Q22 38 18 44 Q16 47 14 47 Q17 43 18 35 Q19 27 18 20" fill="#6b3a1f"/><path d="M7 19 Q9 10 14 10 Q19 10 21 16 Q18 13 14 13 Q10 13 7 19Z" fill="#5a2e14"/><path d="M7 19 Q10 14 14 14 Q18 14 21 17 L20 21 Q17 17 14 17 Q10 17 7 20Z" fill="#7a4020"/><circle cx="11.5" cy="26" r="1.8" fill="#3d2b1f"/><circle cx="16.5" cy="26" r="1.8" fill="#3d2b1f"/><path d="M11 32 Q14 34 17 32" stroke="#c09070" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="34" cy="27" rx="9" ry="10.5" fill="#e8c090"/><path d="M25 22 Q26 11 34 11 Q42 11 43 22 Q40 16 34 16 Q28 16 25 22Z" fill="#4a2e18"/><path d="M25 18 Q27 13 34 12 Q41 13 43 18 L43 21 Q38 17 34 17 Q30 17 25 21Z" fill="#5a3820"/><circle cx="30.5" cy="25" r="2.2" fill="#fff"/><circle cx="30.5" cy="25" r="1.5" fill="#3d2b1f"/><circle cx="31.1" cy="24.4" r=".5" fill="#fff"/><circle cx="37.5" cy="25" r="2.2" fill="#fff"/><circle cx="37.5" cy="25" r="1.5" fill="#3d2b1f"/><circle cx="38.1" cy="24.4" r=".5" fill="#fff"/><ellipse cx="28" cy="30" rx="3" ry="1.8" fill="#e8a080" opacity=".4"/><ellipse cx="40" cy="30" rx="3" ry="1.8" fill="#e8a080" opacity=".4"/><path d="M28.5 31 Q34 36 39.5 31" stroke="#c07050" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M26 29 Q27 36 34 38 Q41 36 42 29 Q39 34 34 35 Q29 34 26 29Z" fill="#5a3820"/></svg></div><div class="tab-lbl">Ellen &amp; Chris</div></div>
+<div class="tab" onclick="sw('arthur',this)"><div class="tab-face" style="background:linear-gradient(135deg,#f5a623,#e67e00)"><svg viewBox="0 0 48 48" width="48" height="48"><ellipse cx="24" cy="28" rx="11" ry="12" fill="#f4d080"/><circle cx="13" cy="22" r="6.5" fill="#c8880a"/><circle cx="17" cy="15" r="5.5" fill="#dda020"/><circle cx="24" cy="13" r="6" fill="#c8880a"/><circle cx="31" cy="15" r="5.5" fill="#dda020"/><circle cx="35" cy="22" r="6.5" fill="#c8880a"/><circle cx="21.5" cy="27" r="2.5" fill="#3d2b1f"/><circle cx="27.5" cy="27" r="2.5" fill="#3d2b1f"/><path d="M20 34 Q24 37 28 34" stroke="#c07040" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><div class="tab-lbl">Arthur</div></div>
+<div class="tab" onclick="sw('wilfred',this)"><div class="tab-face" style="background:linear-gradient(135deg,#ef4444,#b91c1c)"><svg viewBox="0 0 48 48" width="48" height="48"><ellipse cx="24" cy="28" rx="11" ry="12" fill="#f4c5a0"/><path d="M13 25 Q13 11 24 11 Q35 11 35 25" fill="#6b3a1f"/><path d="M13 20 Q14 13 24 12 Q34 13 35 20 L35 23 Q29 20 24 20 Q19 20 13 23Z" fill="#7a4428"/><circle cx="21" cy="27" r="2.5" fill="#3d2b1f"/><circle cx="27" cy="27" r="2.5" fill="#3d2b1f"/><path d="M20 34 Q24 37 28 34" stroke="#c07060" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><div class="tab-lbl">Wilfred</div></div>
+<div class="tab" onclick="sw('mabel',this)"><div class="tab-face" style="background:linear-gradient(135deg,#ec4899,#9d174d)"><svg viewBox="0 0 48 48" width="48" height="48"><ellipse cx="24" cy="27" rx="10.5" ry="11" fill="#f4c5a0"/><path d="M13 18 Q11 30 12 44 Q15 48 19 48 Q16 42 15 34 Q14 26 14 20" fill="#6b3a1f"/><path d="M35 18 Q37 30 36 44 Q33 48 29 48 Q32 42 33 34 Q34 26 34 20" fill="#6b3a1f"/><path d="M13 20 Q14 10 24 10 Q34 10 35 20 Q30 15 24 15 Q18 15 13 20Z" fill="#7a4428"/><ellipse cx="20.5" cy="26" rx="3" ry="2.5" fill="#fff"/><circle cx="20.5" cy="26" r="1.8" fill="#3d2b1f"/><circle cx="21.2" cy="25.3" r=".6" fill="#fff"/><line x1="18" y1="24" x2="17.2" y2="23" stroke="#3d2b1f" stroke-width="1" stroke-linecap="round"/><line x1="19.5" y1="23.2" x2="19.3" y2="22.2" stroke="#3d2b1f" stroke-width="1" stroke-linecap="round"/><ellipse cx="27.5" cy="26" rx="3" ry="2.5" fill="#fff"/><circle cx="27.5" cy="26" r="1.8" fill="#3d2b1f"/><circle cx="28.2" cy="25.3" r=".6" fill="#fff"/><line x1="25.2" y1="24" x2="24.4" y2="23" stroke="#3d2b1f" stroke-width="1" stroke-linecap="round"/><line x1="27" y1="23.2" x2="26.8" y2="22.2" stroke="#3d2b1f" stroke-width="1" stroke-linecap="round"/><path d="M20 34 Q24 37 28 34" stroke="#c07070" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div><div class="tab-lbl">Mabel</div></div>
+</div>
+</div>
+<div class="hub">
+<div class="view active" id="v-all">
+<div class="main-grid">
+<div class="equal-row" id="week-horizon-row">
+<div class="card c-blue" id="week-card" style="display:flex;flex-direction:column">
+<div class="card-title">📅 This week</div>
+<div style="flex:1"><div class="week-row"><div class="wd"><div class="wd-d">Sun</div><div class="wd-n">12</div><div class="wd-w" title="13°">🌦</div></div><div class="evs"><div class="ev ev-ec" onclick="openEvModal(this,'61hm4db2cpj3cb9m6sp3gb9kcop6cb9p61hjgbb4c8qmco9jc8o66d9n6g@google.com','Wallingford Tigers – Europa Titans Under-12&#39;s','2026-04-12','9:15 AM','High Street','Potential friendly ')"><div class="ev-title">Wallingford Tigers – Europa Titans Under-12&#39;s</div><div class="ev-meta">9:15 AM · High Street</div></div><div class="ev ev-ec" onclick="openEvModal(this,'cgp3cob5ccsm6bb36oq6ab9k65h66b9o69h62bb164om2opg70s3ic9g64@google.com','Europa Titans – Heyford Park','2026-04-12','9:30 AM','Europa School UK','')"><div class="ev-title">Europa Titans – Heyford Park</div><div class="ev-meta">9:30 AM · Europa School UK</div></div><div class="ev ev-mabel" onclick="openEvModal(this,'6gpjip9pcgqmab9i6dj32b9k6cpm8bb26dhjgb9mcoo3ae1g6grjed1hco@google.com','Mabel Climbing','2026-04-12','10:00 AM','','')"><div class="ev-title">Mabel Climbing</div><div class="ev-meta">10:00 AM</div></div></div></div><div class="week-row"><div class="wd"><div class="wd-d">Mon</div><div class="wd-n">13</div><div class="wd-w" title="11°">🌦</div></div><div class="evs"><div class="ev ev-ec" onclick="openEvModal(this,'ic0i8gutoch0q4vngd1lp0m4ms@google.com','Primary Menu - Classic Beef Bolognese','2026-04-13','7:15 AM','','')"><div class="ev-title">Primary Menu - Classic Beef Bolognese</div><div class="ev-meta">7:15 AM</div></div></div></div><div class="week-row"><div class="wd"><div class="wd-d">Tue</div><div class="wd-n">14</div><div class="wd-w" title="14°">☁️</div></div><div class="evs"><div class="ev ev-ec" onclick="openEvModal(this,'p8vos17o8piqlj3rbp303np5sk@google.com','Primary Menu - Margherita Pizza','2026-04-14','7:15 AM','','')"><div class="ev-title">Primary Menu - Margherita Pizza</div><div class="ev-meta">7:15 AM</div></div></div></div><div class="week-row"><div class="wd"><div class="wd-d">Wed</div><div class="wd-n">15</div><div class="wd-w" title="14°">🌦</div></div><div class="evs"><div class="ev ev-ec" onclick="openEvModal(this,'it4qda5e96gp7qdptca4d1in6s@google.com','Primary Menu - BBQ Chicken Pieces','2026-04-15','7:15 AM','','')"><div class="ev-title">Primary Menu - BBQ Chicken Pieces</div><div class="ev-meta">7:15 AM</div></div><div class="ev ev-ec" onclick="openEvModal(this,'c5gj6p9p70s36bb46kq3ib9k68p38b9o74o30b9g6oom8o9k71hjcd9g68@google.com','Elinor','2026-04-15','9:30 AM','','')"><div class="ev-title">Elinor</div><div class="ev-meta">9:30 AM</div></div></div></div><div class="week-row"><div class="wd"><div class="wd-d">Thu</div><div class="wd-n">16</div><div class="wd-w" title="16°">☁️</div></div><div class="evs"><div class="ev ev-ec" onclick="openEvModal(this,'dcbkjphti1pdlimdg7kbpd3vc4@google.com','Primary Menu - Pork Sausage with Gravy','2026-04-16','7:15 AM','','')"><div class="ev-title">Primary Menu - Pork Sausage with Gravy</div><div class="ev-meta">7:15 AM</div></div></div></div><div class="week-row"><div class="wd"><div class="wd-d">Fri</div><div class="wd-n">17</div><div class="wd-w" title="14°">🌦</div></div><div class="evs"><div class="ev ev-ec" onclick="openEvModal(this,'vkjt364e1ohukpbaqs9cr5l66k@google.com','Primary Menu - Fish Fingers','2026-04-17','7:15 AM','','')"><div class="ev-title">Primary Menu - Fish Fingers</div><div class="ev-meta">7:15 AM</div></div><div class="ev ev-ec" onclick="openEvModal(this,'chi3eopmc4r68bb26crj0b9k6hgj4b9o6dgmcb9l75j6ac9i6grjapb5co@google.com','Barclays Call','2026-04-17','1:15 PM','','')"><div class="ev-title">Barclays Call</div><div class="ev-meta">1:15 PM</div></div><div class="ev ev-ec" onclick="openEvModal(this,'c4rj4p1gc8r3ab9gcoqj2b9kccomab9pcgq34b9lcpi30o9i6gojipb3ck@google.com','Training','2026-04-17','6:00 PM','Europa School UK','')"><div class="ev-title">Training</div><div class="ev-meta">6:00 PM · Europa School UK</div></div><div class="ev ev-ec" onclick="openEvModal(this,'6li3ap9nc8r3ebb6chj36b9kcoq68bb26gqj4b9h64r36cpjcph30oho6o@google.com','Football Training','2026-04-17','6:40 PM','Europa School UK','Now located at Europa School')"><div class="ev-title">Football Training</div><div class="ev-meta">6:40 PM · Europa School UK</div></div></div></div><div class="week-row"><div class="wd"><div class="wd-d">Sat</div><div class="wd-n">18</div><div class="wd-w" title="14°">🌦</div></div><div class="evs"><div class="ev ev-ec" onclick="openEvModal(this,'j1772di9kticvgvjf439o3bieg@google.com','Sam Hodgkinson&#39;s birthday','2026-04-18','All day','','')"><div class="ev-title">Sam Hodgkinson&#39;s birthday</div><div class="ev-meta">All day</div></div><div class="ev ev-ec" onclick="openEvModal(this,'c8r32c1i6dj66bb66hgm2b9kc9gjibb274r30b9iccr64eb46gpmadb56o@google.com','Date!','2026-04-18','1:00 PM','','')"><div class="ev-title">Date!</div><div class="ev-meta">1:00 PM</div></div></div></div></div>
+</div>
+<div class="card c-amber" id="horizon-card" style="display:flex;flex-direction:column">
+<div class="card-title">🔭 On the horizon</div>
+<div class="horizon-scroll" id="horizon-scroll"><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Europa Titans – Summertown Galaxy</div><div class="a-when">Sun 19 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#ec4899"></div><div class="a-title">Mabel Climbing</div><div class="a-when">Sun 19 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Cassie Gymnastics Bday Party</div><div class="a-when">Sun 19 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#f5a623"></div><div class="a-title">Arthur&#39;s Guitar Lesson</div><div class="a-when">Sun 19 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">ESUK First day of term</div><div class="a-when">Mon 20 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Chicken Meatballs in a Tomato &amp; Basil Sauce</div><div class="a-when">Mon 20 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Sausage Dog</div><div class="a-when">Tue 21 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Beef Moussaka</div><div class="a-when">Wed 22 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#ec4899"></div><div class="a-title">Mabel Jarrett&#39;s birthday</div><div class="a-when">Thu 23 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Margherita Pizza</div><div class="a-when">Thu 23 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Peter Midwood&#39;s birthday</div><div class="a-when">Fri 24 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Stay at London Stratford</div><div class="a-when">Fri 24 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Battered Fish</div><div class="a-when">Fri 24 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Ellen @ Yungblud overnight</div><div class="a-when">Fri 24 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 24 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Family Meal @ Mamma Mia Summertown</div><div class="a-when">Sat 25 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Friendly vs. Bloxham</div><div class="a-when">Sun 26 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#ec4899"></div><div class="a-title">Mabel Climbing</div><div class="a-when">Sun 26 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Gratin Chicken with Spinach and Tomato</div><div class="a-when">Mon 27 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Beef Burger in a Bun</div><div class="a-when">Tue 28 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Mike Wozniak</div><div class="a-when">Tue 28 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Roast Chicken, Yorkshire Pudding and Gravy</div><div class="a-when">Wed 29 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Mild Chilli Beef</div><div class="a-when">Thu 30 Apr</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Fish Fingers</div><div class="a-when">Fri 1 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Car Service</div><div class="a-when">Fri 1 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 1 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#ec4899"></div><div class="a-title">Mabel Climbing</div><div class="a-when">Sun 3 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Table Tennis Championships</div><div class="a-when">Sun 3 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#f5a623"></div><div class="a-title">Arthur&#39;s Guitar Lesson</div><div class="a-when">Sun 3 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Margherita Pizza</div><div class="a-when">Tue 5 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - BBQ Chicken Pieces</div><div class="a-when">Wed 6 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Europa Titans – Abingdon Youth</div><div class="a-when">Wed 6 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Pork Sausage with Gravy</div><div class="a-when">Thu 7 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Fish Fingers</div><div class="a-when">Fri 8 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 8 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#ec4899"></div><div class="a-title">Mabel Climbing</div><div class="a-when">Sun 10 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Chicken Meatballs in a Tomato &amp; Basil Sauce</div><div class="a-when">Mon 11 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Sausage Dog</div><div class="a-when">Tue 12 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Beef Moussaka</div><div class="a-when">Wed 13 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Margherita Pizza</div><div class="a-when">Thu 14 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#f5a623"></div><div class="a-title">Arthur Jarrett&#39;s birthday</div><div class="a-when">Fri 15 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Battered Fish</div><div class="a-when">Fri 15 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 15 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Wheatley Tournament</div><div class="a-when">Sat 16 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#f5a623"></div><div class="a-title">Arthur&#39;s Guitar Lesson</div><div class="a-when">Sun 17 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Gratin Chicken with Spinach and Tomato</div><div class="a-when">Mon 18 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Beef Burger in a Bun</div><div class="a-when">Tue 19 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Roast Chicken, Yorkshire Pudding and Gravy</div><div class="a-when">Wed 20 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Mild Chilli Beef</div><div class="a-when">Thu 21 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">ESUK Last day of term</div><div class="a-when">Fri 22 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Fish Fingers</div><div class="a-when">Fri 22 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 22 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Chris cooking course</div><div class="a-when">Sat 23 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">ESUK Half term</div><div class="a-when">Mon 25 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">ESUK Half term</div><div class="a-when">Tue 26 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">ESUK Half term</div><div class="a-when">Wed 27 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">ESUK Half term</div><div class="a-when">Thu 28 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">ESUK Half term</div><div class="a-when">Fri 29 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Fish Fingers</div><div class="a-when">Fri 29 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 29 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#f5a623"></div><div class="a-title">Arthur&#39;s Guitar Lesson</div><div class="a-when">Sun 31 May</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">ESUK First day of term</div><div class="a-when">Mon 1 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Chicken Meatballs in a Tomato &amp; Basil Sauce</div><div class="a-when">Mon 1 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">S4 Assesments start (01/06-12/06)</div><div class="a-when">Mon 1 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Henry Midwood&#39;s birthday</div><div class="a-when">Tue 2 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Sausage Dog</div><div class="a-when">Tue 2 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Beef Moussaka</div><div class="a-when">Wed 3 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Margherita Pizza</div><div class="a-when">Thu 4 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">OYFL Awards Evening</div><div class="a-when">Thu 4 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Battered Fish</div><div class="a-when">Fri 5 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 5 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">OYFL Awards Evening</div><div class="a-when">Fri 5 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Europa Titans Tournament</div><div class="a-when">Sun 7 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Gratin Chicken with Spinach and Tomato</div><div class="a-when">Mon 8 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#ec4899"></div><div class="a-title">Mabel Hearing Apt</div><div class="a-when">Mon 8 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Beef Burger in a Bun</div><div class="a-when">Tue 9 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Roast Chicken, Yorkshire Pudding and Gravy</div><div class="a-when">Wed 10 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Mild Chilli Beef</div><div class="a-when">Thu 11 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Fish Fingers</div><div class="a-when">Fri 12 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Ellen in Paris</div><div class="a-when">Fri 12 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 12 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#f5a623"></div><div class="a-title">Arthur&#39;s Guitar Lesson</div><div class="a-when">Sun 14 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Classic Beef Bolognese</div><div class="a-when">Mon 15 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">S4 Work Experience Week</div><div class="a-when">Mon 15 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Margherita Pizza</div><div class="a-when">Tue 16 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - BBQ Chicken Pieces</div><div class="a-when">Wed 17 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Pork Sausage with Gravy</div><div class="a-when">Thu 18 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Fish Fingers</div><div class="a-when">Fri 19 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 19 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Chicken Meatballs in a Tomato &amp; Basil Sauce</div><div class="a-when">Mon 22 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#ef4444"></div><div class="a-title">Wilfred Jarrett&#39;s birthday</div><div class="a-when">Tue 23 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Sausage Dog</div><div class="a-when">Tue 23 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Caroline Midwood&#39;s birthday</div><div class="a-when">Wed 24 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Beef Moussaka</div><div class="a-when">Wed 24 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">S4 Ecology Trip</div><div class="a-when">Wed 24 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Margherita Pizza</div><div class="a-when">Thu 25 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Battered Fish</div><div class="a-when">Fri 26 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 26 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Summer Fete</div><div class="a-when">Sat 27 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Catherine Jarrett&#39;s birthday</div><div class="a-when">Sun 28 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#f5a623"></div><div class="a-title">Arthur&#39;s Guitar Lesson</div><div class="a-when">Sun 28 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Gratin Chicken with Spinach and Tomato</div><div class="a-when">Mon 29 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Beef Burger in a Bun</div><div class="a-when">Tue 30 Jun</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Roast Chicken, Yorkshire Pudding and Gravy</div><div class="a-when">Wed 1 Jul</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Mild Chilli Beef</div><div class="a-when">Thu 2 Jul</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Fish Fingers</div><div class="a-when">Fri 3 Jul</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 3 Jul</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">End of Season Party &amp; AGM</div><div class="a-when">Sat 4 Jul</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Classic Beef Bolognese</div><div class="a-when">Mon 6 Jul</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - Margherita Pizza</div><div class="a-when">Tue 7 Jul</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Primary Menu - BBQ Chicken Pieces</div><div class="a-when">Wed 8 Jul</div></div><div class="ahead-row"><div class="a-dot" style="background:#e84393"></div><div class="a-title">Training</div><div class="a-when">Fri 10 Jul</div></div></div>
+</div>
+</div>
+<div class="card c-green full">
+<div class="card-title">✅ Family tasks</div>
+<div id="tasks-list"><div class="gtask" data-id="SUpCTWZEckQ4Skx2a3hhSQ"><div class="chk" onclick="doneTask(this)"></div><div class="gt-title">test 2</div><div class="gt-due">2026-04-17</div></div></div>
+<button class="add-task-btn" onclick="openTaskModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add a task</button>
+</div>
+</div>
+</div>
+<div class="view" id="v-personal">
+<div style="margin-top:14px">
+  <div id="p-banner" class="p-banner">
+    <div id="p-av" class="p-av-lg"></div>
+    <div><div id="p-name" class="p-name"></div><div id="p-sub" class="p-sub"></div></div>
   </div>
-</div>
-
-<div class="pills" id="pills">
-  <div class="pill active" data-m="all" onclick="filter(this)">All</div>
-  <div class="pill" data-m="ellen" onclick="filter(this)">Ellen</div>
-  <div class="pill" data-m="chris" onclick="filter(this)">Chris</div>
-  <div class="pill" data-m="arthur" onclick="filter(this)">Arthur</div>
-  <div class="pill" data-m="wilfred" onclick="filter(this)">Wilfred</div>
-  <div class="pill" data-m="mabel" onclick="filter(this)">Mabel</div>
-</div>
-
-<div class="summary">
-  <div class="scard"><div class="num" id="s-today">0</div><div class="lbl">events today</div></div>
-  <div class="scard"><div class="num" id="s-week">14</div><div class="lbl">upcoming this week</div></div>
-  <div class="scard"><div class="num" id="s-unread">0</div><div class="lbl">unread emails</div></div>
-  <div class="scard"><div class="num" id="s-tasks">1</div><div class="lbl">family tasks</div></div>
-</div>
-
-<div class="grid">
-
-<div class="card">
-  <div class="ctitle"><span class="cdot" style="background:#378ADD"></span> Calendar
-    <div class="day-nav">
-      <button class="dnav" onclick="prevDay()">&#8249;</button>
-      <span class="dlabel" id="dlabel"></span>
-      <button class="dnav" onclick="nextDay()">&#8250;</button>
+  <div class="subtabs" id="subtabs"></div>
+  <div id="subview-cal" class="subview">
+    <div class="pgrid">
+      <div class="card" id="p-cc"><div class="card-title">📅 This week</div><div id="p-events"></div></div>
+      <div class="card" id="p-lc"><div class="card-title">🔗 Quick links</div><div class="links-grid" id="p-links"></div></div>
     </div>
   </div>
-  <div id="cal-day"></div>
-</div>
-
-<div class="card">
-  <div class="ctitle"><span class="cdot" style="background:#D85A30"></span> Inbox</div>
-  <div id="inbox"><div class="mail" data-members="[&quot;Chris&quot;]"><div class="spacer-dot"></div><div class="avatar">CJ</div><div class="mail-body"><div class="mail-from">Chris Jarrett</div><div class="mail-subject"></div><div class="mail-snip">Kitchen space - above fridge Glass cereal containers Crockery and glasses Frying pans Table and chairs for kitchen </div><div><span class="tag tag-chris">Chris</span></div></div><div class="mail-time">4h ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">RM</div><div class="mail-body"><div class="mail-from">Royal Mail</div><div class="mail-subject">Your Royal Mail parcel is on its way</div><div class="mail-snip"> View in browser [image: Royal Mail] [image: Royal Mail] Hi Ellen Jarrett We&#39;ve received your parcel. Delivery is d</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">15h ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">I</div><div class="mail-body"><div class="mail-from">info@larkmead.co.uk</div><div class="mail-subject">A Reminder from Larkmead Vets</div><div class="mail-snip"> Dear Ellen Jarrett Our records show that your pet is due: Patient Name Vaccination / Reminder Date Morrisey Do</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">Yesterday</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">GG</div><div class="mail-body"><div class="mail-from">Gravitee Golf</div><div class="mail-subject">Your Booking Confirmation</div><div class="mail-snip"> Ellen Jarrett *Here&#39;s your booking Details:* *Venue* Oxford [image: qrcode_75999] *Activity* 1 x Comet Darts </div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">Yesterday</div></div><div class="mail" data-members="[&quot;Chris&quot;]"><div class="spacer-dot"></div><div class="avatar">CJ</div><div class="mail-body"><div class="mail-from">Chris Jarrett</div><div class="mail-subject">Fwd: Your Booking Confirmation from Brayleys</div><div class="mail-snip">---------- Forwarded message --------- From: Lisa Barclay &lt;lisa.barclay@brayleys.co.uk&gt; Date: Fri, 10 Apr 2026 at 08:5</div><div><span class="tag tag-chris">Chris</span></div></div><div class="mail-time">Yesterday</div></div><div class="mail" data-members="[]"><div class="spacer-dot"></div><div class="avatar">MM</div><div class="mail-body"><div class="mail-from">MSE&#39;s Money Tips</div><div class="mail-subject">Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth</div><div class="mail-snip">* {mso-line-height-rule: exactly; line-height: 110%;} p {mso-line-height-rule: exactly; line-height: 150% !important;} b</div><div></div></div><div class="mail-time">4 days ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">EJ</div><div class="mail-body"><div class="mail-from">Ellen Jarrett</div><div class="mail-subject">My Strengths report</div><div class="mail-snip">Hey beautfiul - based on chat yesterday, at MQ they use Clifton Strengths rather than Insight - looks at your strengths</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">4 days ago</div></div><div class="mail" data-members="[&quot;Ellen&quot;]"><div class="spacer-dot"></div><div class="avatar">H</div><div class="mail-body"><div class="mail-from">HomeExchange</div><div class="mail-subject">Rate your exchange with Rio &amp; Jillian Joy</div><div class="mail-snip">&lt;https://www.homeexchange.com/&gt; Tell us everything Ellen! Your stay at Rio &amp; Jillian Joy ended yesterday. We hop</div><div><span class="tag tag-ellen">Ellen</span></div></div><div class="mail-time">4 Apr</div></div></div>
-</div>
-
-<div class="card full">
-  <div class="ctitle"><span class="cdot" style="background:#1D9E75"></span> Upcoming this week</div>
-  <div id="cal-week"><div class="ev" data-date="2026-04-12" data-members="[]"><div class="ev-time" style="min-width:80px">Sun 12 Apr</div><div><div class="ev-title">Wallingford Tigers – Europa Titans Under-12&#39;s</div><div class="ev-meta">9:15 AM · High Street</div><div></div></div></div><div class="ev" data-date="2026-04-12" data-members="[]"><div class="ev-time" style="min-width:80px">Sun 12 Apr</div><div><div class="ev-title">Europa Titans – Heyford Park</div><div class="ev-meta">9:30 AM · Europa School UK</div><div></div></div></div><div class="ev" data-date="2026-04-12" data-members="[&quot;Mabel&quot;]"><div class="ev-time" style="min-width:80px">Sun 12 Apr</div><div><div class="ev-title">Mabel Climbing</div><div class="ev-meta">10:00 AM</div><div><span class="tag tag-mabel">Mabel</span></div></div></div><div class="ev" data-date="2026-04-13" data-members="[]"><div class="ev-time" style="min-width:80px">Mon 13 Apr</div><div><div class="ev-title">Primary Menu - Classic Beef Bolognese</div><div class="ev-meta">7:15 AM</div><div></div></div></div><div class="ev" data-date="2026-04-14" data-members="[]"><div class="ev-time" style="min-width:80px">Tue 14 Apr</div><div><div class="ev-title">Primary Menu - Margherita Pizza</div><div class="ev-meta">7:15 AM</div><div></div></div></div><div class="ev" data-date="2026-04-15" data-members="[]"><div class="ev-time" style="min-width:80px">Wed 15 Apr</div><div><div class="ev-title">Primary Menu - BBQ Chicken Pieces</div><div class="ev-meta">7:15 AM</div><div></div></div></div><div class="ev" data-date="2026-04-15" data-members="[]"><div class="ev-time" style="min-width:80px">Wed 15 Apr</div><div><div class="ev-title">Elinor</div><div class="ev-meta">9:30 AM</div><div></div></div></div><div class="ev" data-date="2026-04-16" data-members="[]"><div class="ev-time" style="min-width:80px">Thu 16 Apr</div><div><div class="ev-title">Primary Menu - Pork Sausage with Gravy</div><div class="ev-meta">7:15 AM</div><div></div></div></div><div class="ev" data-date="2026-04-17" data-members="[]"><div class="ev-time" style="min-width:80px">Fri 17 Apr</div><div><div class="ev-title">Primary Menu - Fish Fingers</div><div class="ev-meta">7:15 AM</div><div></div></div></div><div class="ev" data-date="2026-04-17" data-members="[]"><div class="ev-time" style="min-width:80px">Fri 17 Apr</div><div><div class="ev-title">Barclays Call</div><div class="ev-meta">1:15 PM</div><div></div></div></div><div class="ev" data-date="2026-04-17" data-members="[]"><div class="ev-time" style="min-width:80px">Fri 17 Apr</div><div><div class="ev-title">Training</div><div class="ev-meta">6:00 PM · Europa School UK</div><div></div></div></div><div class="ev" data-date="2026-04-17" data-members="[]"><div class="ev-time" style="min-width:80px">Fri 17 Apr</div><div><div class="ev-title">Football Training</div><div class="ev-meta">6:40 PM · Europa School UK</div><div></div></div></div><div class="ev" data-date="2026-04-18" data-members="[]"><div class="ev-time" style="min-width:80px">Sat 18 Apr</div><div><div class="ev-title">Sam Hodgkinson&#39;s birthday</div><div class="ev-meta">All day</div><div></div></div></div><div class="ev" data-date="2026-04-18" data-members="[]"><div class="ev-time" style="min-width:80px">Sat 18 Apr</div><div><div class="ev-title">Date!</div><div class="ev-meta">1:00 PM</div><div></div></div></div></div>
-</div>
-
-<div class="card full">
-  <div class="ctitle"><span class="cdot" style="background:#1D9E75"></span> Family Tasks</div>
-  <div class="add-task">
-    <input type="text" id="new-task-title" placeholder="Add a task..." />
-    <input type="date" id="new-task-due" />
-    <input type="text" id="new-task-notes" placeholder="Notes (optional)" />
-    <button onclick="addTask()">Add task</button>
+  <div id="subview-hw" class="subview">
+    <div class="card" id="p-hwc">
+      <div class="card-title">📚 Homework</div>
+      <div id="p-hw-list"></div>
+      <button class="add-task-btn" id="p-hw-add-btn" style="margin-top:10px" onclick="openHwModal()">+ Add homework</button>
+    </div>
   </div>
-  <div class="add-msg" id="add-msg">Task added!</div>
-  <div id="gtasks"><div class="gtask" data-id="SUpCTWZEckQ4Skx2a3hhSQ"><div class="gtask-row"><div class="chk" onclick="completeGTask(this)"></div><div style="flex:1"><div class="gtask-title">test 2</div><div class="gtask-due">Due 2026-04-17</div><div class="gtask-notes">please work</div><button class="gtask-edit-btn" onclick="toggleEditGTask(this)">Edit</button></div></div><div class="gtask-edit-form"><input type="text" class="gtask-edit-title" value="test 2" placeholder="Task title" /><input type="date" class="gtask-edit-due" value="2026-04-17" /><input type="text" class="gtask-edit-notes" value="please work" placeholder="Notes" /><div class="gtask-edit-actions"><button class="gtask-save-btn" onclick="saveGTask(this)">Save</button><button class="gtask-cancel-btn" onclick="cancelEditGTask(this)">Cancel</button></div></div></div></div>
-</div>
-
-<div class="card full">
-  <div class="ctitle"><span class="cdot" style="background:#BA7517"></span> Action items from email</div>
-  <div id="tasks"><div class="task" data-id="0" data-member="ellen"><div class="chk" id="chk0" onclick="toggleTask(0)"></div><div><div class="task-txt" id="txt0">A Reminder from Larkmead Vets</div><div class="task-src"><span class="tag tag-ellen">Ellen</span> From: info@larkmead.co.uk</div></div></div><div class="task" data-id="1" data-member="ellen"><div class="chk" id="chk1" onclick="toggleTask(1)"></div><div><div class="task-txt" id="txt1">Your Booking Confirmation</div><div class="task-src"><span class="tag tag-ellen">Ellen</span> From: Gravitee Golf</div></div></div><div class="task" data-id="2" data-member="chris"><div class="chk" id="chk2" onclick="toggleTask(2)"></div><div><div class="task-txt" id="txt2">Fwd: Your Booking Confirmation from Brayleys</div><div class="task-src"><span class="tag tag-chris">Chris</span> From: Chris Jarrett</div></div></div><div class="task" data-id="3" data-member="family"><div class="chk" id="chk3" onclick="toggleTask(3)"></div><div><div class="task-txt" id="txt3">Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth</div><div class="task-src"><span class="tag tag-family">Family</span> From: MSE&#39;s Money Tips</div></div></div><div class="task" data-id="4" data-member="family"><div class="chk" id="chk4" onclick="toggleTask(4)"></div><div><div class="task-txt" id="txt4">You have a new request from Anna</div><div class="task-src"><span class="tag tag-family">Family</span> From: HomeExchange</div></div></div><div class="task" data-id="5" data-member="family"><div class="chk" id="chk5" onclick="toggleTask(5)"></div><div><div class="task-txt" id="txt5">Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25</div><div class="task-src"><span class="tag tag-family">Family</span> From: MSE&#39;s Money Tips</div></div></div></div>
-</div>
-
-</div>
+  <div id="subview-goals" class="subview">
+    <div class="card" id="p-gc">
+      <div class="card-title">🎯 My goals</div>
+      <div id="p-goal-title" class="goal-title"></div>
+      <div class="goals-grid" id="p-goals-grid"></div>
+      <div class="goal-reset">Resets 1st of each month</div>
+    </div>
+  </div>
 </div>
 </div>
-
-<script>
-var EVENTS = [{"date":"2026-04-12","time":"9:15 AM","endTime":"11:00 AM","title":"Wallingford Tigers – Europa Titans Under-12's","loc":"High Street","allDay":false,"members":[]},{"date":"2026-04-12","time":"9:30 AM","endTime":"11:30 AM","title":"Europa Titans – Heyford Park","loc":"Europa School UK","allDay":false,"members":[]},{"date":"2026-04-12","time":"10:00 AM","endTime":"10:45 AM","title":"Mabel Climbing","loc":"","allDay":false,"members":["Mabel"]},{"date":"2026-04-13","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Classic Beef Bolognese","loc":"","allDay":false,"members":[]},{"date":"2026-04-14","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","allDay":false,"members":[]},{"date":"2026-04-15","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - BBQ Chicken Pieces","loc":"","allDay":false,"members":[]},{"date":"2026-04-15","time":"9:30 AM","endTime":"10:30 AM","title":"Elinor","loc":"","allDay":false,"members":[]},{"date":"2026-04-16","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Pork Sausage with Gravy","loc":"","allDay":false,"members":[]},{"date":"2026-04-17","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","allDay":false,"members":[]},{"date":"2026-04-17","time":"1:15 PM","endTime":"1:45 PM","title":"Barclays Call","loc":"","allDay":false,"members":[]},{"date":"2026-04-17","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","allDay":false,"members":[]},{"date":"2026-04-17","time":"6:40 PM","endTime":"8:00 PM","title":"Football Training","loc":"Europa School UK","allDay":false,"members":[]},{"date":"2026-04-18","time":"All day","endTime":"","title":"Sam Hodgkinson's birthday","loc":"","allDay":true,"members":[]},{"date":"2026-04-18","time":"1:00 PM","endTime":"8:00 PM","title":"Date!","loc":"","allDay":false,"members":[]}];
-var TASKS  = [{"id":0,"text":"A Reminder from Larkmead Vets","src":"From: info@larkmead.co.uk","member":"Ellen","due":null},{"id":1,"text":"Your Booking Confirmation","src":"From: Gravitee Golf","member":"Ellen","due":null},{"id":2,"text":"Fwd: Your Booking Confirmation from Brayleys","src":"From: Chris Jarrett","member":"Chris","due":null},{"id":3,"text":"Urgent new tax year checks, 2for1 at 360+ gardens, car insurance price rise alert, easy free £25 Amazon, save £120+ on energy, Sky b’band £20/mth","src":"From: MSE's Money Tips","member":"Family","due":null},{"id":4,"text":"You have a new request from Anna","src":"From: HomeExchange","member":"Family","due":null},{"id":5,"text":"Car finance MASS redress CONFIRMED!, urgent 4.7% ISA, Lloyds app glitch compensation, free cereal, energy bills drop, top 0% spending + £25","src":"From: MSE's Money Tips","member":"Family","due":null}];
-var TODAY  = "2026-04-11";
+</div>
+</div>
+<div class="modal-backdrop hidden" id="ev-modal-bg"><div class="modal" id="ev-modal"><button class="modal-close" onclick="closeEvModal()">✕</button><h3 id="ev-modal-title">Event details</h3><div class="mf"><label>Title</label><input type="text" id="ev-t"/></div><div class="mf"><label>Date</label><input type="date" id="ev-d"/></div><div class="mf"><label>Time</label><input type="text" id="ev-time" placeholder="e.g. 9:00 am or All day"/></div><div class="mf"><label>Location</label><input type="text" id="ev-loc"/></div><div class="mf"><label>Notes</label><textarea id="ev-notes" rows="3"></textarea></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeEvModal()">Cancel</button><button class="mbtn-save" id="ev-save-btn" onclick="saveEvModal()">Save</button></div></div></div><div class="modal-backdrop hidden" id="task-modal-bg"><div class="modal" style="border-top-color:#10b981"><button class="modal-close" onclick="closeTaskModal()">✕</button><h3>Add a task</h3><div class="mf"><label>Task</label><input type="text" id="tm-title" placeholder="What needs doing…"/></div><div class="mf"><label>Due date (optional)</label><input type="date" id="tm-due"/></div><div class="mf"><label>Notes (optional)</label><input type="text" id="tm-notes" placeholder="Extra detail…"/></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeTaskModal()">Cancel</button><button class="mbtn-save" style="border-color:#10b981;background:#d1fae5;color:#065f46" onclick="saveTaskModal()">Add task</button></div></div></div><div class="modal-backdrop hidden" id="hw-modal-bg"><div class="modal" id="hw-modal" style="border-top-color:#a855f7"><button class="modal-close" onclick="closeHwModal()">✕</button><h3>Add homework</h3><div class="mf"><label>Subject</label><input type="text" id="hm-subj" placeholder="Maths, English…"/></div><div class="mf"><label>What to do</label><input type="text" id="hm-desc" placeholder="Description…"/></div><div class="mf"><label>Due</label><input type="date" id="hm-due"/></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeHwModal()">Cancel</button><button class="mbtn-save" id="hw-save-btn" onclick="saveHwModal()">Add</button></div></div></div><script>
 var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbygAOYKkq83S_yA5GCrUZkgEKdrfQc1uFRXgjrjylIHRw2-8LWUXJrSFkS_abc27Erb/exec";
-var activeMember = "all";
-var viewDate = new Date(TODAY + "T12:00:00");
-var doneMap = {};
-try { var s = localStorage.getItem("fh-tasks"); if(s) doneMap = JSON.parse(s); } catch(e){}
+var WEEK_EVENTS  = [{"id":"61hm4db2cpj3cb9m6sp3gb9kcop6cb9p61hjgbb4c8qmco9jc8o66d9n6g@google.com","date":"2026-04-12","time":"9:15 AM","endTime":"11:00 AM","title":"Wallingford Tigers – Europa Titans Under-12's","loc":"High Street","desc":"Potential friendly ","allDay":false,"members":["Ellen","Chris"]},{"id":"cgp3cob5ccsm6bb36oq6ab9k65h66b9o69h62bb164om2opg70s3ic9g64@google.com","date":"2026-04-12","time":"9:30 AM","endTime":"11:30 AM","title":"Europa Titans – Heyford Park","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6gpjip9pcgqmab9i6dj32b9k6cpm8bb26dhjgb9mcoo3ae1g6grjed1hco@google.com","date":"2026-04-12","time":"10:00 AM","endTime":"10:45 AM","title":"Mabel Climbing","loc":"","desc":"","allDay":false,"members":["Mabel"]},{"id":"ic0i8gutoch0q4vngd1lp0m4ms@google.com","date":"2026-04-13","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Classic Beef Bolognese","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"p8vos17o8piqlj3rbp303np5sk@google.com","date":"2026-04-14","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"it4qda5e96gp7qdptca4d1in6s@google.com","date":"2026-04-15","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - BBQ Chicken Pieces","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"c5gj6p9p70s36bb46kq3ib9k68p38b9o74o30b9g6oom8o9k71hjcd9g68@google.com","date":"2026-04-15","time":"9:30 AM","endTime":"10:30 AM","title":"Elinor","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"dcbkjphti1pdlimdg7kbpd3vc4@google.com","date":"2026-04-16","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Pork Sausage with Gravy","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"vkjt364e1ohukpbaqs9cr5l66k@google.com","date":"2026-04-17","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"chi3eopmc4r68bb26crj0b9k6hgj4b9o6dgmcb9l75j6ac9i6grjapb5co@google.com","date":"2026-04-17","time":"1:15 PM","endTime":"1:45 PM","title":"Barclays Call","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"c4rj4p1gc8r3ab9gcoqj2b9kccomab9pcgq34b9lcpi30o9i6gojipb3ck@google.com","date":"2026-04-17","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6li3ap9nc8r3ebb6chj36b9kcoq68bb26gqj4b9h64r36cpjcph30oho6o@google.com","date":"2026-04-17","time":"6:40 PM","endTime":"8:00 PM","title":"Football Training","loc":"Europa School UK","desc":"Now located at Europa School","allDay":false,"members":["Ellen","Chris"]},{"id":"j1772di9kticvgvjf439o3bieg@google.com","date":"2026-04-18","time":"All day","endTime":"","title":"Sam Hodgkinson's birthday","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"c8r32c1i6dj66bb66hgm2b9kc9gjibb274r30b9iccr64eb46gpmadb56o@google.com","date":"2026-04-18","time":"1:00 PM","endTime":"8:00 PM","title":"Date!","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]}];
+var HORIZON_EVS  = [{"id":"c9i62ohgcks32b9p6krm6b9k6lgmcbb2cksm2bb570pm2e9o6dhm4dpp68@google.com","date":"2026-04-19","time":"9:30 AM","endTime":"11:30 AM","title":"Europa Titans – Summertown Galaxy","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6gpjip9pcgqmab9i6dj32b9k6cpm8bb26dhjgb9mcoo3ae1g6grjed1hco@google.com","date":"2026-04-19","time":"10:00 AM","endTime":"10:45 AM","title":"Mabel Climbing","loc":"","desc":"","allDay":false,"members":["Mabel"]},{"id":"c4sm2cj16sq3ibb3cos62b9kcdhj6b9o71h34bb66sq3ec1p65i3ic9j64@google.com","date":"2026-04-19","time":"12:00 PM","endTime":"1:45 PM","title":"Cassie Gymnastics Bday Party","loc":"KD Gymnastics, Industrial Estate, Unit D Hambridge Rd, Bone Ln, Newbury RG14 5SH, UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"8h8o9dsin0qmccp049i09hegq1_R20260419T163000@google.com","date":"2026-04-19","time":"5:30 PM","endTime":"6:30 PM","title":"Arthur's Guitar Lesson","loc":"","desc":"","allDay":false,"members":["Arthur"]},{"id":"b8rl13es89fqti09hr3dj93c4c@google.com","date":"2026-04-20","time":"All day","endTime":"","title":"ESUK First day of term","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"072riajkkl42r5f1um0dhjc23c@google.com","date":"2026-04-20","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Chicken Meatballs in a Tomato & Basil Sauce","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"k07p9l6tf5cblahujf52h1dlu8@google.com","date":"2026-04-21","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Sausage Dog","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"n6816hsdq52kejk17nq76b6nb4@google.com","date":"2026-04-22","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Beef Moussaka","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"093ugca42amsp61nqu4p3e8h5k@google.com","date":"2026-04-23","time":"All day","endTime":"","title":"Mabel Jarrett's birthday","loc":"","desc":"","allDay":true,"members":["Mabel"]},{"id":"or5qfquie49ujgnqjej3euc3tk@google.com","date":"2026-04-23","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"ttkfd7at4bb257kvlcrfqp3oss@google.com","date":"2026-04-24","time":"All day","endTime":"","title":"Peter Midwood's birthday","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"led82hdb9nc269cg8bk6kpijp8@google.com","date":"2026-04-24","time":"All day","endTime":"","title":"Stay at London Stratford","loc":"9 International Square,Westfield Stratford City,Montfichet Road, E20 1EE GB","desc":"To see detailed information for automatically created events like this one, use the official Google Calendar app. https://g.co/calendar\n\nThis event was created from an email you received in Gmail. https://mail.google.com/mail?extsrc=cal&plid=ACUX6DMQLaUD8JY48jTAYP0lo0LGN88_HNnMJFQ\n","allDay":true,"members":["Ellen","Chris"]},{"id":"vm99l84b634h3j55572jrnq3hg@google.com","date":"2026-04-24","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Battered Fish","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"ckrjgp9m6ss66bb5cksj2b9kc8sj0bb26coj2b9o69j3cpb36tim2cho74@google.com","date":"2026-04-24","time":"4:00 PM","endTime":"12:00 PM","title":"Ellen @ Yungblud overnight","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6oqjidhic4sm4bb56lh64b9k75gj6b9pccpj6b9nc9hjaohocgs32dj26c@google.com","date":"2026-04-24","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"70oj4eb46gpjabb6c8rjgb9k61hj0bb270q3cb9i71gm8p9m6go6ap336g@google.com","date":"2026-04-25","time":"6:00 PM","endTime":"8:00 PM","title":"Family Meal @ Mamma Mia Summertown","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"69i68dho6oojab9l75j6ab9kchj68bb1c8oj2bb4cdgjap1p6grm6c1n74@google.com","date":"2026-04-26","time":"9:30 AM","endTime":"11:30 AM","title":"Friendly vs. Bloxham","loc":"","desc":"Keeping us match fit for the final league match of the season","allDay":false,"members":["Ellen","Chris"]},{"id":"6gpjip9pcgqmab9i6dj32b9k6cpm8bb26dhjgb9mcoo3ae1g6grjed1hco@google.com","date":"2026-04-26","time":"10:00 AM","endTime":"10:45 AM","title":"Mabel Climbing","loc":"","desc":"","allDay":false,"members":["Mabel"]},{"id":"5pf3hk5q5v2umdsfi8r4lbhb40@google.com","date":"2026-04-27","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Gratin Chicken with Spinach and Tomato","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"80ta28f5ve8tknp4lgcv6rnj80@google.com","date":"2026-04-28","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Beef Burger in a Bun","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6os3ed1j61gm4b9k74r6cb9kckr3gbb26oq3ab9pcpi3ecr1c5gm6db1cc@google.com","date":"2026-04-28","time":"7:30 PM","endTime":"10:00 PM","title":"Mike Wozniak","loc":"Oxford Playhouse, 11-12 Beaumont St, Oxford OX1 2LW, UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"duipq1r13ajom1ru58vmbpq9jo@google.com","date":"2026-04-29","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Roast Chicken, Yorkshire Pudding and Gravy","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"apfiabi9bal53c2sc3sebm9av0@google.com","date":"2026-04-30","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Mild Chilli Beef","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"h6a7plo1j13311607itbq3o7b4@google.com","date":"2026-05-01","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"60q62eb26crjeb9kcdi34b9k6ooj2b9pc8pmcb9ic8rj2dhl70pjieb4cg@google.com","date":"2026-05-01","time":"8:00 AM","endTime":"9:00 AM","title":"Car Service","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"70om4dpn71j32b9o69gm4b9k70q3cb9p6srm6bb1c5h62o9g6gs3iphj68@google.com","date":"2026-05-01","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6gpjip9pcgqmab9i6dj32b9k6cpm8bb26dhjgb9mcoo3ae1g6grjed1hco@google.com","date":"2026-05-03","time":"10:00 AM","endTime":"10:45 AM","title":"Mabel Climbing","loc":"","desc":"","allDay":false,"members":["Mabel"]},{"id":"6ks62c9hccpj8bb4cgq64b9k68q3gbb1clj3ib9m6gqj8eb6cgs62cb364@google.com","date":"2026-05-03","time":"11:30 AM","endTime":"3:30 PM","title":"Table Tennis Championships","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"8h8o9dsin0qmccp049i09hegq1_R20260419T163000@google.com","date":"2026-05-03","time":"5:30 PM","endTime":"6:30 PM","title":"Arthur's Guitar Lesson","loc":"","desc":"","allDay":false,"members":["Arthur"]},{"id":"ehn6nd8t9oj1dt4jfn500e5dng@google.com","date":"2026-05-05","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"1jht2feaniib6dvrqe601ftvgc@google.com","date":"2026-05-06","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - BBQ Chicken Pieces","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6cpm2or2ckom2b9n60rm6b9kcos3ebb264q64b9i69hm4d316tgj4ohh70@google.com","date":"2026-05-06","time":"5:30 PM","endTime":"7:30 PM","title":"Europa Titans – Abingdon Youth","loc":"Lambrick Way","desc":"League match","allDay":false,"members":["Ellen","Chris"]},{"id":"a7l4ci8u722golmecj8t2nictk@google.com","date":"2026-05-07","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Pork Sausage with Gravy","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"l3mrbj1a5745kg3g67akssrifc@google.com","date":"2026-05-08","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"70qm8pb3c8pjeb9g70o30b9kcormabb16di36b9ocoom4chh6gpjgd9l6o@google.com","date":"2026-05-08","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6gpjip9pcgqmab9i6dj32b9k6cpm8bb26dhjgb9mcoo3ae1g6grjed1hco@google.com","date":"2026-05-10","time":"10:00 AM","endTime":"10:45 AM","title":"Mabel Climbing","loc":"","desc":"","allDay":false,"members":["Mabel"]},{"id":"ikcl9fm28a8agmbdog8rh5tkfo@google.com","date":"2026-05-11","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Chicken Meatballs in a Tomato & Basil Sauce","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6baqvt8aga4hd44q4fkqg3hhek@google.com","date":"2026-05-12","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Sausage Dog","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"ua111esk5jlc19cn97nrit4ut4@google.com","date":"2026-05-13","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Beef Moussaka","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"qns7samr61uvnamg9nik4iam7o@google.com","date":"2026-05-14","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"0k8674sujbb4g84ugqrqk6utdo@google.com","date":"2026-05-15","time":"All day","endTime":"","title":"Arthur Jarrett's birthday","loc":"","desc":"","allDay":true,"members":["Arthur"]},{"id":"9up0gan1jpo64lh5qqrsi1do0c@google.com","date":"2026-05-15","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Battered Fish","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"clh3ce9k70s36bb3ccp3gb9k69j3gb9pcgrj6b9hc4q3ce3368r3ed9nc8@google.com","date":"2026-05-15","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6kqj8phg68s32b9k74s3cb9kcgq62b9p6or3ibb36ks3ie9hccoj4eb460@google.com","date":"2026-05-16","time":"9:00 AM","endTime":"12:30 PM","title":"Wheatley Tournament","loc":"Wheatley Football Club","desc":"Invitational","allDay":false,"members":["Ellen","Chris"]},{"id":"8h8o9dsin0qmccp049i09hegq1_R20260419T163000@google.com","date":"2026-05-17","time":"5:30 PM","endTime":"6:30 PM","title":"Arthur's Guitar Lesson","loc":"","desc":"","allDay":false,"members":["Arthur"]},{"id":"ql3r0t29mqb65i87q56ke65hdk@google.com","date":"2026-05-18","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Gratin Chicken with Spinach and Tomato","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"fht8oaf2baoaungig9g1ljaj2o@google.com","date":"2026-05-19","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Beef Burger in a Bun","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"7iopapt15347e0rb9taaa5gt90@google.com","date":"2026-05-20","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Roast Chicken, Yorkshire Pudding and Gravy","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"d2touj1abgmhhjvt2h523ou9ek@google.com","date":"2026-05-21","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Mild Chilli Beef","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"umpksh8ogoq4frhepa0l8qrt7g@google.com","date":"2026-05-22","time":"All day","endTime":"","title":"ESUK Last day of term","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"65edgqdcc9iv7lt35fftt1g864@google.com","date":"2026-05-22","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"cor6cp3565imab9gckojeb9k68r3gb9oc4r36bb461gjec1iclh64dr6c4@google.com","date":"2026-05-22","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"74rmacpk6go32bb1ckomab9k70pm8bb1cgq36b9h6orj4dhg68p62ohhco@google.com","date":"2026-05-23","time":"9:30 AM","endTime":"12:30 PM","title":"Chris cooking course","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"t5o6u6qfbh5ike2ri0n9msom3c@google.com","date":"2026-05-25","time":"All day","endTime":"","title":"ESUK Half term","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"t2d5ls63c2u7oss5mnbcbk1li0@google.com","date":"2026-05-26","time":"All day","endTime":"","title":"ESUK Half term","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"vae26j31f3hvqutongmnaanaj0@google.com","date":"2026-05-27","time":"All day","endTime":"","title":"ESUK Half term","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"rp196jo5tft71obi6jr7ugoem0@google.com","date":"2026-05-28","time":"All day","endTime":"","title":"ESUK Half term","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"9su40ks4fss4d4m7igbptoeskk@google.com","date":"2026-05-29","time":"All day","endTime":"","title":"ESUK Half term","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"m270bbacjgt6mu51tv04lejhd4@google.com","date":"2026-05-29","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6th6ae1pcpj6cb9p6oqj0b9k74rm6bb175j3ebb465h66e1oc4p6cob66s@google.com","date":"2026-05-29","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"8h8o9dsin0qmccp049i09hegq1_R20260419T163000@google.com","date":"2026-05-31","time":"5:30 PM","endTime":"6:30 PM","title":"Arthur's Guitar Lesson","loc":"","desc":"","allDay":false,"members":["Arthur"]},{"id":"71h9d1nilck99gu6jq64c35gl4@google.com","date":"2026-06-01","time":"All day","endTime":"","title":"ESUK First day of term","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"fiaevcv0p6qlqprv7f96h23v90@google.com","date":"2026-06-01","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Chicken Meatballs in a Tomato & Basil Sauce","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"c4pm2d336cpj6b9kchhj8b9k68r30bb16gpm8b9kcoq6cc1g68o3acb46o@google.com","date":"2026-06-01","time":"8:00 AM","endTime":"8:30 AM","title":"S4 Assesments start (01/06-12/06)","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"st5vlmnrficcqbkro8gid1belg@google.com","date":"2026-06-02","time":"All day","endTime":"","title":"Henry Midwood's birthday","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"l275b64d498rnjn2r60rksp8i0@google.com","date":"2026-06-02","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Sausage Dog","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"nc05il9kfbrkq9ru7rh9aatsn8@google.com","date":"2026-06-03","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Beef Moussaka","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6im3ojhvcr73ovt16kkiu8eqt8@google.com","date":"2026-06-04","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6ko3coj164o32b9kcgr66b9k6crm8bb1ccs66b9gclim4e336sqjgp9ico@google.com","date":"2026-06-04","time":"6:00 PM","endTime":"9:00 PM","title":"OYFL Awards Evening","loc":"Kassam Stadium","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"egcsduh8kvpu77fnmdmigp2vsk@google.com","date":"2026-06-05","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Battered Fish","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6dhmac9jc5h32bb46spjcb9kchij2bb2cpi6abb6c4o68dr46lgm2dj66o@google.com","date":"2026-06-05","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6gojioj4c4pj0b9j75i3eb9k6kom8b9pchij4bb36hi3edpi65gm2pb26c@google.com","date":"2026-06-05","time":"6:00 PM","endTime":"9:00 PM","title":"OYFL Awards Evening","loc":"Kassam Stadium","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"70om8dhj6him8b9j74sm2b9kchh68bb26limcb9kclhm8dpic9h64d346o@google.com","date":"2026-06-07","time":"12:30 PM","endTime":"5:00 PM","title":"Europa Titans Tournament","loc":"Europa School UK","desc":"Timings TBC","allDay":false,"members":["Ellen","Chris"]},{"id":"lv60lkq437hs6jb06ai6lm90j0@google.com","date":"2026-06-08","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Gratin Chicken with Spinach and Tomato","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"clh62cr36dgm4bb5c8r32b9k6cs3gb9ocgq64bb5cgr38o9mc8qj0ob46c@google.com","date":"2026-06-08","time":"9:00 AM","endTime":"11:00 AM","title":"Mabel Hearing Apt","loc":"Audiology, 4 Redlands Rd, Reading RG1 5EY, UK","desc":"","allDay":false,"members":["Mabel"]},{"id":"m5i27tcldloeo4iqlqlrdi0akg@google.com","date":"2026-06-09","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Beef Burger in a Bun","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"a5jflr5t11610g3vp91evffp0g@google.com","date":"2026-06-10","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Roast Chicken, Yorkshire Pudding and Gravy","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"kbnb67t9892gqc807k71pa2a34@google.com","date":"2026-06-11","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Mild Chilli Beef","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"e81l1d6qvqrevo7fbfu3simal0@google.com","date":"2026-06-12","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"chij2e9p6komcbb3c5gjib9k6dhj0bb26hhj6b9h6kom4e9ochij4phk70@google.com","date":"2026-06-12","time":"8:00 AM","endTime":"2:30 PM","title":"Ellen in Paris","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"65ij4p34ckpm8b9l6orj0b9k61hjib9p68pm2b9lc4o68pho6tgjac1mc8@google.com","date":"2026-06-12","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"8h8o9dsin0qmccp049i09hegq1_R20260419T163000@google.com","date":"2026-06-14","time":"5:30 PM","endTime":"6:30 PM","title":"Arthur's Guitar Lesson","loc":"","desc":"","allDay":false,"members":["Arthur"]},{"id":"8ft3vb348651v65s1nm2b7pkuk@google.com","date":"2026-06-15","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Classic Beef Bolognese","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"65j30d9jclh66b9kcoqmcb9k6gp6ab9o75i3ebb16comcdhk6pi36d32co@google.com","date":"2026-06-15","time":"8:00 AM","endTime":"8:30 AM","title":"S4 Work Experience Week","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"in76k5mhnn4faj3g77usmmcphk@google.com","date":"2026-06-16","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"uuut3138cdkv6s3kh2e5e8f51s@google.com","date":"2026-06-17","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - BBQ Chicken Pieces","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"nuluuehqsblo2pcmtm4ckfqmlc@google.com","date":"2026-06-18","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Pork Sausage with Gravy","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"lnms3u7mg74mb6o964sk2tt3r8@google.com","date":"2026-06-19","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"cdij2p9j6hgj6bb56so32b9k68q64bb1clim6b9kc5gj2cj46cs64p3268@google.com","date":"2026-06-19","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"a0bgskjelrfq6hinv8ksu1uf44@google.com","date":"2026-06-22","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Chicken Meatballs in a Tomato & Basil Sauce","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"e48jo4g4duimurotou6rdcag0o@google.com","date":"2026-06-23","time":"All day","endTime":"","title":"Wilfred Jarrett's birthday","loc":"","desc":"","allDay":true,"members":["Wilfred"]},{"id":"fpvdkffqg3uno42g6n431k57a0@google.com","date":"2026-06-23","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Sausage Dog","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"fm177aluku9t4jipt2emtcjki4@google.com","date":"2026-06-24","time":"All day","endTime":"","title":"Caroline Midwood's birthday","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"0j44q69gurp72qqq9g561mgkl8@google.com","date":"2026-06-24","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Beef Moussaka","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"68s64c1k61gm2b9nccojgb9k70p36b9ochhj0b9l6cp64d9i6ti6adr4c8@google.com","date":"2026-06-24","time":"8:00 AM","endTime":"3:30 PM","title":"S4 Ecology Trip","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"71epjmk14vuiif7psudodo16q8@google.com","date":"2026-06-25","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"hv8mlq2dmk3dk8i59947g6h5as@google.com","date":"2026-06-26","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Battered Fish","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"c8o62p1l6lhjgb9gc5i66b9kc4rm8bb174rm4bb560ojid1l6tj36cr26g@google.com","date":"2026-06-26","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6pij6o9i6grjgbb4c9j3gb9kcpim4bb264rm8b9ochgm8dj174pm2db160@google.com","date":"2026-06-27","time":"11:30 AM","endTime":"3:00 PM","title":"Summer Fete","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"niceo6aipb58lnnkic1hsieg5o@google.com","date":"2026-06-28","time":"All day","endTime":"","title":"Catherine Jarrett's birthday","loc":"","desc":"","allDay":true,"members":["Ellen","Chris"]},{"id":"8h8o9dsin0qmccp049i09hegq1_R20260419T163000@google.com","date":"2026-06-28","time":"5:30 PM","endTime":"6:30 PM","title":"Arthur's Guitar Lesson","loc":"","desc":"","allDay":false,"members":["Arthur"]},{"id":"m6nkobogradi919ig0vo74jpr0@google.com","date":"2026-06-29","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Gratin Chicken with Spinach and Tomato","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"lkak4nqdh9ec99ccpgs3ut97ho@google.com","date":"2026-06-30","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Beef Burger in a Bun","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"hs6gad8r1u3ft2pka0dffk08dk@google.com","date":"2026-07-01","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Roast Chicken, Yorkshire Pudding and Gravy","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"r7rofmlj47pfrtu090sbg3r6qk@google.com","date":"2026-07-02","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Mild Chilli Beef","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"fnth5p3qnmlvs4vuuufiup6ncg@google.com","date":"2026-07-03","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Fish Fingers","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"68qj4phiclgj2bb568pmcb9kc9hm4b9p65im4b9m6ssmcchn6krj6d346g@google.com","date":"2026-07-03","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6cr3iopk69gj6b9pc4qm6b9kc5gj6bb1cgo3gbb374rmac9lccr3icr1cg@google.com","date":"2026-07-04","time":"1:00 PM","endTime":"5:00 PM","title":"End of Season Party & AGM","loc":"Europa School UK","desc":"Times are approximate","allDay":false,"members":["Ellen","Chris"]},{"id":"r5noc9agk7f42ui6u4jjgpvdqg@google.com","date":"2026-07-06","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Classic Beef Bolognese","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"6i7j392bdbhkkpspd9d3amid7g@google.com","date":"2026-07-07","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - Margherita Pizza","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"lin0fpo2dqh4jtsnckqaadnt8c@google.com","date":"2026-07-08","time":"7:15 AM","endTime":"7:30 AM","title":"Primary Menu - BBQ Chicken Pieces","loc":"","desc":"","allDay":false,"members":["Ellen","Chris"]},{"id":"cpgj2ohjccs3gbb56ko32b9k68rjib9p6grjibb66lhm2pj464omce1jco@google.com","date":"2026-07-10","time":"6:00 PM","endTime":"7:00 PM","title":"Training","loc":"Europa School UK","desc":"","allDay":false,"members":["Ellen","Chris"]}];
+var INIT_TASKS   = [{"id":"SUpCTWZEckQ4Skx2a3hhSQ","title":"test 2","due":"2026-04-17","notes":"please work"}];
+var ALL_LINKS    = {"ec":[{"l":"Curzon Cinema","s":"Book tickets","u":"https://www.curzon.com/"},{"l":"Google Calendar","s":"Ellen's calendar","u":"https://calendar.google.com/"},{"l":"Gmail","s":"Chris work email","u":"https://mail.google.com/"},{"l":"GWR","s":"Train times","u":"https://www.gwr.com/"},{"l":"NHS login","s":"Patient access","u":"https://patient.nhs.uk/"},{"l":"Broad St Dental","s":"Appointments","u":"https://broadstreetdental.co.uk/"}],"arthur":[{"l":"Duke of Edinburgh","s":"DofE portal","u":"https://www.dofe.org/"},{"l":"Spond","s":"Sports groups","u":"https://spond.com/"},{"l":"MyChildAtSchool","s":"Parent portal","u":"https://www.mychildatschool.com/"},{"l":"Europa School","s":"School website","u":"https://europaschooluk.org/"},{"l":"School calendar","s":"Term dates","u":"https://europaschooluk.org/term-dates/"}],"wilfred":[{"l":"MyMaths","s":"Homework","u":"https://www.mymaths.co.uk/"},{"l":"Duolingo","s":"Languages","u":"https://www.duolingo.com/"},{"l":"Google Classroom","s":"Schoolwork","u":"https://classroom.google.com/"},{"l":"Spond","s":"Sports groups","u":"https://spond.com/"},{"l":"MyChildAtSchool","s":"Parent portal","u":"https://www.mychildatschool.com/"}],"mabel":[{"l":"Atom Learning","s":"Revision","u":"https://atomlearning.com/"},{"l":"Duolingo","s":"Languages","u":"https://www.duolingo.com/"},{"l":"Kumon Connect","s":"Maths & English","u":"https://www.kumon.co.uk/"},{"l":"Times Tables Rocks","s":"Maths practice","u":"https://ttrockstars.com/"},{"l":"Google Classroom","s":"Schoolwork","u":"https://classroom.google.com/"},{"l":"MyChildAtSchool","s":"Parent portal","u":"https://www.mychildatschool.com/"},{"l":"Pitchero","s":"Sports club","u":"https://www.pitchero.com/"}]};
+var INIT_HW      = {"arthur":[],"wilfred":[],"mabel":[]};
+var INIT_GOALS   = {};
+var ALLOWED      = ["ellenvjarrett@gmail.com","chrisjjarrett@gmail.com"];
+var CHILDREN     = ["Arthur","Wilfred","Mabel"];
+var PARENTS      = ["Ellen","Chris"];
 
-function postToApp(data, cb){
-  fetch(WEB_APP_URL, { method:"POST", body:JSON.stringify(data) })
-  .then(function(r){ return r.json(); })
-  .then(function(d){ if(cb) cb(d); })
-  .catch(function(e){ console.error(e); });
+function postApp(data,cb){fetch(WEB_APP_URL,{method:"POST",body:JSON.stringify(data)}).then(function(r){return r.json();}).then(function(d){if(cb)cb(d);}).catch(function(e){console.error(e);});}
+var MDATA={
+  ec:{bannerCls:"banner-ec",cc:"c-purple",lc:"lnk-ec",hwAccent:"#a855f7",hwBg:"#fdf4ff",hwColor:"#5b21b6",name:"Ellen & Chris",hasHw:false,
+    avatar:'<svg viewBox="0 0 48 48" width="58" height="58"><circle cx="24" cy="24" r="24" fill="#9333ea"/><ellipse cx="14" cy="27" rx="8" ry="10" fill="#f5c8a0"/><path d="M6 21 Q6 38 10 44 Q12 47 14 47 Q11 43 10 35 Q9 27 10 20" fill="#6b3a1f"/><path d="M22 21 Q22 38 18 44 Q16 47 14 47 Q17 43 18 35 Q19 27 18 20" fill="#6b3a1f"/><path d="M7 19 Q9 10 14 10 Q19 10 21 16 Q18 13 14 13 Q10 13 7 19Z" fill="#5a2e14"/><circle cx="11.5" cy="26" r="1.8" fill="#3d2b1f"/><circle cx="16.5" cy="26" r="1.8" fill="#3d2b1f"/><path d="M11 32 Q14 34 17 32" stroke="#c09070" stroke-width="1.5" fill="none"/><ellipse cx="34" cy="27" rx="9" ry="10.5" fill="#e8c090"/><path d="M25 22 Q26 11 34 11 Q42 11 43 22 Q40 16 34 16 Q28 16 25 22Z" fill="#4a2e18"/><circle cx="30.5" cy="25" r="2.2" fill="#fff"/><circle cx="30.5" cy="25" r="1.5" fill="#3d2b1f"/><circle cx="37.5" cy="25" r="2.2" fill="#fff"/><circle cx="37.5" cy="25" r="1.5" fill="#3d2b1f"/><ellipse cx="28" cy="30" rx="3" ry="1.8" fill="#e8a080" opacity=".4"/><ellipse cx="40" cy="30" rx="3" ry="1.8" fill="#e8a080" opacity=".4"/><path d="M28.5 31 Q34 36 39.5 31" stroke="#c07050" stroke-width="2" fill="none"/><path d="M26 29 Q27 36 34 38 Q41 36 42 29 Q39 34 34 35 Q29 34 26 29Z" fill="#5a3820"/></svg>'
+  },
+  arthur:{bannerCls:"banner-arthur",cc:"c-amber",lc:"lnk-arthur",hwAccent:"#f5a623",hwBg:"#fffbeb",hwColor:"#78350f",name:"Arthur",hasHw:true,
+    avatar:'<svg viewBox="0 0 48 48" width="58" height="58"><circle cx="24" cy="24" r="24" fill="#f5a623"/><ellipse cx="24" cy="28" rx="11" ry="12" fill="#f4d080"/><circle cx="13" cy="22" r="6.5" fill="#c8880a"/><circle cx="17" cy="15" r="5.5" fill="#dda020"/><circle cx="24" cy="13" r="6" fill="#c8880a"/><circle cx="31" cy="15" r="5.5" fill="#dda020"/><circle cx="35" cy="22" r="6.5" fill="#c8880a"/><circle cx="21.5" cy="27" r="2.5" fill="#3d2b1f"/><circle cx="27.5" cy="27" r="2.5" fill="#3d2b1f"/><path d="M20 34 Q24 37 28 34" stroke="#c07040" stroke-width="2" fill="none"/></svg>'
+  },
+  wilfred:{bannerCls:"banner-wilfred",cc:"c-red",lc:"lnk-wilfred",hwAccent:"#ef4444",hwBg:"#fff5f5",hwColor:"#7f1d1d",name:"Wilfred",hasHw:true,
+    avatar:'<svg viewBox="0 0 48 48" width="58" height="58"><circle cx="24" cy="24" r="24" fill="#ef4444"/><ellipse cx="24" cy="28" rx="11" ry="12" fill="#f4c5a0"/><path d="M13 25 Q13 11 24 11 Q35 11 35 25" fill="#6b3a1f"/><path d="M13 20 Q14 13 24 12 Q34 13 35 20 L35 23 Q29 20 24 20 Q19 20 13 23Z" fill="#7a4428"/><circle cx="21" cy="27" r="2.5" fill="#3d2b1f"/><circle cx="27" cy="27" r="2.5" fill="#3d2b1f"/><path d="M20 34 Q24 37 28 34" stroke="#c07060" stroke-width="2" fill="none"/></svg>'
+  },
+  mabel:{bannerCls:"banner-mabel",cc:"c-pink",lc:"lnk-mabel",hwAccent:"#ec4899",hwBg:"#fdf2f8",hwColor:"#831843",name:"Mabel",hasHw:true,
+    avatar:'<svg viewBox="0 0 48 48" width="58" height="58"><circle cx="24" cy="24" r="24" fill="#ec4899"/><ellipse cx="24" cy="27" rx="10.5" ry="11" fill="#f4c5a0"/><path d="M13 18 Q11 30 12 44 Q15 48 19 48 Q16 42 15 34 Q14 26 14 20" fill="#6b3a1f"/><path d="M35 18 Q37 30 36 44 Q33 48 29 48 Q32 42 33 34 Q34 26 34 20" fill="#6b3a1f"/><path d="M13 20 Q14 10 24 10 Q34 10 35 20 Q30 15 24 15 Q18 15 13 20Z" fill="#7a4428"/><ellipse cx="20.5" cy="26" rx="3" ry="2.5" fill="#fff"/><circle cx="20.5" cy="26" r="1.8" fill="#3d2b1f"/><ellipse cx="27.5" cy="26" rx="3" ry="2.5" fill="#fff"/><circle cx="27.5" cy="26" r="1.8" fill="#3d2b1f"/><path d="M20 34 Q24 37 28 34" stroke="#c07070" stroke-width="1.5" fill="none"/></svg>'
+  }
+};
+var GOAL_DEFS={ec:{label:"Fun Stuff Together",color:"#a855f7"},arthur:{label:"Park Runs",color:"#f5a623"},wilfred:{label:"Mindful Activities",color:"#ef4444"},mabel:{label:"Playdates with Different Mates",color:"#ec4899"}};
+var GOALS_KEY="fh_goals_v2";
+var goalsData=INIT_GOALS||{};
+try{var gs=localStorage.getItem(GOALS_KEY);if(gs)goalsData=JSON.parse(gs);}catch(e){}
+function saveGoalsLocal(){try{localStorage.setItem(GOALS_KEY,JSON.stringify(goalsData));}catch(e){}}
+var thisMonth=new Date().getFullYear()+"-"+(new Date().getMonth()+1);
+var hwData={};
+try{var hws=localStorage.getItem("fh_hw_v1");if(hws)hwData=JSON.parse(hws);}catch(e){}
+if(!hwData.arthur) hwData.arthur=INIT_HW.arthur||[];
+if(!hwData.wilfred)hwData.wilfred=INIT_HW.wilfred||[];
+if(!hwData.mabel)  hwData.mabel=INIT_HW.mabel||[];
+function saveHwLocal(){try{localStorage.setItem("fh_hw_v1",JSON.stringify(hwData));}catch(e){}}
+var curMember="";
+var evModalTarget=null;
+var curHwMember="";
+function sw(m,el){
+  document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active");});
+  el.classList.add("active");
+  if(m==="all"){
+    document.getElementById("v-all").classList.add("active");
+    document.getElementById("v-personal").classList.remove("active");
+  } else {
+    document.getElementById("v-all").classList.remove("active");
+    document.getElementById("v-personal").classList.add("active");
+    curMember=m;renderP(m);showSub("cal");
+  }
+  setTimeout(syncHeights,120);
 }
-
-function nlToggleMore(id, btn){
-  var short = document.getElementById("nlsnip-" + id);
-  var long  = document.getElementById("nllong-" + id);
-  var showing = long.style.display === "block";
-  short.style.display = showing ? "" : "none";
-  long.style.display  = showing ? "none" : "block";
-  btn.innerHTML = showing ? "More context &#9662;" : "Less &#9652;";
+function showSub(w){
+  document.querySelectorAll(".subview").forEach(function(s){s.classList.remove("active");});
+  document.getElementById("subview-"+w).classList.add("active");
+  document.querySelectorAll(".stab").forEach(function(s){s.classList.remove("active");});
+  var a=document.querySelector(".stab[data-sub='"+w+"']");if(a)a.classList.add("active");
 }
-
-function nlAction(action, matchId, title, snippet, btn){
-  var btns = btn.closest(".nl-actions").querySelectorAll("button");
-  btns.forEach(function(b){ b.disabled = true; });
-  btn.textContent = "Working...";
-  postToApp({ action: action, matchId: matchId, title: title, snippet: snippet }, function(data){
-    var doneEl = document.getElementById("nldone-" + matchId);
-    if(data && data.success){
-      if(action === "newsletter_dismiss"){
-        var card = document.getElementById("nlm-" + matchId);
-        if(card){ card.style.opacity = "0"; card.style.transition = "opacity .3s"; setTimeout(function(){ card.remove(); checkNlEmpty(); }, 350); }
-      } else {
-        if(doneEl){ doneEl.textContent = action === "newsletter_calendar" ? "Added to Calendar!" : "Added to Tasks!"; doneEl.style.display = "block"; }
-        setTimeout(function(){
-          var card = document.getElementById("nlm-" + matchId);
-          if(card){ card.style.opacity = "0"; card.style.transition = "opacity .3s"; setTimeout(function(){ card.remove(); checkNlEmpty(); }, 350); }
-        }, 1200);
-      }
-    } else {
-      btns.forEach(function(b){ b.disabled = false; });
-      btn.textContent = btn.className.indexOf("cal") !== -1 ? "+ Calendar" : btn.className.indexOf("task") !== -1 ? "+ Task" : "Dismiss";
-      if(doneEl){ doneEl.textContent = "Error — please try again."; doneEl.style.display = "block"; }
+function syncHeights(){
+  var wc=document.getElementById("week-card");
+  var hc=document.getElementById("horizon-card");
+  var hs=document.getElementById("horizon-scroll");
+  if(!wc||!hc||!hs)return;
+  hc.style.height=wc.offsetHeight+"px";
+  hs.style.maxHeight=(wc.offsetHeight-60)+"px";
+}
+window.addEventListener("load",syncHeights);
+window.addEventListener("resize",syncHeights);
+setTimeout(syncHeights,400);
+function renderP(m){
+  var d=MDATA[m];if(!d)return;
+  document.getElementById("p-banner").className="p-banner "+d.bannerCls;
+  document.getElementById("p-av").innerHTML=d.avatar||"";
+  document.getElementById("p-name").textContent=d.name;
+  // Filter this week's events for this person
+  var mEvs=WEEK_EVENTS.filter(function(e){
+    if(m==="ec") return e.members.some(function(x){return x==="Ellen"||x==="Chris";});
+    return e.members.some(function(x){return x.toLowerCase()===m;});
+  });
+  document.getElementById("p-sub").textContent=mEvs.length+" event"+(mEvs.length!==1?"s":"")+" this week";
+  var eCls={ec:"ev-ec",arthur:"ev-arthur",wilfred:"ev-wilfred",mabel:"ev-mabel"};
+  var ec=eCls[m]||"ev-family";
+  document.getElementById("p-events").innerHTML=mEvs.length?mEvs.map(function(e){
+    return '<div class="week-row"><div class="wd" style="min-width:34px"><div class="wd-d" style="font-size:9px">'+e.date.substring(5)+'</div></div><div class="evs"><div class="ev '+ec+'" onclick="openEvModal(this,\''+(e.id||"")+'\',\''+escH(e.title)+'\',\''+e.date+'\',\''+escH(e.time)+'\',\''+escH(e.loc)+'\',\''+escH(e.desc)+'\')"><div class="ev-title">'+escH(e.title)+'</div>'+(e.loc?'<div class="ev-meta">'+escH(e.time+" · "+e.loc)+'</div>':"")+'</div></div></div>';
+  }).join(""):'<div class="empty">No events this week</div>';
+  // Links
+  var lkey=m==="ec"?"ec":m;
+  var lnks=ALL_LINKS[lkey]||[];
+  document.getElementById("p-cc").className="card "+d.cc;
+  document.getElementById("p-lc").className="card "+d.cc;
+  document.getElementById("p-links").innerHTML=lnks.map(function(lk){
+    return '<a class="lnk-card lnk-'+lkey+'" href="'+lk.u+'"><div class="lnk-label">'+lk.l+'</div><div class="lnk-sub">'+lk.s+'</div></a>';
+  }).join("");
+  // Sub-tabs
+  var tc=d.hwAccent||"#6b7280";
+  var norm="border-color:"+tc+";color:"+tc;
+  var actv="background:"+tc+";border-color:"+tc+";color:#fff";
+  var tabs='<button class="stab active" data-sub="cal" style="'+actv+'" onclick="stClick(this,\'cal\')">📅 Calendar & links</button>';
+  if(d.hasHw)tabs+='<button class="stab" data-sub="hw" style="'+norm+'" onclick="stClick(this,\'hw\')">📚 Homework</button>';
+  tabs+='<button class="stab" data-sub="goals" style="'+norm+'" onclick="stClick(this,\'goals\')">🎯 My goals</button>';
+  document.getElementById("subtabs").innerHTML=tabs;
+  // Homework
+  if(d.hasHw){
+    curHwMember=m;
+    document.getElementById("p-hwc").className="card "+d.cc;
+    var items=hwData[m]||[];
+    document.getElementById("p-hw-list").innerHTML=items.length?items.map(function(h,i){
+      return '<div class="hw-item" id="hwi-'+m+'-'+i+'" style="background:'+d.hwBg+';border-color:'+h.color+'"><div class="hw-chk" onclick="hwDone(this,\'hwi-'+m+'-'+i+'\')"></div><div><div class="hw-subject" style="color:'+h.color+'">'+escH(h.subject)+'</div><div class="hw-desc">'+escH(h.desc)+'</div>'+(h.due?'<div class="hw-due">'+h.due+'</div>':"")+'</div></div>';
+    }).join(""):'<div class="empty">No homework added yet</div>';
+    var btn=document.getElementById("p-hw-add-btn");
+    if(btn){btn.style.cssText="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:6px 14px;border-radius:20px;border:2px solid "+d.hwAccent+";background:"+d.hwBg+";color:"+d.hwColor+";cursor:pointer;margin-top:10px";}
+    document.getElementById("hw-modal").style.borderTopColor=d.hwAccent;
+    document.getElementById("hw-save-btn").style.cssText="font-size:13px;font-weight:800;padding:8px 18px;border-radius:9px;border:2px solid "+d.hwAccent+";background:"+d.hwBg+";color:"+d.hwColor+";cursor:pointer";
+  }
+  renderGoals(m);
+}
+function stClick(el,sub){
+  var d=MDATA[curMember];var tc=d?d.hwAccent:"#6b7280";
+  document.querySelectorAll(".stab").forEach(function(s){s.classList.remove("active");s.style.cssText="border-color:"+tc+";color:"+tc;});
+  el.classList.add("active");el.style.cssText="background:"+tc+";border-color:"+tc+";color:#fff";
+  showSub(sub);
+}
+function renderGoals(m){
+  var d=MDATA[m];var gd=GOAL_DEFS[m];if(!gd)return;
+  document.getElementById("p-gc").className="card "+d.cc;
+  document.getElementById("p-goal-title").textContent=gd.label+" this month";
+  document.getElementById("p-goal-title").style.color=gd.color;
+  if(!goalsData[m])goalsData[m]={};
+  if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];
+  var ticks=goalsData[m][thisMonth];
+  var html="";
+  for(var i=0;i<4;i++){
+    var t=ticks[i];
+    var cs=t.earned?"border-color:"+gd.color+";background:"+gd.color:"border-color:#d1d5db;background:#f9fafb";
+    var ck=t.earned?'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    html+='<div class="goal-tick"><div class="goal-circle" style="'+cs+'" onclick="toggleGoal(\''+ m +'\','+i+')" title="Click to earn tick">'+ck+'</div><div class="goal-tick-label" style="color:'+(t.earned?gd.color:"#9ca3af")+'" id="gn-'+m+'-'+i+'" onclick="editNote(\''+ m +'\','+i+',this)">'+escH(t.note||"tap to add…")+'</div></div>';
+  }
+  document.getElementById("p-goals-grid").innerHTML=html;
+}
+function toggleGoal(m,i){
+  if(!goalsData[m])goalsData[m]={};if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];
+  goalsData[m][thisMonth][i].earned=!goalsData[m][thisMonth][i].earned;
+  saveGoalsLocal();renderGoals(m);
+}
+function editNote(m,i,el){
+  var cur=goalsData[m]&&goalsData[m][thisMonth]?goalsData[m][thisMonth][i].note:"";
+  var inp=document.createElement("input");inp.type="text";inp.value=cur;inp.placeholder="What earned this?";
+  inp.style.cssText="font-size:10px;padding:3px 5px;border:1.5px solid #d1d5db;border-radius:5px;width:66px;outline:none;font-family:inherit";
+  el.replaceWith(inp);inp.focus();inp.select();
+  function save(){if(!goalsData[m])goalsData[m]={};if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];goalsData[m][thisMonth][i].note=inp.value.trim();saveGoalsLocal();renderGoals(m);}
+  inp.addEventListener("blur",save);inp.addEventListener("keydown",function(e){if(e.key==="Enter")save();});
+}
+function openEvModal(el,eid,title,date,time,loc,notes){
+  evModalTarget=el;
+  document.getElementById("ev-modal-title").textContent=title||"Event details";
+  document.getElementById("ev-t").value=title||"";
+  document.getElementById("ev-d").value=date||"";
+  document.getElementById("ev-time").value=time||"";
+  document.getElementById("ev-loc").value=loc||"";
+  document.getElementById("ev-notes").value=notes||"";
+  var cl=el?el.className:"";
+  var accent=cl.indexOf("ev-ec")>-1?"#a855f7":cl.indexOf("ev-arthur")>-1?"#f5a623":cl.indexOf("ev-wilfred")>-1?"#ef4444":cl.indexOf("ev-mabel")>-1?"#ec4899":cl.indexOf("ev-ellen")>-1?"#e84393":"#3b82f6";
+  document.getElementById("ev-modal").style.borderTopColor=accent;
+  document.getElementById("ev-save-btn").style.cssText="font-size:13px;font-weight:800;padding:8px 18px;border-radius:9px;border:2px solid "+accent+";background:#f5f0ff;color:"+accent+";cursor:pointer";
+  document.getElementById("ev-modal-bg").classList.remove("hidden");
+}
+function closeEvModal(){document.getElementById("ev-modal-bg").classList.add("hidden");evModalTarget=null;}
+function saveEvModal(){
+  if(evModalTarget){
+    var nt=document.getElementById("ev-t").value.trim();
+    var ntime=document.getElementById("ev-time").value.trim();
+    var nloc=document.getElementById("ev-loc").value.trim();
+    var te=evModalTarget.querySelector(".ev-title");var me=evModalTarget.querySelector(".ev-meta");
+    if(te&&nt)te.textContent=nt;
+    if(me){var p=[ntime,nloc].filter(Boolean);me.textContent=p.join(" · ");}
+    var nd=document.getElementById("ev-d").value;var nn=document.getElementById("ev-notes").value;
+    evModalTarget.onclick=function(){openEvModal(evModalTarget,"",nt,nd,ntime,nloc,nn);};
+  }
+  closeEvModal();
+}
+document.getElementById("ev-modal-bg").addEventListener("click",function(e){if(e.target===this)closeEvModal();});
+function openTaskModal(){document.getElementById("tm-title").value="";document.getElementById("tm-due").value="";document.getElementById("tm-notes").value="";document.getElementById("task-modal-bg").classList.remove("hidden");setTimeout(function(){document.getElementById("tm-title").focus();},50);}
+function closeTaskModal(){document.getElementById("task-modal-bg").classList.add("hidden");}
+function saveTaskModal(){
+  var t=document.getElementById("tm-title").value.trim();if(!t)return;
+  var due=document.getElementById("tm-due").value;
+  var notes=document.getElementById("tm-notes").value.trim();
+  postApp({action:"add",title:t,due:due,notes:notes},function(data){
+    if(data.success){
+      var list=document.getElementById("tasks-list");
+      var empty=document.getElementById("tasks-empty");if(empty)empty.remove();
+      var div=document.createElement("div");div.className="gtask";
+      div.innerHTML='<div class="chk" onclick="doneTask(this)"></div><div class="gt-title">'+t+'</div>'+(due?'<div class="gt-due">'+due+'</div>':"")+"";
+      list.appendChild(div);
     }
   });
+  closeTaskModal();
 }
-
-function checkNlEmpty(){
-  var remaining = document.querySelectorAll(".nl-match");
-  if(remaining.length === 0){
-    var card = document.getElementById("newsletter-card");
-    if(card){ card.style.opacity = "0"; card.style.transition = "opacity .4s"; setTimeout(function(){ card.remove(); }, 450); }
+document.getElementById("task-modal-bg").addEventListener("click",function(e){if(e.target===this)closeTaskModal();});
+function openHwModal(){document.getElementById("hm-subj").value="";document.getElementById("hm-desc").value="";document.getElementById("hm-due").value="";document.getElementById("hw-modal-bg").classList.remove("hidden");setTimeout(function(){document.getElementById("hm-subj").focus();},50);}
+function closeHwModal(){document.getElementById("hw-modal-bg").classList.add("hidden");}
+function saveHwModal(){
+  var d=MDATA[curHwMember];if(!d)return;
+  var subj=document.getElementById("hm-subj").value.trim();
+  var desc=document.getElementById("hm-desc").value.trim();
+  var due=document.getElementById("hm-due").value;
+  if(!subj&&!desc)return;
+  if(!hwData[curHwMember])hwData[curHwMember]=[];
+  var COLORS=["#3b82f6","#ec4899","#10b981","#f5a623","#a855f7","#ef4444"];
+  var color=COLORS[hwData[curHwMember].length%COLORS.length];
+  hwData[curHwMember].push({subject:subj||"Homework",desc:desc,due:due,color:color});
+  saveHwLocal();
+  renderP(curHwMember);
+  showSub("hw");
+  closeHwModal();
+}
+document.getElementById("hw-modal-bg").addEventListener("click",function(e){if(e.target===this)closeHwModal();});
+function doneTask(chk){
+  chk.classList.toggle("done");
+  var id=chk.closest(".gtask")&&chk.closest(".gtask").dataset.id;
+  var tEl=chk.parentElement.querySelector(".gt-title");
+  if(tEl)tEl.style.textDecoration=chk.classList.contains("done")?"line-through":"none";
+  if(chk.classList.contains("done")){
+    if(id)postApp({action:"complete",id:id});
+    setTimeout(function(){var r=chk.closest(".gtask");if(r){r.style.transition="opacity .3s";r.style.opacity="0";setTimeout(function(){r.remove();},320);}},900);
   }
 }
-
-function addTask(){
-  var title = document.getElementById("new-task-title").value.trim();
-  if(!title) return;
-  var due   = document.getElementById("new-task-due").value;
-  var notes = document.getElementById("new-task-notes").value.trim();
-  var btn   = document.querySelector(".add-task button");
-  btn.textContent = "Adding..."; btn.disabled = true;
-  postToApp({ action:"add", title:title, due:due, notes:notes }, function(data){
-    if(data.success){
-      var el = document.getElementById("gtasks");
-      var empty = document.getElementById("gtasks-empty");
-      if(empty) empty.remove();
-      var dueHtml   = due   ? "<div class=\"gtask-due\">Due "+due+"</div>" : "";
-      var notesHtml = notes ? "<div class=\"gtask-notes\">"+notes+"</div>" : "";
-      el.innerHTML += "<div class=\"gtask\"><div class=\"gtask-row\"><div class=\"chk\" onclick=\"completeGTask(this)\"></div><div style=\"flex:1\"><div class=\"gtask-title\">"+title+"</div>"+dueHtml+notesHtml+"</div></div></div>";
-      document.getElementById("new-task-title").value = "";
-      document.getElementById("new-task-due").value = "";
-      document.getElementById("new-task-notes").value = "";
-      var msg = document.getElementById("add-msg");
-      msg.style.display = "block";
-      setTimeout(function(){ msg.style.display = "none"; }, 3000);
+function hwDone(chk,id){
+  chk.classList.toggle("done");
+  var el=document.getElementById(id);if(!el)return;
+  var desc=el.querySelector(".hw-desc");if(desc)desc.style.textDecoration=chk.classList.contains("done")?"line-through":"none";
+  if(chk.classList.contains("done")){
+    var parts=id.split("-");var m=parts[1];
+    var idx=parseInt(parts[2],10);
+    setTimeout(function(){
+      if(hwData[m])hwData[m].splice(idx,1);
+      saveHwLocal();renderP(m);showSub("hw");
+      el.style.transition="opacity .3s";el.style.opacity="0";setTimeout(function(){el.remove();},320);
+    },900);
+  }
+}
+function nlAction(action,matchId,title,snippet,btn){
+  var btns=btn.closest(".nl-btns").querySelectorAll("button");btns.forEach(function(b){b.disabled=true;});btn.textContent="Working…";
+  postApp({action:action,matchId:matchId,title:title,snippet:snippet},function(data){
+    if(data&&data.success){var el=document.getElementById("nl-"+matchId);if(el){el.style.transition="opacity .3s";el.style.opacity="0";setTimeout(function(){el.remove();checkNl();},320);}}
+    else{btns.forEach(function(b){b.disabled=false;});
+  }});
+}
+function checkNl(){if(!document.querySelectorAll(".nl-item").length){var c=document.getElementById("nl-card");if(c){c.style.transition="opacity .3s";c.style.opacity="0";setTimeout(function(){c.remove();},320);}}}
+function emAct(id,action,btn){
+  var el=document.getElementById(id);if(!el)return;
+  el.querySelectorAll("button").forEach(function(b){b.disabled=true;});
+  var done=document.getElementById(id+"-done");
+  if(action==="arch"){
+    setTimeout(function(){el.style.transition="opacity .3s";el.style.opacity="0";setTimeout(function(){el.remove();chkEm();},320);},400);
+  } else {
+    if(done){
+      done.textContent=(action==="cal"?"Added to calendar! ":"Added to tasks! ");
+      done.style.display="block";
+      var ab=document.createElement("button");ab.className="ebtn ebtn-arch";ab.textContent="Archive email";
+      ab.onclick=function(){el.style.transition="opacity .3s";el.style.opacity="0";setTimeout(function(){el.remove();chkEm();},320);};
+      done.appendChild(ab);
     }
-    btn.textContent = "Add task"; btn.disabled = false;
-  });
+  }
 }
-
-function completeGTask(chk){
-  var gtask = chk.closest(".gtask");
-  var id    = gtask ? gtask.dataset.id : null;
-  chk.className = "chk done";
-  var titleEl = gtask ? gtask.querySelector(".gtask-title") : null;
-  if(titleEl) titleEl.className = "gtask-title done";
-  if(id) postToApp({ action:"complete", id:id });
-  setTimeout(function(){ if(gtask) gtask.remove(); }, 600);
+function chkEm(){if(!document.querySelectorAll(".em-item").length){var l=document.getElementById("em-list");if(l)l.innerHTML='<div class="em-clear">Inbox clear! 🎉</div>';}
 }
-
-function toggleEditGTask(btn){
-  var form = btn.closest(".gtask").querySelector(".gtask-edit-form");
-  form.style.display = form.style.display === "flex" ? "none" : "flex";
-}
-
-function cancelEditGTask(btn){
-  btn.closest(".gtask-edit-form").style.display = "none";
-}
-
-function saveGTask(btn){
-  var form   = btn.closest(".gtask-edit-form");
-  var gtask  = btn.closest(".gtask");
-  var id     = gtask.dataset.id;
-  var title  = form.querySelector(".gtask-edit-title").value.trim();
-  var due    = form.querySelector(".gtask-edit-due").value;
-  var notes  = form.querySelector(".gtask-edit-notes").value.trim();
-  if(!title) return;
-  btn.textContent = "Saving...";
-  postToApp({ action:"edit", id:id, title:title, due:due, notes:notes }, function(data){
-    if(data.success){
-      gtask.querySelector(".gtask-title").textContent = title;
-      var dueEl = gtask.querySelector(".gtask-due");
-      if(due){ if(dueEl) dueEl.textContent = "Due "+due; else { var d=document.createElement("div"); d.className="gtask-due"; d.textContent="Due "+due; gtask.querySelector(".gtask-title").after(d); }}
-      else { if(dueEl) dueEl.remove(); }
-      form.style.display = "none";
-    }
-    btn.textContent = "Save";
-  });
-}
-
-function fmtDate(d){ return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"}); }
-function matchFilter(members){ if(activeMember==="all") return true; return members.some(function(m){return m.toLowerCase()===activeMember;}); }
-
-function renderCalDay(){
-  var ds = viewDate.toISOString().split("T")[0];
-  document.getElementById("dlabel").textContent = fmtDate(viewDate);
-  var evs = EVENTS.filter(function(e){ return e.date===ds && matchFilter(e.members); });
-  var el = document.getElementById("cal-day");
-  if(!evs.length){ el.innerHTML="<div class=\"empty\">No events this day</div>"; return; }
-  el.innerHTML = evs.map(function(e){
-    var tags = e.members.map(function(m){ return "<span class=\"tag tag-"+m.toLowerCase()+"\">"+m+"</span>"; }).join("");
-    var meta = [e.loc, e.endTime?"until "+e.endTime:""].filter(Boolean).join(" · ");
-    return "<div class=\"ev\"><div class=\"ev-time\">"+e.time+"</div><div><div class=\"ev-title\">"+e.title+"</div><div class=\"ev-meta\">"+meta+"</div><div>"+tags+"</div></div></div>";
-  }).join("");
-}
-
-function filterSection(selector){
-  document.querySelectorAll(selector).forEach(function(el){
-    var members = JSON.parse(el.dataset.members||"[]");
-    el.style.display = matchFilter(members) ? "" : "none";
-  });
-}
-
-function filter(el){
-  document.querySelectorAll(".pill").forEach(function(p){p.classList.remove("active");});
-  el.classList.add("active"); activeMember = el.dataset.m;
-  renderCalDay(); filterSection(".mail"); filterSection(".ev");
-  document.querySelectorAll(".task").forEach(function(el){
-    el.style.display = (activeMember==="all"||el.dataset.member===activeMember) ? "" : "none";
-  });
-  updateSummary();
-}
-
-function prevDay(){ viewDate=new Date(viewDate); viewDate.setDate(viewDate.getDate()-1); renderCalDay(); }
-function nextDay(){ viewDate=new Date(viewDate); viewDate.setDate(viewDate.getDate()+1); renderCalDay(); }
-
-function toggleTask(id){
-  doneMap[id]=!doneMap[id];
-  try{ localStorage.setItem("fh-tasks",JSON.stringify(doneMap)); }catch(e){}
-  var chk = document.getElementById("chk"+id);
-  var txt = document.getElementById("txt"+id);
-  if(chk) chk.className = "chk"+(doneMap[id]?" done":"");
-  if(txt) txt.className = "task-txt"+(doneMap[id]?" done":"");
-  updateSummary();
-}
-
-function updateSummary(){
-  var todayEvs = EVENTS.filter(function(e){ return e.date===TODAY && matchFilter(e.members); }).length;
-  var weekEvs  = EVENTS.filter(function(e){ return e.date>TODAY && matchFilter(e.members); }).length;
-  var unread   = document.querySelectorAll(".unread-dot").length;
-  var pending  = TASKS.filter(function(t){ return !doneMap[t.id] && (activeMember==="all"||t.member.toLowerCase()===activeMember); }).length;
-  document.getElementById("s-today").textContent  = todayEvs;
-  document.getElementById("s-week").textContent   = weekEvs;
-  document.getElementById("s-unread").textContent = unread;
-  document.getElementById("s-tasks").textContent  = 1;
-}
-
-renderCalDay(); updateSummary();
-
-var ALLOWED = ["ellenvjarrett@gmail.com","chrisjjarrett@gmail.com"];
 function handleSignIn(r){
-  var p = JSON.parse(atob(r.credential.split(".")[1]));
+  var p=JSON.parse(atob(r.credential.split(".")[1]));
   if(ALLOWED.includes(p.email)){
     document.getElementById("auth-wall").style.display="none";
-    document.getElementById("app-content").style.display="";
-  } else { document.getElementById("auth-error").style.display="block"; }
+    document.getElementById("app").style.display="";
+  } else {
+    document.getElementById("auth-error").style.display="block";
+  }
 }
-document.getElementById("app-content").style.display="none";
+document.getElementById("app").style.display="none";
 document.getElementById("auth-wall").style.display="flex";
+function escH(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 </script>
+
 </body>
 </html>
