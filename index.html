@@ -273,145 +273,27 @@ var MDATA={
     avatar:'<svg viewBox="0 0 48 48" width="58" height="58"><circle cx="24" cy="24" r="24" fill="#ec4899"/><ellipse cx="24" cy="27" rx="10.5" ry="11" fill="#f4c5a0"/><path d="M13 18 Q11 30 12 44 Q15 48 19 48 Q16 42 15 34 Q14 26 14 20" fill="#6b3a1f"/><path d="M35 18 Q37 30 36 44 Q33 48 29 48 Q32 42 33 34 Q34 26 34 20" fill="#6b3a1f"/><path d="M13 20 Q14 10 24 10 Q34 10 35 20 Q30 15 24 15 Q18 15 13 20Z" fill="#7a4428"/><ellipse cx="20.5" cy="26" rx="3" ry="2.5" fill="#fff"/><circle cx="20.5" cy="26" r="1.8" fill="#3d2b1f"/><ellipse cx="27.5" cy="26" rx="3" ry="2.5" fill="#fff"/><circle cx="27.5" cy="26" r="1.8" fill="#3d2b1f"/><path d="M20 34 Q24 37 28 34" stroke="#c07070" stroke-width="1.5" fill="none"/></svg>'
   }
 };
-var GOAL_DEFS={ec:{label:"Fun Stuff Together",color:"#a855f7"},arthur:{label:"Park Runs & Cycle Rides",color:"#f5a623"},wilfred:{label:"Mindful Activities",color:"#ef4444"},mabel:{label:"Playdates with Different Mates",color:"#ec4899"}};
-var GOALS_KEY="fh_goals_v2";
-var goalsData=INIT_GOALS||{};
-try{var gs=localStorage.getItem(GOALS_KEY);if(gs)goalsData=JSON.parse(gs);}catch(e){}
-function saveGoalsLocal(){try{localStorage.setItem(GOALS_KEY,JSON.stringify(goalsData));}catch(e){}}
-var thisMonth=new Date().getFullYear()+"-"+(new Date().getMonth()+1);
-var hwData={};
-try{var hws=localStorage.getItem("fh_hw_v1");if(hws)hwData=JSON.parse(hws);}catch(e){}
-if(!hwData.arthur) hwData.arthur=INIT_HW.arthur||[];
-if(!hwData.wilfred)hwData.wilfred=INIT_HW.wilfred||[];
-if(!hwData.mabel)  hwData.mabel=INIT_HW.mabel||[];
-function saveHwLocal(){try{localStorage.setItem("fh_hw_v1",JSON.stringify(hwData));}catch(e){}}
-var curMember="";
-var evModalTarget=null;
-var curHwMember="";
-var _qmAction="";
-var _qmSourceId="";
-var _qmIsNl=false;
-var _qmNlMatchId="";
-var _qmNlSnippet="";
-function sw(m,el){
-  document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active");});
-  el.classList.add("active");
-  if(m==="all"){
-    document.getElementById("v-all").classList.add("active");
-    document.getElementById("v-personal").classList.remove("active");
-  } else {
-    document.getElementById("v-all").classList.remove("active");
-    document.getElementById("v-personal").classList.add("active");
-    curMember=m;renderP(m);
-  }
-  setTimeout(syncHeights,120);
-}
-function syncHeights(){
-  var wc=document.getElementById("week-card");
-  var hc=document.getElementById("horizon-card");
-  var hs=document.getElementById("horizon-scroll");
-  if(!wc||!hc||!hs)return;
-  var h=wc.offsetHeight;
-  if(h<10){requestAnimationFrame(syncHeights);return;}
-  hc.style.height=h+"px";
-  hs.style.maxHeight=(h-60)+"px";
-}
-function syncOnLoad(){
-  syncHeights();
-  [100,300,600,1200].forEach(function(ms){setTimeout(syncHeights,ms);});
-}
-window.addEventListener("load",syncOnLoad);
-window.addEventListener("resize",syncHeights);
-function renderP(m){
-  var d=MDATA[m];if(!d)return;
-  document.getElementById("p-banner").className="p-banner "+d.bannerCls;
-  document.getElementById("p-av").innerHTML=d.avatar||"";
-  document.getElementById("p-name").textContent=d.name;
-  var kws=d.spond_keywords||[];
-  var mEvs=WEEK_EVENTS.filter(function(e){
-    var memberMatch=(m==="ec")
-      ? e.members.some(function(x){return x==="Ellen"||x==="Chris";})
-      : e.members.some(function(x){return x.toLowerCase()===m;});
-    if(memberMatch)return true;
-    if(kws.length){
-      var lt=(e.title||"").toLowerCase();
-      return kws.some(function(k){return lt.indexOf(k)!==-1;});
-    }
-    return false;
-  });
-  document.getElementById("p-sub").textContent=mEvs.length+" event"+(mEvs.length!==1?"s":"")+" this week";
-  var eCls={ec:"ev-ec",arthur:"ev-arthur",wilfred:"ev-wilfred",mabel:"ev-mabel"};
-  var ec=eCls[m]||"ev-family";
-  document.getElementById("p-events").innerHTML=mEvs.length?mEvs.map(function(e){
-    if(e.isPrimaryMenu)return '<div class="ev-chip">'+escH(e.title.replace(/^Primary Menu\s*[-\u2013]\s*/i,"").replace(/^Primary Menu/i,"").trim())+'</div>';
-    return '<div class="week-row"><div class="wd" style="min-width:34px"><div class="wd-d" style="font-size:9px">'+e.date.substring(5)+'</div></div><div class="evs"><div class="ev '+ec+'" onclick="openEvModal(this,\''+(e.id||"")+'\',\''+escH(e.title)+'\',\''+e.date+'\',\''+escH(e.time)+'\',\''+escH(e.loc)+'\',\''+escH(e.desc)+'\')"><div class="ev-title">'+escH(e.title)+'</div>'+(e.loc?'<div class="ev-meta">'+escH(e.time+" · "+e.loc)+'</div>':"")+'</div></div></div>';
-  }).join(""):'<div class="empty">No events this week</div>';
-  var lkey=m==="ec"?"ec":m;
-  var lnks=ALL_LINKS[lkey]||[];
-  document.getElementById("p-cc").className="card "+d.cc;
-  document.getElementById("p-lc").className="card "+d.cc;
-  document.getElementById("p-links").innerHTML=lnks.map(function(lk){
-    return '<a class="lnk-card lnk-'+lkey+'" href="'+lk.u+'" target="_blank" rel="noopener"><div class="lnk-label">'+lk.l+'</div><div class="lnk-sub">'+lk.s+'</div></a>';
-  }).join("");
-  var hwCard=document.getElementById("p-hwc");
-  if(d.hasHw){
-    hwCard.style.display="";
-    curHwMember=m;
-    hwCard.className="card "+d.cc;
-    var items=hwData[m]||[];
-    document.getElementById("p-hw-list").innerHTML=items.length?items.map(function(h,i){
-      return '<div class="hw-item" id="hwi-'+m+'-'+i+'" style="background:'+d.hwBg+';border-color:'+h.color+'"><div class="hw-chk" onclick="hwDone(this,\'hwi-'+m+'-'+i+'\')"></div><div><div class="hw-subject" style="color:'+h.color+'">'+escH(h.subject)+'</div><div class="hw-desc">'+escH(h.desc)+'</div>'+(h.due?'<div class="hw-due">'+h.due+'</div>':"")+'</div></div>';
-    }).join(""):'<div class="empty">No homework added yet</div>';
-    var btn=document.getElementById("p-hw-add-btn");
-    if(btn){btn.style.cssText="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:6px 14px;border-radius:20px;border:2px solid "+d.hwAccent+";background:"+d.hwBg+";color:"+d.hwColor+";cursor:pointer;margin-top:10px";}
-    document.getElementById("hw-modal").style.borderTopColor=d.hwAccent;
-    document.getElementById("hw-save-btn").style.cssText="font-size:13px;font-weight:800;padding:8px 18px;border-radius:9px;border:2px solid "+d.hwAccent+";background:"+d.hwBg+";color:"+d.hwColor+";cursor:pointer";
-  } else {
-    hwCard.style.display="none";
-  }
-  renderGoals(m);
-  var ecSec=document.getElementById("p-ec-events");
-  if(m==="ec"){
-    ecSec.style.display="";
-    var ecHtml=EC_EVENTS.length?EC_EVENTS.map(function(ev){
-      var dateStr="";
-      if(ev.date){try{var dd=new Date(ev.date+"T12:00:00");var dys=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];var mths=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];dateStr=dys[dd.getDay()]+" "+dd.getDate()+" "+mths[dd.getMonth()];}catch(e2){dateStr=ev.date;}}
-      var srcCls=ev.source==="Ticketmaster"?"src-tm":"src-eb";
-      return '<a class="ec-ev-item" href="'+escH(ev.url)+'" target="_blank" rel="noopener"><div class="ec-ev-date">'+escH(dateStr)+'</div><div class="ec-ev-name">'+escH(ev.name)+'</div><div class="ec-ev-bottom">'+(ev.venue?'<div class="ec-ev-venue">'+escH(ev.venue)+'</div>':"")+'<span class="ec-ev-src '+srcCls+'">'+escH(ev.source)+'</span></div></a>';
-    }).join(""):'<div class="empty">No events found</div>';
-    document.getElementById("p-ec-list").innerHTML=ecHtml;
-  } else {
-    ecSec.style.display="none";
-  }
-}
 function renderGoals(m){
   var d=MDATA[m];var gd=GOAL_DEFS[m];if(!gd)return;
   document.getElementById("p-gc").className="card "+d.cc;
   document.getElementById("p-goal-title").textContent=gd.label+" this month";
   document.getElementById("p-goal-title").style.color=gd.color;
   if(!goalsData[m])goalsData[m]={};
-  if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];
-  var ticks=goalsData[m][thisMonth];
-  var html="";
-  for(var i=0;i<4;i++){
+  if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];\n  var ticks=goalsData[m][thisMonth];
+  var html="";\n  for(var i=0;i<4;i++){
     var t=ticks[i];
-    var cs=t.earned?"border-color:"+gd.color+";background:"+gd.color:"border-color:#d1d5db;background:#f9fafb";
-    var ck=t.earned?'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    html+='<div class="goal-tick"><div class="goal-circle" style="'+cs+'" onclick="toggleGoal(\''+ m +'\','+i+')">'+ck+'</div>';
-    html+='<input class="goal-note-inp" type="text" placeholder="What earned this?" value="'+escH(t.note||"")+'" data-member="'+m+'" data-idx="'+i+'" onblur="saveGoalNote(this)" onkeydown="if(event.key===&quot;Enter&quot;)this.blur()" style="border-color:'+( t.earned?gd.color:"#d1d5db")+'"/>';
-    html+='</div>';
+    var cs=t.earned?"border-color:"+gd.color+";background:"+gd.color:"border-color:#d1d5db;background:#f9fafb";\n    var ck=t.earned?"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg>":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#d1d5db\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg>";\n    html+="<div class=\"goal-tick\"><div class=\"goal-circle\" style=\""+cs+"\" onclick=\"toggleGoal('"+m+"',"+i+")\">"+ck+"</div>";\n    html+="<input class=\"goal-note-inp\" type=\"text\" placeholder=\"What earned this?\" value=\""+escH(t.note||"")+"\" data-member=\""+m+"\" data-idx=\""+i+"\" onblur=\"saveGoalNote(this)\" style=\"border-color:"+(t.earned?gd.color:"#d1d5db")+"\"/>";\n    html+="</div>";
   }
   document.getElementById("p-goals-grid").innerHTML=html;
 }
 function toggleGoal(m,i){
-  if(!goalsData[m])goalsData[m]={};if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];
-  goalsData[m][thisMonth][i].earned=!goalsData[m][thisMonth][i].earned;
+  if(!goalsData[m])goalsData[m]={};if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];\n  goalsData[m][thisMonth][i].earned=!goalsData[m][thisMonth][i].earned;
   saveGoalsLocal();renderGoals(m);
 }
+document.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.classList.contains("goal-note-inp"))e.target.blur();});
 function saveGoalNote(inp){
   var m=inp.dataset.member;var i=parseInt(inp.dataset.idx,10);
-  if(!goalsData[m])goalsData[m]={};if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];
-  goalsData[m][thisMonth][i].note=inp.value.trim();
+  if(!goalsData[m])goalsData[m]={};if(!goalsData[m][thisMonth])goalsData[m][thisMonth]=[{earned:false,note:""},{earned:false,note:""},{earned:false,note:""},{earned:false,note:""}];\n  goalsData[m][thisMonth][i].note=inp.value.trim();
   saveGoalsLocal();
 }
 function openEvModal(el,eid,title,date,time,loc,notes){
