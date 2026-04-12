@@ -278,7 +278,8 @@ function showSub(w){
   document.querySelectorAll(".stab").forEach(function(s){s.classList.remove("active");});
   var a=document.querySelector(".stab[data-sub='"+w+"']");if(a)a.classList.add("active");
 }
-NaN  var wc=document.getElementById("week-card");
+function syncHeights(){
+  var wc=document.getElementById("week-card");
   var hc=document.getElementById("horizon-card");
   var hs=document.getElementById("horizon-scroll");
   if(!wc||!hc||!hs)return;
@@ -289,7 +290,6 @@ NaN  var wc=document.getElementById("week-card");
 }
 function syncOnLoad(){
   syncHeights();
-  // Belt and braces: retry a few times in case fonts/images delay layout
   [100,300,600,1200].forEach(function(ms){setTimeout(syncHeights,ms);});
 }
 window.addEventListener("load",syncOnLoad);
