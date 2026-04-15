@@ -384,7 +384,7 @@ function buildMabelMenuCard(){
   if(!menuEvs.length)return"";
   var days=["Mon","Tue","Wed","Thu","Fri"];
   var todayIdx=today.getDay()===0||today.getDay()===6?-1:today.getDay()-1;
-  var html='<div class="card full c-pink" style="margin-bottom:13px"><div class="card-title">🍽️ What's on the Menu this week</div>';
+  var html='<div class="card full c-pink" style="margin-bottom:13px"><div class="card-title">🍽️ What’s on the Menu this week</div>';
   html+='<div class="menu-table"><div class="menu-row menu-header">';
   for(var di=0;di<5;di++){
     var isT=di===todayIdx;
