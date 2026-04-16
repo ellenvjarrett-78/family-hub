@@ -272,10 +272,10 @@ var thisMonth=new Date().getFullYear()+"-"+(new Date().getMonth()+1);
 var thisYear=String(new Date().getFullYear());
 var todayDateStr=(function(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");})();
 var goalsData=INIT_GOALS||{};
-function saveGoals(){postApp({action:"save_goals",goals:goalsData},function(){});}
+function saveGoals(){postApp({action:"save_goals",goals:goalsData},function(){setTimeout(function(){postApp({action:"rebuild"},function(){});},3000);});}
 function getKumonWeek(){var d=new Date(),day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1),m2=new Date(d);m2.setDate(diff);return m2.getFullYear()+"-"+String(m2.getMonth()+1).padStart(2,"0")+"-"+String(m2.getDate()).padStart(2,"0");}
 var kumonData=(function(){var d=INIT_KUMON||{};var cw=getKumonWeek();if(!d.week||d.week!==cw)return{stars:[false,false,false,false,false],week:cw};return d;})();
-function saveKumon(){postApp({action:"save_kumon",kumon:kumonData},function(){});}
+function saveKumon(){postApp({action:"save_kumon",kumon:kumonData},function(){setTimeout(function(){postApp({action:"rebuild"},function(){});},3000);});}
 var hwData={arthur:INIT_HW.arthur||[],wilfred:INIT_HW.wilfred||[],mabel:INIT_HW.mabel||[]};
 function saveHw(){postApp({action:"save_homework",homework:hwData},function(){setTimeout(function(){postApp({action:"rebuild"},function(){});},3000);});var btn=document.getElementById("p-hw-add-btn");if(btn){var orig=btn.textContent;btn.textContent="Saving…";btn.disabled=true;setTimeout(function(){btn.textContent=orig;btn.disabled=false;},22000);}}
 var weekendsData=(function(){var d=INIT_WEEKENDS||{};if(!d[thisYear])d[thisYear]={hearts:[false,false,false],note:""};return d;})();
