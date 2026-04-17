@@ -367,43 +367,6 @@ function shiftWeek(dir){
   });
   html+="</div>";
   document.getElementById("week-content").innerHTML=html;
-}
-function formatWeekLabel(offset){var d=new Date();d.setDate(d.getDate()+(offset*7));var MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];return d.getDate()+" "+MO[d.getMonth()];}
-  var today=new Date();
-  var start=new Date(today);
-  start.setDate(today.getDate()+(_weekOffset*7));
-  var cols=[];
-  for(var i=0;i<7;i++){var d=new Date(start);d.setDate(start.getDate()+i);cols.push(d);}
-  var WX={"2026-04-17":{"icon":"🌦","tempC":17,"precip":92},"2026-04-18":{"icon":"☁️","tempC":14,"precip":20},"2026-04-19":{"icon":"☁️","tempC":13,"precip":0},"2026-04-20":{"icon":"☁️","tempC":12,"precip":37},"2026-04-21":{"icon":"🌦","tempC":10,"precip":11},"2026-04-22":{"icon":"☁️","tempC":14,"precip":2},"2026-04-23":{"icon":"☁️","tempC":16,"precip":2},"2026-04-24":{"icon":"☁️","tempC":13,"precip":3}};
-  var todayStr=(function(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");})();
-  var DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-  var html="<div class=\"week-cal-grid\">";
-  cols.forEach(function(d){
-    var ds=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-    var isT=(ds===todayStr);
-    var wd=WX[ds]||{};
-    var dayEvs=ALL_EVENTS.filter(function(e){return e.date===ds&&!e.isPrimaryMenu&&!e.isRecurring;});
-    var seen={};
-    dayEvs=dayEvs.filter(function(e){if(seen[e.title])return false;seen[e.title]=true;return true;});
-    html+="<div class=\"wc-col\">";
-    html+="<div class=\"wc-hdr"+(isT?" wc-today":"")+"\">";
-    html+="<div class=\"wc-dayname\">"+DAYS[d.getDay()]+"</div>";
-    html+="<div class=\"wc-daynum"+(isT?" wc-daynum-today":"")+"\">"+(d.getDate())+"</div>";
-    if(wd.icon||wd.tempC!==undefined){html+="<div class=\"wc-wx\">"+(wd.icon||"")+(wd.tempC!==undefined?" "+wd.tempC+"°":"")+"</div>";}
-    html+="</div>";
-    if(dayEvs.length===0){html+="<div class=\"wc-empty\"></div>";}
-    dayEvs.forEach(function(ev){
-      var cls=ev.members&&ev.members.length===1?"ev-"+ev.members[0].toLowerCase():ev.members&&ev.members.every(function(m){return m==="Ellen"||m==="Chris";})?"ev-ec":"ev-family";
-      var hasTime=ev.time&&ev.time!=="All day";
-      html+="<div class=\"wc-ev "+cls+"\" data-title=\""+ev.title.replace(/"/g,"&quot;")+"\" data-date=\""+ds+"\" data-time=\""+ev.time+"\" data-loc=\""+ev.loc+"\" data-desc=\""+ev.desc+"\" onclick=\"openEvFromEl(this)\">";
-      html+="<div class=\"wc-ev-top\"><span class=\"wc-ev-title\">"+ev.title+"</span></div>";
-      if(hasTime)html+="<div class=\"wc-ev-time\">"+ev.time+"</div>";
-      html+="</div>";
-    });
-    html+="</div>";
-  });
-  html+="</div>";
-  document.getElementById("week-content").innerHTML=html;
   updateSatCallout(cols,ALL_EVENTS);
 }
 function updateSatCallout(cols,evs){
