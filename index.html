@@ -767,7 +767,7 @@ function fridgeInit(){
       var tmp=document.getElementById("fv-wx-temp");if(tmp)tmp.textContent=Math.round(d2.temperature_2m_max[0]);
       var DAYS3=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
       var wh="";
-      for(var i=1;i<=5;i++){var dd=new Date(d2.time[i]+"T12:00:00");wh+='<div class="fv-wx-day"><span class="fvwn">'+DAYS3[dd.getDay()]+'</span><span class="fvwi">'+gi(d2.weathercode[i])+'</span><span class="fvwt">'+Math.round(d2.temperature_2m_max[i])+"°</span></div>";}");
+      for(var i=1;i<=5;i++){var dd=new Date(d2.time[i]+"T12:00:00");wh+='<div class="fv-wx-day"><span class="fvwn">'+DAYS3[dd.getDay()]+'</span><span class="fvwi">'+gi(d2.weathercode[i])+'</span><span class="fvwt">'+Math.round(d2.temperature_2m_max[i])+"°</span></div>";}
       var ww=document.getElementById("fv-wx-week");if(ww)ww.innerHTML=wh;
     }).catch(function(){});
 }
