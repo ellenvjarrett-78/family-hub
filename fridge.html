@@ -76,7 +76,27 @@ function handleSignIn(r){var p=JSON.parse(atob(r.credential.split(".")[1]));if(A
 document.getElementById("app").style.display="none";
 document.getElementById("auth-wall").style.display="flex";
 (function tickClock(){var el=document.getElementById("fv-clock");if(el){var n=new Date();el.textContent=String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0");}setTimeout(tickClock,5000);})();
-function fridgeInit(){(function pickPhoto(){if(!GOAL_PHOTOS||!GOAL_PHOTOS.length)return;var img=document.getElementById("goal-photo");if(!img)return;img.src=GOAL_PHOTOS[Math.floor(Math.random()*GOAL_PHOTOS.length)];})();fetch("https://api.open-meteo.com/v1/forecast?latitude=51.640&longitude=-1.485&daily=weathercode,temperature_2m_max,precipitation_probability_max&timezone=Europe%2FLondon&temperature_unit=celsius&forecast_days=8").then(function(r){return r.json();}).then(function(data){var d=data.daily;var ic={0:"☀️",1:"🌤",2:"⛅",3:"☁️",45:"🌫",48:"🌫",51:"🌦",55:"🌦",61:"🌧",65:"🌧",71:"🌨",77:"🌨",80:"🌦",82:"🌦",85:"🌨",86:"🌨",95:"⛈",99:"⛈"};function gi(c){return ic[c]||"🌥";}var ico=document.getElementById("fv-wx-icon");if(ico)ico.textContent=gi(d.weathercode[0]);var tmp=document.getElementById("fv-wx-temp");if(tmp)tmp.textContent=Math.round(d.temperature_2m_max[0]);var D3=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];var wh="";for(var i=1;i<=6;i++){var dd=new Date(d.time[i]+"T12:00:00");var pr=d.precipitation_probability_max[i];var rd=pr>=50?"<span class='wx-rain'>"+pr+"%</span>":"";wh+="<div class='wx-day'><span class='wx-dn'>"+D3[dd.getDay()]+"</span><span class='wx-di'>"+gi(d.weathercode[i])+"</span><span class='wx-dt'>"+Math.round(d.temperature_2m_max[i])+"°</span>"+rd+"</div>";}var ww=document.getElementById("fv-wx-week");if(ww)ww.innerHTML=wh;}).catch(function(){});}
+function fridgeInit(){
+  if(GOAL_PHOTOS&&GOAL_PHOTOS.length){var img=document.getElementById("goal-photo");if(img)img.src=GOAL_PHOTOS[Math.floor(Math.random()*GOAL_PHOTOS.length)];}
+  var ic={0:"☀️",1:"🌤",2:"⛅",3:"☁️",45:"🌫",48:"🌫",51:"🌦",55:"🌦",61:"🌧",65:"🌧",71:"🌨",77:"🌨",80:"🌦",82:"🌦",85:"🌨",86:"🌨",95:"⛈",99:"⛈"};
+  function gi(c){return ic[c]||"🌥";}
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=51.640&longitude=-1.485&daily=weathercode,temperature_2m_max,precipitation_probability_max&timezone=Europe%2FLondon&temperature_unit=celsius&forecast_days=8")
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var d=data.daily;
+    var ico=document.getElementById("fv-wx-icon");if(ico)ico.textContent=gi(d.weathercode[0]);
+    var tmp=document.getElementById("fv-wx-temp");if(tmp)tmp.textContent=Math.round(d.temperature_2m_max[0]);
+    var D3=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    var wh="";
+    for(var i=1;i<=6;i++){
+      var dd=new Date(d.time[i]+"T12:00:00");
+      var pr=d.precipitation_probability_max[i];
+      var rain=pr>=50?"<span class=\"wx-rain\">"+pr+"%</span>":"";
+      wh+="<div class=\"wx-day\"><span class=\"wx-dn\">"+D3[dd.getDay()]+"</span><span class=\"wx-di\">"+gi(d.weathercode[i])+"</span><span class=\"wx-dt\">"+Math.round(d.temperature_2m_max[i])+"°</span>"+rain+"</div>";
+    }
+    var ww=document.getElementById("fv-wx-week");if(ww)ww.innerHTML=wh;
+  }).catch(function(){});
+}
 function filterCU(q){var v=q.toLowerCase().trim();var cb=document.getElementById("cu-clear");if(cb)cb.style.display=v?"":"none";document.querySelectorAll(".cu-row").forEach(function(row){var txt=(row.dataset.title||"")+" "+(row.dataset.loc||"");row.style.display=(!v||txt.toLowerCase().indexOf(v)!==-1)?"":"none";});document.querySelectorAll(".cu-group").forEach(function(grp){var any=Array.from(grp.querySelectorAll(".cu-row")).some(function(r){return r.style.display!=="none";});grp.style.display=(!v||any)?"":"none";});}
 function clearCU(){var inp=document.getElementById("cu-search");if(inp){inp.value="";filterCU("");}}
 function openEvModal(){document.getElementById("fv-ev-bg").classList.remove("hidden");setTimeout(function(){document.getElementById("fv-ev-title").focus();},50);}
