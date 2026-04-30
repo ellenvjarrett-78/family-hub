@@ -68,7 +68,7 @@ var GOAL_PHOTOS=["https://raw.githubusercontent.com/ellenvjarrett-78/family-hub/
 var FRIDGE_TASKS=[];
 var FRIDGE_HW={"arthur":[],"wilfred":[],"mabel":[]};
 var _fevModalId=null,_fevModalEl=null,_ftkModalId=null,_ftkModalEl=null;
-var _fhwModalMember=null,_fhwModalIdx=null;
+var _fhwModalMember=null,_fhwModalIdx=null,_fhwModalEl=null;
 function handleSignIn(r){var p=JSON.parse(atob(r.credential.split(".")[1]));if(ALLOWED.includes(p.email)){document.getElementById("auth-wall").style.display="none";document.getElementById("app").style.display="block";fridgeInit();}else{document.getElementById("auth-error").style.display="block";}}
 document.getElementById("app").style.display="none";
 document.getElementById("auth-wall").style.display="flex";
