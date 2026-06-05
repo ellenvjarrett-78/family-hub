@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Holiday Helper 🌞</title>
+<title>Holiday Helper 2026 🌞</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -17,20 +17,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 .cost-pill{display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;border:1.5px solid;font-size:11px;font-weight:600}
 .pill-name{font-weight:700}
 .slicers{display:flex;gap:4px}
-.slicer{padding:4px 11px;border-radius:99px;border:1.5px solid #d1d5db;font-size:11px;font-weight:600;cursor:pointer;background:#f9fafb;color:#6b7280;transition:all .15s}
-.slicer.active{background:var(--sb);color:var(--st);border-color:var(--sc)}
+.slicer{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border-radius:99px;border:1.5px solid #d1d5db;font-size:11px;font-weight:600;cursor:pointer;background:#f9fafb;color:#6b7280;transition:all .15s}
+.slicer.active{background:var(--sb,#f0f4f8);color:var(--st,#374151);border-color:var(--sc,#6b7280)}
+.slicer-all{--sb:#f0f4f8;--st:#374151;--sc:#9ca3af}
+.slicer-name{font-weight:700}
+.slicer-cost{font-size:10px;opacity:.8}
+.hol-dates-row{display:grid;grid-template-columns:90px repeat(5,1fr);gap:2px;margin-bottom:1px}
+.hol-dates-spacer{}
+.hol-date-cell{font-size:8px;color:#d1d5db;font-weight:700;text-align:right;padding:0 4px 1px}
+.holiday-banner{display:flex;align-items:center;gap:8px;background:#fef3c7;border:2px solid #f59e0b;border-radius:8px;padding:7px 12px;cursor:pointer;margin-bottom:2px;transition:opacity .15s}
+.holiday-banner:hover{opacity:.85}
+.hol-banner-lbl{font-size:18px;flex-shrink:0}
+.hol-banner-title{font-size:12px;font-weight:800;color:#92400e;flex:1}
 .hh-btn{padding:5px 11px;border-radius:7px;border:1.5px solid #3b82f6;background:#dbeafe;color:#1e40af;font-size:11px;font-weight:700;cursor:pointer}
 .hh-btn-green{border-color:#10b981;background:#d1fae5;color:#065f46}
 .hh-btn-grey{padding:5px 9px;border-radius:7px;border:1.5px solid #d1d5db;background:#f9fafb;color:#374151;font-size:14px;cursor:pointer}
+.hh-btn-purple{border-color:#a855f7;background:#f3e8ff;color:#6b21a8}
 .cal-outer{padding:10px;overflow-x:auto}
-.col-headers{display:grid;grid-template-columns:44px 90px repeat(7,1fr);gap:2px;margin-bottom:2px;position:sticky;top:52px;z-index:10;background:#f0f4f8;padding-bottom:2px}
+.col-headers{display:grid;grid-template-columns:44px 90px repeat(5,1fr);gap:2px;margin-bottom:2px;position:sticky;top:52px;z-index:10;background:#f0f4f8;padding-bottom:2px}
 .col-hdr-spacer,.col-hdr-spacer2{}
 .col-hdr{text-align:center;font-size:9px;font-weight:800;color:#6b7280;letter-spacing:.5px;text-transform:uppercase;padding:3px 0;background:rgba(255,255,255,0.85);border-radius:5px}
 .week-block{display:grid;grid-template-columns:44px 1fr;gap:2px;margin-bottom:3px}
 .week-label-col{display:flex;align-items:center;justify-content:center;padding:2px}
 .week-label{font-size:9px;font-weight:800;color:#9ca3af;writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
 .week-days-grid{display:flex;flex-direction:column;gap:2px}
-.child-row{display:grid;grid-template-columns:90px repeat(7,1fr);gap:2px;align-items:stretch}
+.child-row{display:grid;grid-template-columns:90px repeat(5,1fr);gap:2px;align-items:stretch}
 .child-lbl{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:6px;padding:3px 5px;text-align:center}
 .day-cell{background:#fff;border-radius:5px;padding:3px;min-height:40px;border:1px solid #f3f4f6;display:flex;flex-direction:column;gap:2px}
 .day-cell.out-of-range{background:#f9fafb;border:1px dashed #e5e7eb}
@@ -68,33 +79,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 .mbtn-cancel{padding:7px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;color:#6b7280;font-size:12px;font-weight:700;cursor:pointer}
 .mbtn-save{padding:7px 16px;border-radius:7px;border:2px solid #3b82f6;background:#dbeafe;color:#1e40af;font-size:12px;font-weight:800;cursor:pointer}
 .mbtn-green{border-color:#10b981;background:#d1fae5;color:#065f46}
+.mbtn-purple{border-color:#a855f7;background:#f3e8ff;color:#6b21a8}
 .hidden{display:none!important}
-@media(max-width:700px){.child-row{grid-template-columns:52px repeat(7,minmax(0,1fr))}.col-headers{grid-template-columns:44px 52px repeat(7,1fr)}.child-lbl{font-size:8px;padding:2px 3px}}
+@media(max-width:700px){.child-row{grid-template-columns:52px repeat(5,minmax(0,1fr))}.col-headers{grid-template-columns:44px 52px repeat(5,1fr)}.child-lbl{font-size:8px;padding:2px 3px}}
 </style>
 </head>
 <body>
 <div id="hh-auth-wall" style="display:none;position:fixed;inset:0;background:linear-gradient(135deg,#D6E8F7,#FDE8D4,#D4F0D3);z-index:999;flex-direction:column;align-items:center;justify-content:center"><div style="background:white;padding:32px 40px;border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:1rem;box-shadow:0 8px 32px rgba(0,0,0,0.12)"><div style="font-size:40px">🌞</div><h2 style="font-size:22px;font-weight:800;color:#1f2937;font-family:-apple-system,sans-serif">Holiday Helper</h2><p style="font-size:13px;color:#6b7280">Sign in with your Google account</p><div id="g_id_onload" data-client_id="405796403274-stt245u5lgepihh0etnaqnsrg67jkk44.apps.googleusercontent.com" data-callback="hhHandleSignIn" data-auto_select="true"></div><div class="g_id_signin" data-type="standard" data-theme="outline" data-size="large"></div><p id="hh-auth-error" style="font-size:13px;color:#ef4444;display:none">Sorry, that account isn't authorised.</p></div></div>
 <div id="hh-app" style="display:none">
 <div class="hh-header">
-<div class="hh-header-left"><div class="hh-logo">🌞 Holiday Helper</div><div class="hh-sub">Summer 2025 · 8 July – 3 September</div></div>
+<div class="hh-header-left"><div class="hh-logo">🌞 Holiday Helper</div><div class="hh-sub">Summer 2026 · 8 July – 3 September</div></div>
 <div class="hh-header-right">
-<div class="cost-pills">
-<div class="cost-pill" style="background:#D6E8F7;color:#1a3a5c;border-color:#4A90D9"><span class="pill-name">Arthur</span><span class="pill-amt">£0</span></div>
-<div class="cost-pill" style="background:#FDE8D4;color:#5c2a00;border-color:#E8853A"><span class="pill-name">Wilf</span><span class="pill-amt">£0</span></div>
-<div class="cost-pill" style="background:#D4F0D3;color:#1a4a19;border-color:#7DC87B"><span class="pill-name">Mabel</span><span class="pill-amt">£0</span></div>
-</div>
 <div class="slicers">
-<button class="slicer active" data-child="Arthur" style="--sb:#D6E8F7;--sc:#4A90D9;--st:#1a3a5c" onclick="toggleSlicer(this)">Arthur</button>
-<button class="slicer active" data-child="Wilf" style="--sb:#FDE8D4;--sc:#E8853A;--st:#5c2a00" onclick="toggleSlicer(this)">Wilf</button>
-<button class="slicer active" data-child="Mabel" style="--sb:#D4F0D3;--sc:#7DC87B;--st:#1a4a19" onclick="toggleSlicer(this)">Mabel</button>
+<button class="slicer slicer-all active" onclick="showAll(this)">All</button>
+<button class="slicer" data-child="Arthur" style="--sb:#D6E8F7;--sc:#4A90D9;--st:#1a3a5c" onclick="showChild(this)"><span class="slicer-name">Arthur</span><span class="slicer-cost"> £0</span></button>
+<button class="slicer" data-child="Wilf" style="--sb:#FDE8D4;--sc:#E8853A;--st:#5c2a00" onclick="showChild(this)"><span class="slicer-name">Wilf</span><span class="slicer-cost"> £0</span></button>
+<button class="slicer" data-child="Mabel" style="--sb:#D4F0D3;--sc:#7DC87B;--st:#1a4a19" onclick="showChild(this)"><span class="slicer-name">Mabel</span><span class="slicer-cost"> £0</span></button>
 </div>
+<button class="hh-btn hh-btn-purple" onclick="openAddClubModal()">&#43; Club</button>
 <button class="hh-btn" onclick="openAddModal()">&#43; Event</button>
 <button class="hh-btn hh-btn-green" onclick="openTaskModal()">&#43; Task</button>
 <button class="hh-btn hh-btn-grey" onclick="rebuildHH(this)" title="Rebuild">↻</button>
 </div>
 </div>
 <div class="cal-outer">
-<div class="col-headers"><div class="col-hdr-spacer"></div><div class="col-hdr-spacer2"></div><div class="col-hdr">Mon</div><div class="col-hdr">Tue</div><div class="col-hdr">Wed</div><div class="col-hdr">Thu</div><div class="col-hdr">Fri</div><div class="col-hdr">Sat</div><div class="col-hdr">Sun</div></div>
+<div class="col-headers"><div class="col-hdr-spacer"></div><div class="col-hdr-spacer2"></div><div class="col-hdr">Mon</div><div class="col-hdr">Tue</div><div class="col-hdr">Wed</div><div class="col-hdr">Thu</div><div class="col-hdr">Fri</div></div>
 <div class="week-block">
 <div class="week-label-col"><div class="week-label">8 Jul</div></div>
 <div class="week-days-grid">
@@ -102,6 +111,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell out-of-range">
 </div>
+<div class="day-cell out-of-range">
+</div>
 <div class="day-cell">
 <div class="day-num">8</div>
 </div>
@@ -111,18 +122,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">10</div>
 </div>
-<div class="day-cell">
-<div class="day-num">11</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">12</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">13</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell out-of-range">
+</div>
 <div class="day-cell out-of-range">
 </div>
 <div class="day-cell">
@@ -130,101 +134,51 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
 </div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
 <div class="day-cell out-of-range">
 </div>
-<div class="day-cell">
+<div class="day-cell out-of-range">
 </div>
 <div class="day-cell">
+<div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="3qg5uhk17hma1h6b0utnu76ee8@google.com_2026-07-08" data-title="Mabel at School Camp" data-date="2026-07-08" data-time="9:00 AM" data-endtime="5:00 PM" data-loc="" data-desc="" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">⛺ Mabel at School Camp</span></div>
 </div>
 <div class="day-cell">
+<div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="3qg5uhk17hma1h6b0utnu76ee8@google.com_2026-07-09" data-title="Mabel at School Camp" data-date="2026-07-09" data-time="9:00 AM" data-endtime="5:00 PM" data-loc="" data-desc="" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">⛺ Mabel at School Camp</span></div>
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-10" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa, Europa (£55)?</span></div>
 </div>
 </div>
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">14 Jul</div></div>
+<div class="week-label-col"><div class="week-label">13 Jul</div></div>
+<div class="week-days-grid">
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell">13</div>
+<div class="hol-date-cell">14</div>
+<div class="hol-date-cell">15</div>
+<div class="hol-date-cell">16</div>
+<div class="hol-date-cell">17</div>
+</div>
+<div class="holiday-banner" data-child="all" data-id="6ssj6dph75h36b9j6sqj8b9k6co34b9ocks6abb4c9i36o9p71i3ce9i74@google.com_2026-07-13" data-title="Centerparcs Holiday" data-date="2026-07-13" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">
+<div class="hol-banner-lbl">🏖️</div>
+<div class="hol-banner-title">Centerparcs Holiday</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">20 Jul</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell">
-<div class="day-num">14</div>
-</div>
-<div class="day-cell">
-<div class="day-num">15</div>
-</div>
-<div class="day-cell">
-<div class="day-num">16</div>
-</div>
-<div class="day-cell">
-<div class="day-num">17</div>
-</div>
-<div class="day-cell">
-<div class="day-num">18</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">19</div>
-</div>
-<div class="day-cell weekend">
 <div class="day-num">20</div>
 </div>
-</div>
-<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
-<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
-</div>
-<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
-<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
-</div>
-</div>
-</div>
-<div class="week-block">
-<div class="week-label-col"><div class="week-label">21 Jul</div></div>
-<div class="week-days-grid">
-<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
-<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell">
 <div class="day-num">21</div>
 </div>
@@ -237,15 +191,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">24</div>
 </div>
-<div class="day-cell">
-<div class="day-num">25</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">26</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">27</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -259,225 +204,86 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
 <div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-20" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-21" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-22" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-23" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-24" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
 </div>
 </div>
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">28 Jul</div></div>
+<div class="week-label-col"><div class="week-label">27 Jul</div></div>
 <div class="week-days-grid">
-<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
-<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">28</div>
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell">27</div>
+<div class="hol-date-cell">28</div>
+<div class="hol-date-cell">29</div>
+<div class="hol-date-cell">30</div>
+<div class="hol-date-cell">31</div>
 </div>
-<div class="day-cell">
-<div class="day-num">29</div>
-</div>
-<div class="day-cell">
-<div class="day-num">30</div>
-</div>
-<div class="day-cell">
-<div class="day-num">31</div>
-</div>
-<div class="day-cell">
-<div class="day-num">1</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">2</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">3</div>
-</div>
-</div>
-<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
-<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
-</div>
-<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
-<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
+<div class="holiday-banner" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-07-31" data-title="France Holiday" data-date="2026-07-31" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">
+<div class="hol-banner-lbl">🏖️</div>
+<div class="hol-banner-title">France Holiday</div>
 </div>
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">4 Aug</div></div>
+<div class="week-label-col"><div class="week-label">3 Aug</div></div>
 <div class="week-days-grid">
-<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
-<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">4</div>
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell">3</div>
+<div class="hol-date-cell">4</div>
+<div class="hol-date-cell">5</div>
+<div class="hol-date-cell">6</div>
+<div class="hol-date-cell">7</div>
 </div>
-<div class="day-cell">
-<div class="day-num">5</div>
-</div>
-<div class="day-cell">
-<div class="day-num">6</div>
-</div>
-<div class="day-cell">
-<div class="day-num">7</div>
-</div>
-<div class="day-cell">
-<div class="day-num">8</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">9</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">10</div>
-</div>
-</div>
-<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
-<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
-</div>
-<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
-<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-<div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="6gr68e9nc9i6cb9kckrj2b9kchimcb9o64rjgb9g6csm6chl74om2dpncg@google.com" data-title="Mabel ear apt" data-date="2025-08-05" data-time="9:00 AM" data-endtime="11:00 AM" data-loc="Royal Berkshire Hospital, Reading RG1, UK" data-desc="Paediatric audiology, audiology 1, west drive buildings, redlands road site rg1 5an" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Mabel ear apt</span></div>
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
+<div class="holiday-banner" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-03" data-title="France Holiday" data-date="2026-08-03" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">
+<div class="hol-banner-lbl">🏖️</div>
+<div class="hol-banner-title">France Holiday</div>
 </div>
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">11 Aug</div></div>
+<div class="week-label-col"><div class="week-label">10 Aug</div></div>
+<div class="week-days-grid">
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell">10</div>
+<div class="hol-date-cell">11</div>
+<div class="hol-date-cell">12</div>
+<div class="hol-date-cell">13</div>
+<div class="hol-date-cell">14</div>
+</div>
+<div class="holiday-banner" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-10" data-title="France Holiday" data-date="2026-08-10" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">
+<div class="hol-banner-lbl">🏖️</div>
+<div class="hol-banner-title">France Holiday</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">17 Aug</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell">
-<div class="day-num">11</div>
-</div>
-<div class="day-cell">
-<div class="day-num">12</div>
-</div>
-<div class="day-cell">
-<div class="day-num">13</div>
-</div>
-<div class="day-cell">
-<div class="day-num">14</div>
-</div>
-<div class="day-cell">
-<div class="day-num">15</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">16</div>
-</div>
-<div class="day-cell weekend">
 <div class="day-num">17</div>
 </div>
-</div>
-<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
-<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
-</div>
-<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
-<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
-</div>
-</div>
-</div>
-<div class="week-block">
-<div class="week-label-col"><div class="week-label">18 Aug</div></div>
-<div class="week-days-grid">
-<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
-<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell">
 <div class="day-num">18</div>
 </div>
@@ -490,15 +296,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">21</div>
 </div>
-<div class="day-cell">
-<div class="day-num">22</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">23</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">24</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -511,10 +308,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
 </div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
@@ -529,18 +322,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">25 Aug</div></div>
+<div class="week-label-col"><div class="week-label">24 Aug</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">24</div>
+</div>
 <div class="day-cell">
 <div class="day-num">25</div>
 </div>
@@ -553,15 +345,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">28</div>
 </div>
-<div class="day-cell">
-<div class="day-num">29</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">30</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">31</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -575,10 +358,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
@@ -591,75 +370,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
 </div>
 </div>
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">1 Sep</div></div>
+<div class="week-label-col"><div class="week-label">31 Aug</div></div>
 <div class="week-days-grid">
-<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
-<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">1</div>
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell">31</div>
+<div class="hol-date-cell">1</div>
+<div class="hol-date-cell">2</div>
+<div class="hol-date-cell">3</div>
+<div class="hol-date-cell"></div>
 </div>
-<div class="day-cell">
-<div class="day-num">2</div>
-</div>
-<div class="day-cell">
-<div class="day-num">3</div>
-</div>
-<div class="day-cell out-of-range">
-</div>
-<div class="day-cell out-of-range">
-</div>
-<div class="day-cell out-of-range weekend">
-</div>
-<div class="day-cell out-of-range weekend">
-</div>
-</div>
-<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
-<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell out-of-range">
-</div>
-<div class="day-cell out-of-range">
-</div>
-<div class="day-cell out-of-range weekend">
-</div>
-<div class="day-cell out-of-range weekend">
-</div>
-</div>
-<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
-<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell">
-</div>
-<div class="day-cell out-of-range">
-</div>
-<div class="day-cell out-of-range">
-</div>
-<div class="day-cell out-of-range weekend">
-</div>
-<div class="day-cell out-of-range weekend">
+<div class="holiday-banner" data-child="all" data-id="20260831_n81blc7vheh9a967emaqiq6lo0@google.com_2026-08-31" data-title="Summer Bank Holiday (regional holiday)" data-date="2026-08-31" data-time="All day" data-endtime="" data-loc="" data-desc="Public holiday in England, Wales, Northern Ireland" data-allday="1" onclick="openDetail(this)">
+<div class="hol-banner-lbl">🏖️</div>
+<div class="hol-banner-title">Summer Bank Holiday (regional holiday)</div>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="modal-bg hidden" id="detailModal" onclick="bgClose(event,'detailModal')"><div class="modal"><button class="modal-close" onclick="closeModal('detailModal')">✕</button><div class="modal-badge" id="dm-badge"></div><h3 id="dm-title" class="modal-h3"></h3><div id="dm-cost" class="modal-cost"></div><div class="modal-row"><span class="mfl">📅</span><span id="dm-date"></span></div><div class="modal-row"><span class="mfl">⏰</span><span id="dm-time"></span></div><div class="modal-row" id="dm-loc-row"><span class="mfl">📍</span><span id="dm-loc"></span></div><div class="modal-desc" id="dm-desc"></div></div></div><div class="modal-bg hidden" id="addModal" onclick="bgClose(event,'addModal')"><div class="modal"><button class="modal-close" onclick="closeModal('addModal')">✕</button><h3 class="modal-h3">📅 Add calendar event</h3><div class="mf"><label>Title *</label><input type="text" id="ae-title" placeholder="e.g. Swimming club…"/></div><div class="mf"><label class="toggle-lbl"><input type="checkbox" id="ae-allday" onchange="aeToggleAllDay(this)"> All-day event</label></div><div id="ae-dt-row"><div class="mf-row"><div class="mf"><label>Start date *</label><input type="date" id="ae-sd" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>Start time</label><input type="time" id="ae-st" value="09:00"/></div></div><div class="mf-row"><div class="mf"><label>End date</label><input type="date" id="ae-ed" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>End time</label><input type="time" id="ae-et" value="10:00"/></div></div></div><div id="ae-ad-row" class="hidden"><div class="mf-row"><div class="mf"><label>Date *</label><input type="date" id="ae-ad" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>End date (multi-day)</label><input type="date" id="ae-ae" min="2025-07-08" max="2025-09-03"/></div></div></div><div class="mf"><label>📍 Location</label><input type="text" id="ae-loc" placeholder="e.g. Leisure centre…"/></div><div class="mf"><label>📝 Notes</label><textarea id="ae-notes" rows="3" placeholder="Add details… include £ amount to track costs"></textarea></div><div class="mf"><label>🔁 Recurrence</label><select id="ae-recur"><option value="">Does not repeat</option><option value="weekly">Weekly</option><option value="weekly2">Every 2 weeks</option><option value="daily">Daily</option><option value="weekday">Every weekday</option></select></div><div class="mf"><label>👥 Guests</label><div class="guest-ticks"><label class="guest-tick"><input type="checkbox" id="ae-g1" value="ellenvjarrett@gmail.com"><span>Ellen</span></label><label class="guest-tick"><input type="checkbox" id="ae-g2" value="chris.j.jarrett@gmail.com"><span>Chris</span></label></div><input type="text" id="ae-gx" placeholder="Other emails, comma-separated…" style="margin-top:6px"/></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('addModal')">Cancel</button><button class="mbtn-save" onclick="saveEvent()">Save to calendar</button></div></div></div><div class="modal-bg hidden" id="taskModal" onclick="bgClose(event,'taskModal')"><div class="modal" style="border-top-color:#10b981"><button class="modal-close" onclick="closeModal('taskModal')">✕</button><h3 class="modal-h3">✅ Create Google Task</h3><div class="mf"><label>Title *</label><input type="text" id="tm-title" placeholder="e.g. Book swimming lessons…"/></div><div class="mf"><label>Notes</label><textarea id="tm-notes" rows="2"></textarea></div><div class="mf-row"><div class="mf"><label>Due date</label><input type="date" id="tm-due"/></div></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('taskModal')">Cancel</button><button class="mbtn-save mbtn-green" onclick="saveTask()">Create task</button></div></div></div><div class="modal-bg hidden" id="clubModal" onclick="bgClose(event,'clubModal')"><div class="modal"><button class="modal-close" onclick="closeModal('clubModal')">✕</button><h3 class="modal-h3">📋 Available activity</h3><div id="club-info" style="margin-bottom:12px;font-size:13px"></div><div class="mf"><label>Add to calendar as…</label><input type="text" id="cl-title"/></div><div class="mf-row"><div class="mf"><label>Date</label><input type="date" id="cl-date"/></div><div class="mf"><label>Start</label><input type="time" id="cl-start" value="09:00"/></div><div class="mf"><label>End</label><input type="time" id="cl-end" value="11:00"/></div></div><div class="mf"><label>Notes</label><textarea id="cl-notes" rows="2"></textarea></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('clubModal')">Cancel</button><button class="mbtn-save" onclick="bookClub()">📅 Book it!</button></div></div></div><script>
+<div class="modal-bg hidden" id="detailModal" onclick="bgClose(event,'detailModal')"><div class="modal"><button class="modal-close" onclick="closeModal('detailModal')">✕</button><div class="modal-badge" id="dm-badge"></div><h3 id="dm-title" class="modal-h3"></h3><div id="dm-cost" class="modal-cost"></div><div class="modal-row"><span class="mfl">📅</span><span id="dm-date"></span></div><div class="modal-row"><span class="mfl">⏰</span><span id="dm-time"></span></div><div class="modal-row" id="dm-loc-row"><span class="mfl">📍</span><span id="dm-loc"></span></div><div class="modal-desc" id="dm-desc"></div></div></div><div class="modal-bg hidden" id="addModal" onclick="bgClose(event,'addModal')"><div class="modal"><button class="modal-close" onclick="closeModal('addModal')">✕</button><h3 class="modal-h3">📅 Add calendar event</h3><div class="mf"><label>Title *</label><input type="text" id="ae-title" placeholder="e.g. Swimming club…"/></div><div class="mf"><label class="toggle-lbl"><input type="checkbox" id="ae-allday" onchange="aeToggleAllDay(this)"> All-day event</label></div><div id="ae-dt-row"><div class="mf-row"><div class="mf"><label>Start date *</label><input type="date" id="ae-sd" min="2026-07-08" max="2026-09-03"/></div><div class="mf"><label>Start time</label><input type="time" id="ae-st" value="09:00"/></div></div><div class="mf-row"><div class="mf"><label>End date</label><input type="date" id="ae-ed" min="2026-07-08" max="2026-09-03"/></div><div class="mf"><label>End time</label><input type="time" id="ae-et" value="10:00"/></div></div></div><div id="ae-ad-row" class="hidden"><div class="mf-row"><div class="mf"><label>Date *</label><input type="date" id="ae-ad" min="2026-07-08" max="2026-09-03"/></div><div class="mf"><label>End date (multi-day)</label><input type="date" id="ae-ae" min="2026-07-08" max="2026-09-03"/></div></div></div><div class="mf"><label>📍 Location</label><input type="text" id="ae-loc" placeholder="e.g. Leisure centre…"/></div><div class="mf"><label>📝 Notes</label><textarea id="ae-notes" rows="3" placeholder="Add details… include £ amount to track costs"></textarea></div><div class="mf"><label>🔁 Recurrence</label><select id="ae-recur"><option value="">Does not repeat</option><option value="weekly">Weekly</option><option value="weekly2">Every 2 weeks</option><option value="daily">Daily</option><option value="weekday">Every weekday</option></select></div><div class="mf"><label>👥 Guests</label><div class="guest-ticks"><label class="guest-tick"><input type="checkbox" id="ae-g1" value="ellenvjarrett@gmail.com"><span>Ellen</span></label><label class="guest-tick"><input type="checkbox" id="ae-g2" value="chris.j.jarrett@gmail.com"><span>Chris</span></label></div><input type="text" id="ae-gx" placeholder="Other emails, comma-separated…" style="margin-top:6px"/></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('addModal')">Cancel</button><button class="mbtn-save" onclick="saveEvent()">Save to calendar</button></div></div></div><div class="modal-bg hidden" id="taskModal" onclick="bgClose(event,'taskModal')"><div class="modal" style="border-top-color:#10b981"><button class="modal-close" onclick="closeModal('taskModal')">✕</button><h3 class="modal-h3">✅ Create Google Task</h3><div class="mf"><label>Title *</label><input type="text" id="tm-title" placeholder="e.g. Book swimming lessons…"/></div><div class="mf"><label>Notes</label><textarea id="tm-notes" rows="2"></textarea></div><div class="mf-row"><div class="mf"><label>Due date</label><input type="date" id="tm-due"/></div></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('taskModal')">Cancel</button><button class="mbtn-save mbtn-green" onclick="saveTask()">Create task</button></div></div></div><div class="modal-bg hidden" id="addClubModal" onclick="bgClose(event,'addClubModal')"><div class="modal" style="border-top-color:#a855f7;max-width:500px"><button class="modal-close" onclick="closeModal('addClubModal')">✕</button><h3 class="modal-h3">📋 Add club to sheet</h3><div class="mf-row"><div class="mf"><label>Club name *</label><input type="text" id="ac-name" placeholder="e.g. Europa School Camp"/></div><div class="mf"><label>Location</label><input type="text" id="ac-loc" placeholder="e.g. Abingdon"/></div></div><div class="mf-row"><div class="mf"><label>Cost (£)</label><input type="number" id="ac-cost" placeholder="e.g. 55" min="0"/></div><div class="mf"><label>Child *</label><select id="ac-child"><option value="Arthur">Arthur</option><option value="Wilf">Wilf</option><option value="Mabel">Mabel</option></select></div></div><div class="mf"><label>Select days available</label><div id="ac-days-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-height:280px;overflow-y:auto;border:1.5px solid #e5e7eb;border-radius:7px;padding:8px"></div></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('addClubModal')">Cancel</button><button class="mbtn-save mbtn-purple" onclick="saveClubToSheet()">Save to sheet</button></div></div></div>
+<div class="modal-bg hidden" id="clubModal" onclick="bgClose(event,'clubModal')"><div class="modal"><button class="modal-close" onclick="closeModal('clubModal')">✕</button><h3 class="modal-h3">📋 Available activity</h3><div id="club-info" style="margin-bottom:12px;font-size:13px"></div><div class="mf"><label>Add to calendar as…</label><input type="text" id="cl-title"/></div><div class="mf-row"><div class="mf"><label>Date</label><input type="date" id="cl-date"/></div><div class="mf"><label>Start</label><input type="time" id="cl-start" value="09:00"/></div><div class="mf"><label>End</label><input type="time" id="cl-end" value="11:00"/></div></div><div class="mf"><label>Notes</label><textarea id="cl-notes" rows="2"></textarea></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('clubModal')">Cancel</button><button class="mbtn-save" onclick="bookClub()">📅 Book it!</button></div></div></div><script>
 var WEB_APP_URL="https://script.google.com/macros/s/AKfycbygAOYKkq83S_yA5GCrUZkgEKdrfQc1uFRXgjrjylIHRw2-8LWUXJrSFkS_abc27Erb/exec";
 var APP_SECRET="87311204471295316682189964520796";
 var HH_ALLOWED=["ellenvjarrett@gmail.com","chris.j.jarrett@gmail.com"];
@@ -667,17 +401,20 @@ var HH_COLOURS={"Arthur":{"bg":"#4A90D9","light":"#D6E8F7","text":"#1a3a5c","bor
 var HH_CHILDREN=["Arthur","Wilf","Mabel"];
 var MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 var DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-var activeChildren=new Set(HH_CHILDREN);
 function hhHandleSignIn(r){  var p=JSON.parse(atob(r.credential.split(".")[1]));  if(HH_ALLOWED.includes(p.email)){    document.getElementById("hh-auth-wall").style.display="none";    document.getElementById("hh-app").style.display="";  }else{document.getElementById("hh-auth-error").style.display="block";}}
 document.getElementById("hh-auth-wall").style.display="flex";
 document.getElementById("hh-app").style.display="none";
-function toggleSlicer(btn){  var c=btn.dataset.child;  if(activeChildren.has(c)&&activeChildren.size>1){activeChildren.delete(c);btn.classList.remove("active");}  else{activeChildren.add(c);btn.classList.add("active");}  document.querySelectorAll(".child-row").forEach(function(r){    r.style.display=activeChildren.has(r.dataset.child)?"":"none";});}
+function showChild(btn){  document.querySelectorAll(".slicer").forEach(function(b){b.classList.remove("active");});  btn.classList.add("active");  var c=btn.dataset.child;  document.querySelectorAll(".child-row").forEach(function(r){r.style.display=r.dataset.child===c?"":"none";});  document.querySelectorAll(".holiday-row").forEach(function(r){r.style.display="";});}
+function showAll(btn){  document.querySelectorAll(".slicer").forEach(function(b){b.classList.remove("active");});  btn.classList.add("active");  document.querySelectorAll(".child-row,.holiday-row").forEach(function(r){r.style.display="";});}
 function openDetail(el){  var d=el.dataset,c=HH_COLOURS[d.child]||{};  var b=document.getElementById("dm-badge");  b.textContent=d.child;b.style.cssText="background:"+c.light+";color:"+c.text+";border-color:"+c.bg;  document.getElementById("dm-title").textContent=d.title||"";  var ce=document.getElementById("dm-cost");  if(d.cost){ce.textContent="£"+parseFloat(d.cost).toFixed(2);ce.style.color=c.bg;ce.style.display="";}else{ce.style.display="none";}  document.getElementById("dm-date").textContent=niceDate(d.date);  document.getElementById("dm-time").textContent=d.allday==="1"?"All day":(d.time+(d.endtime?" – "+d.endtime:""));  var lr=document.getElementById("dm-loc-row");  if(d.loc){document.getElementById("dm-loc").textContent=d.loc;lr.style.display="";}else{lr.style.display="none";}  var de=document.getElementById("dm-desc");  if(d.desc){de.textContent=d.desc;de.style.display="";}else{de.style.display="none";}  openModal("detailModal");}
 function openAddModal(){  ["ae-title","ae-loc","ae-notes","ae-gx"].forEach(function(id){var e=document.getElementById(id);if(e)e.value="";});  ["ae-sd","ae-ed","ae-ad","ae-ae"].forEach(function(id){document.getElementById(id).value="";});  document.getElementById("ae-st").value="09:00";document.getElementById("ae-et").value="10:00";  document.getElementById("ae-allday").checked=false;  document.getElementById("ae-dt-row").style.display="";  document.getElementById("ae-ad-row").classList.add("hidden");  document.getElementById("ae-g1").checked=false;document.getElementById("ae-g2").checked=false;  document.getElementById("ae-recur").value="";  openModal("addModal");}
 function aeToggleAllDay(cb){  document.getElementById("ae-dt-row").style.display=cb.checked?"none":"";  document.getElementById("ae-ad-row").classList.toggle("hidden",!cb.checked);}
 function saveEvent(){  var title=document.getElementById("ae-title").value.trim();  if(!title){alert("Please enter a title.");return;}  var allDay=document.getElementById("ae-allday").checked;  var payload={action:"email_calendar",title:title,allDay:allDay,    notes:document.getElementById("ae-notes").value.trim(),    location:document.getElementById("ae-loc").value.trim()};  if(allDay){    payload.date=document.getElementById("ae-ad").value;    payload.endDate=document.getElementById("ae-ae").value||payload.date;  }else{    payload.date=document.getElementById("ae-sd").value;    payload.endDate=document.getElementById("ae-ed").value||payload.date;    payload.startTime=document.getElementById("ae-st").value;    payload.endTime=document.getElementById("ae-et").value;  }  var guests=[];  if(document.getElementById("ae-g1").checked)guests.push("ellenvjarrett@gmail.com");  if(document.getElementById("ae-g2").checked)guests.push("chris.j.jarrett@gmail.com");  var gx=document.getElementById("ae-gx").value.trim();  if(gx)gx.split(",").forEach(function(g){var t=g.trim();if(t)guests.push(t);});  if(guests.length)payload.guests=guests;  postHH(payload,function(){closeModal("addModal");toast("Event saved – reload to see it.");});}
 function openTaskModal(){  ["tm-title","tm-notes"].forEach(function(id){document.getElementById(id).value="";});  document.getElementById("tm-due").value="";  openModal("taskModal");}
 function saveTask(){  var title=document.getElementById("tm-title").value.trim();  if(!title){alert("Please enter a title.");return;}  postHH({action:"add",title:title,    notes:document.getElementById("tm-notes").value.trim(),    due:document.getElementById("tm-due").value||null},    function(){closeModal("taskModal");toast("Task created!");});}
+var HH_ALL_DATES=["2026-07-08","2026-07-09","2026-07-10","2026-07-11","2026-07-12","2026-07-13","2026-07-14","2026-07-15","2026-07-16","2026-07-17","2026-07-18","2026-07-19","2026-07-20","2026-07-21","2026-07-22","2026-07-23","2026-07-24","2026-07-25","2026-07-26","2026-07-27","2026-07-28","2026-07-29","2026-07-30","2026-07-31","2026-08-01","2026-08-02","2026-08-03","2026-08-04","2026-08-05","2026-08-06","2026-08-07","2026-08-08","2026-08-09","2026-08-10","2026-08-11","2026-08-12","2026-08-13","2026-08-14","2026-08-15","2026-08-16","2026-08-17","2026-08-18","2026-08-19","2026-08-20","2026-08-21","2026-08-22","2026-08-23","2026-08-24","2026-08-25","2026-08-26","2026-08-27","2026-08-28","2026-08-29","2026-08-30","2026-08-31","2026-09-01","2026-09-02","2026-09-03"];
+function openAddClubModal(){  var grid=document.getElementById("ac-days-grid");  grid.innerHTML="";  var MO2=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];  var DN2=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];  HH_ALL_DATES.forEach(function(ds){    var d=new Date(ds+"T12:00:00");    var dow=d.getDay();    if(dow===0||dow===6)return;    var lbl=DN2[dow]+" "+d.getDate()+" "+MO2[d.getMonth()];    var cb=document.createElement("label");    cb.style.cssText="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#374151;cursor:pointer;padding:3px 5px;border-radius:5px;background:#f9fafb;border:1px solid #e5e7eb";    cb.innerHTML='<input type="checkbox" value="'+ds+'" style="width:auto;cursor:pointer"/> '+lbl;    grid.appendChild(cb);  });  document.getElementById("ac-name").value="";  document.getElementById("ac-loc").value="";  document.getElementById("ac-cost").value="";  openModal("addClubModal");}
+function saveClubToSheet(){  var name=document.getElementById("ac-name").value.trim();  if(!name){alert("Please enter a club name.");return;}  var loc=document.getElementById("ac-loc").value.trim();  var cost=document.getElementById("ac-cost").value.trim();  var child=document.getElementById("ac-child").value;  var days=Array.from(document.querySelectorAll("#ac-days-grid input:checked")).map(function(i){return i.value;});  if(!days.length){alert("Please select at least one day.");return;}  var btn=document.querySelector('#addClubModal .mbtn-purple');  btn.textContent="Saving…";btn.disabled=true;  postHH({action:"add_club_to_sheet",name:name,loc:loc,cost:cost,child:child,days:days},function(){    btn.textContent="Save to sheet";btn.disabled=false;    closeModal("addClubModal");    toast("Club added to sheet! Rebuild to see it.");  });}
 function openClubModal(el){  var d=el.dataset,c=HH_COLOURS[d.child]||{};  document.getElementById("club-info").innerHTML=    '<span style="display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:700;background:'+c.light+';color:'+c.text+'">'+d.child+'</span>'    +(d.cost&&d.cost!=="null"?" &nbsp;<strong>£"+parseFloat(d.cost).toFixed(0)+"</strong> estimated":"");  document.getElementById("cl-title").value=d.name;  document.getElementById("cl-date").value=d.date;  document.getElementById("cl-notes").value=d.notes||"";  openModal("clubModal");}
 function bookClub(){  var title=document.getElementById("cl-title").value.trim();  if(!title){alert("Please enter a title.");return;}  postHH({action:"email_calendar",title:title,allDay:false,    date:document.getElementById("cl-date").value,    startTime:document.getElementById("cl-start").value,    endTime:document.getElementById("cl-end").value,    notes:document.getElementById("cl-notes").value.trim()},    function(){closeModal("clubModal");toast("Booked! Reload to see it.");});}
 function openModal(id){document.getElementById(id).classList.remove("hidden");}
