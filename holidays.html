@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Holiday Helper 🌞</title>
+<title>Holiday Helper 2026 🌞</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -23,14 +23,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 .hh-btn-green{border-color:#10b981;background:#d1fae5;color:#065f46}
 .hh-btn-grey{padding:5px 9px;border-radius:7px;border:1.5px solid #d1d5db;background:#f9fafb;color:#374151;font-size:14px;cursor:pointer}
 .cal-outer{padding:10px;overflow-x:auto}
-.col-headers{display:grid;grid-template-columns:44px 90px repeat(7,1fr);gap:2px;margin-bottom:2px;position:sticky;top:52px;z-index:10;background:#f0f4f8;padding-bottom:2px}
+.col-headers{display:grid;grid-template-columns:44px 90px repeat(5,1fr);gap:2px;margin-bottom:2px;position:sticky;top:52px;z-index:10;background:#f0f4f8;padding-bottom:2px}
 .col-hdr-spacer,.col-hdr-spacer2{}
 .col-hdr{text-align:center;font-size:9px;font-weight:800;color:#6b7280;letter-spacing:.5px;text-transform:uppercase;padding:3px 0;background:rgba(255,255,255,0.85);border-radius:5px}
 .week-block{display:grid;grid-template-columns:44px 1fr;gap:2px;margin-bottom:3px}
 .week-label-col{display:flex;align-items:center;justify-content:center;padding:2px}
 .week-label{font-size:9px;font-weight:800;color:#9ca3af;writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
 .week-days-grid{display:flex;flex-direction:column;gap:2px}
-.child-row{display:grid;grid-template-columns:90px repeat(7,1fr);gap:2px;align-items:stretch}
+.child-row{display:grid;grid-template-columns:90px repeat(5,1fr);gap:2px;align-items:stretch}
 .child-lbl{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:6px;padding:3px 5px;text-align:center}
 .day-cell{background:#fff;border-radius:5px;padding:3px;min-height:40px;border:1px solid #f3f4f6;display:flex;flex-direction:column;gap:2px}
 .day-cell.out-of-range{background:#f9fafb;border:1px dashed #e5e7eb}
@@ -69,7 +69,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 .mbtn-save{padding:7px 16px;border-radius:7px;border:2px solid #3b82f6;background:#dbeafe;color:#1e40af;font-size:12px;font-weight:800;cursor:pointer}
 .mbtn-green{border-color:#10b981;background:#d1fae5;color:#065f46}
 .hidden{display:none!important}
-@media(max-width:700px){.child-row{grid-template-columns:52px repeat(7,minmax(0,1fr))}.col-headers{grid-template-columns:44px 52px repeat(7,1fr)}.child-lbl{font-size:8px;padding:2px 3px}}
+@media(max-width:700px){.child-row{grid-template-columns:52px repeat(5,minmax(0,1fr))}.col-headers{grid-template-columns:44px 52px repeat(5,1fr)}.child-lbl{font-size:8px;padding:2px 3px}}
 </style>
 </head>
 <body>
@@ -94,7 +94,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="cal-outer">
-<div class="col-headers"><div class="col-hdr-spacer"></div><div class="col-hdr-spacer2"></div><div class="col-hdr">Mon</div><div class="col-hdr">Tue</div><div class="col-hdr">Wed</div><div class="col-hdr">Thu</div><div class="col-hdr">Fri</div><div class="col-hdr">Sat</div><div class="col-hdr">Sun</div></div>
+<div class="col-headers"><div class="col-hdr-spacer"></div><div class="col-hdr-spacer2"></div><div class="col-hdr">Mon</div><div class="col-hdr">Tue</div><div class="col-hdr">Wed</div><div class="col-hdr">Thu</div><div class="col-hdr">Fri</div><div class="col-hdr">undefined</div><div class="col-hdr">undefined</div></div>
 <div class="week-block">
 <div class="week-label-col"><div class="week-label">8 Jul</div></div>
 <div class="week-days-grid">
@@ -113,13 +113,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">10</div>
 </div>
-<div class="day-cell weekend">
-<div class="day-num">11</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">12</div>
-<div class="event-chip" style="background:#D6E8F7;color:#1a3a5c;border-color:#2171c7" data-child="Arthur" data-id="t1ervmejhcieftguo1omgk6ieq@google.com" data-title="Arthur&#39;s Guitar Lesson" data-date="2026-07-12" data-time="5:30 PM" data-endtime="6:30 PM" data-loc="" data-desc="" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Arthur's Guitar Lesson</span></div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -133,10 +126,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
@@ -145,16 +134,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell out-of-range">
 </div>
 <div class="day-cell">
-<div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="lin0fpo2dqh4jtsnckqaadnt8c@google.com" data-title="Mabel&#39;s Menu - BBQ Chicken Pieces" data-date="2026-07-08" data-time="7:15 AM" data-endtime="7:30 AM" data-loc="" data-desc="" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Mabel's Menu - BBQ Chicken Pieces</span></div>
 <div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="3qg5uhk17hma1h6b0utnu76ee8@google.com" data-title="Mabel at School Camp" data-date="2026-07-08" data-time="9:00 AM" data-endtime="5:00 PM" data-loc="" data-desc="" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Mabel at School Camp</span></div>
+<div class="club-chip" title="Europa" data-child="Mabel" data-date="2026-07-08" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa</span><span class="club-cost">£55 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Europa" data-child="Mabel" data-date="2026-07-09" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa</span><span class="club-cost">£55 ?</span></div>
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
+<div class="club-chip" title="Europa" data-child="Mabel" data-date="2026-07-10" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa</span><span class="club-cost">£55 ?</span></div>
 </div>
 </div>
 </div>
@@ -179,12 +166,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">17</div>
 </div>
-<div class="day-cell weekend">
-<div class="day-num">18</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">19</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -198,26 +179,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
 <div class="day-cell">
+<div class="club-chip" title="Europa" data-child="Mabel" data-date="2026-07-13" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa</span><span class="club-cost">£55 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Europa" data-child="Mabel" data-date="2026-07-14" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa</span><span class="club-cost">£55 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Europa" data-child="Mabel" data-date="2026-07-15" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa</span><span class="club-cost">£55 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Europa" data-child="Mabel" data-date="2026-07-16" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa</span><span class="club-cost">£55 ?</span></div>
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
+<div class="club-chip" title="Europa" data-child="Mabel" data-date="2026-07-17" data-name="Europa" data-cost="54.5" data-notes="Europa" onclick="openClubModal(this)"><span class="club-title">Europa</span><span class="club-cost">£55 ?</span></div>
 </div>
 </div>
 </div>
@@ -242,12 +220,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">24</div>
 </div>
-<div class="day-cell weekend">
-<div class="day-num">25</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">26</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -261,26 +233,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
 <div class="day-cell">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-20" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-21" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-22" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-23" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-24" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 </div>
 </div>
@@ -305,12 +274,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">31</div>
 </div>
-<div class="day-cell weekend">
-<div class="day-num">1</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">2</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -324,26 +287,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
 <div class="day-cell">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-27" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-28" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-29" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 <div class="day-cell">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-30" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
+<div class="club-chip" title="Abingon" data-child="Mabel" data-date="2026-07-31" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps</span><span class="club-cost">£50 ?</span></div>
 </div>
 </div>
 </div>
@@ -368,12 +328,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">7</div>
 </div>
-<div class="day-cell weekend">
-<div class="day-num">8</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">9</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -387,10 +341,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
@@ -403,10 +353,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
 </div>
 </div>
 </div>
@@ -431,12 +377,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">14</div>
 </div>
-<div class="day-cell weekend">
-<div class="day-num">15</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">16</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -450,10 +390,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
@@ -466,10 +402,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
 </div>
 </div>
 </div>
@@ -494,12 +426,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">21</div>
 </div>
-<div class="day-cell weekend">
-<div class="day-num">22</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">23</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -513,10 +439,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
@@ -529,10 +451,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
 </div>
 </div>
 </div>
@@ -557,12 +475,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">28</div>
 </div>
-<div class="day-cell weekend">
-<div class="day-num">29</div>
-</div>
-<div class="day-cell weekend">
-<div class="day-num">30</div>
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -576,10 +488,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
@@ -592,10 +500,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell">
-</div>
-<div class="day-cell weekend">
-</div>
-<div class="day-cell weekend">
 </div>
 </div>
 </div>
@@ -619,10 +523,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell out-of-range">
 </div>
-<div class="day-cell out-of-range weekend">
-</div>
-<div class="day-cell out-of-range weekend">
-</div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
@@ -636,10 +536,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell out-of-range">
 </div>
-<div class="day-cell out-of-range weekend">
-</div>
-<div class="day-cell out-of-range weekend">
-</div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
@@ -652,10 +548,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell out-of-range">
-</div>
-<div class="day-cell out-of-range weekend">
-</div>
-<div class="day-cell out-of-range weekend">
 </div>
 </div>
 </div>
