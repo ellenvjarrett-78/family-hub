@@ -27,11 +27,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 .hol-date-cell{font-size:8px;color:#d1d5db;font-weight:700;text-align:right;padding:0 4px 1px}
 .holiday-banner{display:flex;align-items:center;gap:8px;background:#fef3c7;border:2px solid #f59e0b;border-radius:8px;padding:7px 12px;cursor:pointer;margin-bottom:2px;transition:opacity .15s}
 .holiday-banner:hover{opacity:.85}
+.hol-dates-row{display:grid;grid-template-columns:90px repeat(5,1fr);gap:2px;margin-bottom:1px}
+.hol-dates-spacer{min-height:1px}
+.hol-date-cell{font-size:8px;color:#d1d5db;font-weight:700;text-align:right;padding:0 4px 1px}
 .hol-banner-row{display:grid;grid-template-columns:90px 1fr;gap:2px;margin-bottom:2px}
-.hol-banner-spacer{}
+.hol-banner-spacer{min-height:1px}
 .hol-banner-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.hol-full-row{display:grid;grid-template-columns:90px repeat(5,1fr);gap:3px;margin-bottom:2px}
 .holiday-banner{border-radius:6px;background:#fef3c7;border:2px solid #f59e0b;padding:5px 8px;cursor:pointer;font-size:10px;font-weight:800;color:#92400e;transition:opacity .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hol-full-banner{min-height:44px;display:flex;align-items:center;font-size:11px}
 .holiday-banner:hover{opacity:.85}
+.day-cell.hol-day{background:#fffbeb;border-color:#fde68a}
 .hh-btn{padding:5px 11px;border-radius:7px;border:1.5px solid #3b82f6;background:#dbeafe;color:#1e40af;font-size:11px;font-weight:700;cursor:pointer}
 .hh-btn-green{border-color:#10b981;background:#d1fae5;color:#065f46}
 .hh-btn-grey{padding:5px 9px;border-radius:7px;border:1.5px solid #d1d5db;background:#f9fafb;color:#374151;font-size:14px;cursor:pointer}
@@ -110,6 +116,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="week-block">
 <div class="week-label-col"><div class="week-label">8 Jul</div></div>
 <div class="week-days-grid">
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell"></div>
+<div class="hol-date-cell"></div>
+<div class="hol-date-cell">8</div>
+<div class="hol-date-cell">9</div>
+<div class="hol-date-cell">10</div>
+</div>
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell out-of-range">
@@ -117,13 +131,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell out-of-range">
 </div>
 <div class="day-cell">
-<div class="day-num">8</div>
 </div>
 <div class="day-cell">
-<div class="day-num">9</div>
 </div>
 <div class="day-cell">
-<div class="day-num">10</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -168,33 +179,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="hol-date-cell">16</div>
 <div class="hol-date-cell">17</div>
 </div>
-<div class="hol-banner-row">
-<div class="hol-banner-spacer"></div>
-<div class="hol-banner-grid">
-<div class="holiday-banner" style="grid-column:1/6" data-child="all" data-id="6ssj6dph75h36b9j6sqj8b9k6co34b9ocks6abb4c9i36o9p71i3ce9i74@google.com_2026-07-13" data-title="Centerparcs Holiday" data-date="2026-07-13" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ Centerparcs Holiday</div>
-</div>
+<div class="hol-full-row">
+<div class="holiday-banner hol-full-banner" style="grid-column:2/7" data-child="all" data-id="6ssj6dph75h36b9j6sqj8b9k6co34b9ocks6abb4c9i36o9p71i3ce9i74@google.com_2026-07-13" data-title="Centerparcs Holiday" data-date="2026-07-13" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ Centerparcs Holiday</div>
 </div>
 </div>
 </div>
 <div class="week-block">
 <div class="week-label-col"><div class="week-label">20 Jul</div></div>
 <div class="week-days-grid">
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell">20</div>
+<div class="hol-date-cell">21</div>
+<div class="hol-date-cell">22</div>
+<div class="hol-date-cell">23</div>
+<div class="hol-date-cell">24</div>
+</div>
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell">
-<div class="day-num">20</div>
 </div>
 <div class="day-cell">
-<div class="day-num">21</div>
 </div>
 <div class="day-cell">
-<div class="day-num">22</div>
 </div>
 <div class="day-cell">
-<div class="day-num">23</div>
 </div>
 <div class="day-cell">
-<div class="day-num">24</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -250,19 +261,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell">
-<div class="day-num">27</div>
 </div>
 <div class="day-cell">
-<div class="day-num">28</div>
 </div>
 <div class="day-cell">
-<div class="day-num">29</div>
 </div>
 <div class="day-cell">
-<div class="day-num">30</div>
 </div>
-<div class="day-cell">
-<div class="day-num">31</div>
+<div class="day-cell hol-day">
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -275,7 +281,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell">
+<div class="day-cell hol-day">
 </div>
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
@@ -292,8 +298,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="club-chip" data-child="Mabel" data-date="2026-07-30" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
 </div>
-<div class="day-cell">
-<div class="club-chip" data-child="Mabel" data-date="2026-07-31" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
+<div class="day-cell hol-day">
 </div>
 </div>
 </div>
@@ -309,11 +314,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="hol-date-cell">6</div>
 <div class="hol-date-cell">7</div>
 </div>
-<div class="hol-banner-row">
-<div class="hol-banner-spacer"></div>
-<div class="hol-banner-grid">
-<div class="holiday-banner" style="grid-column:1/6" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-03" data-title="France Holiday" data-date="2026-08-03" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ France Holiday</div>
-</div>
+<div class="hol-full-row">
+<div class="holiday-banner hol-full-banner" style="grid-column:2/7" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-03" data-title="France Holiday" data-date="2026-08-03" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ France Holiday</div>
 </div>
 </div>
 </div>
@@ -328,33 +330,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="hol-date-cell">13</div>
 <div class="hol-date-cell">14</div>
 </div>
-<div class="hol-banner-row">
-<div class="hol-banner-spacer"></div>
-<div class="hol-banner-grid">
-<div class="holiday-banner" style="grid-column:1/6" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-10" data-title="France Holiday" data-date="2026-08-10" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ France Holiday</div>
-</div>
+<div class="hol-full-row">
+<div class="holiday-banner hol-full-banner" style="grid-column:2/7" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-10" data-title="France Holiday" data-date="2026-08-10" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ France Holiday</div>
 </div>
 </div>
 </div>
 <div class="week-block">
 <div class="week-label-col"><div class="week-label">17 Aug</div></div>
 <div class="week-days-grid">
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell">17</div>
+<div class="hol-date-cell">18</div>
+<div class="hol-date-cell">19</div>
+<div class="hol-date-cell">20</div>
+<div class="hol-date-cell">21</div>
+</div>
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell">
-<div class="day-num">17</div>
 </div>
 <div class="day-cell">
-<div class="day-num">18</div>
 </div>
 <div class="day-cell">
-<div class="day-num">19</div>
 </div>
 <div class="day-cell">
-<div class="day-num">20</div>
 </div>
 <div class="day-cell">
-<div class="day-num">21</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -388,22 +390,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="week-block">
 <div class="week-label-col"><div class="week-label">24 Aug</div></div>
 <div class="week-days-grid">
+<div class="hol-dates-row">
+<div class="hol-dates-spacer"></div>
+<div class="hol-date-cell">24</div>
+<div class="hol-date-cell">25</div>
+<div class="hol-date-cell">26</div>
+<div class="hol-date-cell">27</div>
+<div class="hol-date-cell">28</div>
+</div>
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell">
-<div class="day-num">24</div>
 </div>
 <div class="day-cell">
-<div class="day-num">25</div>
 </div>
 <div class="day-cell">
-<div class="day-num">26</div>
 </div>
 <div class="day-cell">
-<div class="day-num">27</div>
 </div>
 <div class="day-cell">
-<div class="day-num">28</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -453,14 +458,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">31</div>
+<div class="day-cell hol-day">
 </div>
 <div class="day-cell">
-<div class="day-num">1</div>
 </div>
 <div class="day-cell">
-<div class="day-num">2</div>
 </div>
 <div class="day-cell out-of-range">
 </div>
@@ -469,7 +471,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
-<div class="day-cell">
+<div class="day-cell hol-day">
 </div>
 <div class="day-cell">
 </div>
@@ -482,7 +484,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
-<div class="day-cell">
+<div class="day-cell hol-day">
 </div>
 <div class="day-cell">
 </div>
