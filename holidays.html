@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Holiday Helper 🌞</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;color:#1f2937;background:#f0f4f8;min-height:100vh}
+.hh-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 14px;background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);border-bottom:1px solid #e5e7eb;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.hh-header-left{display:flex;flex-direction:column}
+.hh-logo{font-size:17px;font-weight:800;color:#1a2a6c;letter-spacing:-.3px}
+.hh-sub{font-size:10px;color:#6b7280}
+.hh-header-right{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.cost-pills{display:flex;gap:5px;flex-wrap:wrap}
+.cost-pill{display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;border:1.5px solid;font-size:11px;font-weight:600}
+.pill-name{font-weight:700}
+.slicers{display:flex;gap:4px}
+.slicer{padding:4px 11px;border-radius:99px;border:1.5px solid #d1d5db;font-size:11px;font-weight:600;cursor:pointer;background:#f9fafb;color:#6b7280;transition:all .15s}
+.slicer.active{background:var(--sb);color:var(--st);border-color:var(--sc)}
+.hh-btn{padding:5px 11px;border-radius:7px;border:1.5px solid #3b82f6;background:#dbeafe;color:#1e40af;font-size:11px;font-weight:700;cursor:pointer}
+.hh-btn-green{border-color:#10b981;background:#d1fae5;color:#065f46}
+.hh-btn-grey{padding:5px 9px;border-radius:7px;border:1.5px solid #d1d5db;background:#f9fafb;color:#374151;font-size:14px;cursor:pointer}
+.cal-outer{padding:10px;overflow-x:auto}
+.col-headers{display:grid;grid-template-columns:44px 90px repeat(7,1fr);gap:2px;margin-bottom:2px;position:sticky;top:52px;z-index:10;background:#f0f4f8;padding-bottom:2px}
+.col-hdr-spacer,.col-hdr-spacer2{}
+.col-hdr{text-align:center;font-size:9px;font-weight:800;color:#6b7280;letter-spacing:.5px;text-transform:uppercase;padding:3px 0;background:rgba(255,255,255,0.85);border-radius:5px}
+.week-block{display:grid;grid-template-columns:44px 1fr;gap:2px;margin-bottom:3px}
+.week-label-col{display:flex;align-items:center;justify-content:center;padding:2px}
+.week-label{font-size:9px;font-weight:800;color:#9ca3af;writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+.week-days-grid{display:flex;flex-direction:column;gap:2px}
+.child-row{display:grid;grid-template-columns:90px repeat(7,1fr);gap:2px;align-items:stretch}
+.child-lbl{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:6px;padding:3px 5px;text-align:center}
+.day-cell{background:#fff;border-radius:5px;padding:3px;min-height:40px;border:1px solid #f3f4f6;display:flex;flex-direction:column;gap:2px}
+.day-cell.out-of-range{background:#f9fafb;border:1px dashed #e5e7eb}
+.day-cell.weekend{background:#fafafa}
+.day-num{font-size:8px;color:#d1d5db;font-weight:700;text-align:right;line-height:1}
+.event-chip{border-radius:4px;border-left:3px solid;padding:2px 4px;cursor:pointer;transition:opacity .15s;display:flex;flex-direction:column;gap:1px}
+.event-chip:hover{opacity:.78}
+.chip-title{font-size:9px;font-weight:700;line-height:1.25;word-break:break-word}
+.chip-cost{font-size:8px;font-weight:600;opacity:.8}
+.club-chip{border-radius:4px;border:1.5px dashed #b0b7c3;padding:2px 4px;cursor:pointer;background-color:#f1f3f6;background-image:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(180,188,200,.2) 4px,rgba(180,188,200,.2) 5px);color:#718096;transition:opacity .15s;display:flex;flex-direction:column;gap:1px}
+.club-chip:hover{opacity:.7}
+.club-title{font-size:9px;font-weight:600;line-height:1.25;word-break:break-word}
+.club-cost{font-size:8px;color:#a0aec0;font-weight:600}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-bg.hidden{display:none}
+.modal{background:#fff;border-radius:14px;padding:20px;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;position:relative;border-top:4px solid #3b82f6;box-shadow:0 8px 30px rgba(0,0,0,.16)}
+.modal-h3{font-size:15px;font-weight:800;color:#1f2937;margin-bottom:12px}
+.modal-close{position:absolute;top:11px;right:13px;background:none;border:none;font-size:17px;cursor:pointer;color:#9ca3af}
+.modal-badge{display:inline-block;padding:2px 11px;border-radius:99px;font-size:11px;font-weight:700;border:1.5px solid;margin-bottom:7px}
+.modal-cost{font-size:20px;font-weight:800;margin-bottom:8px}
+.modal-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:12px}
+.mfl{font-size:13px;min-width:22px}
+.modal-desc{margin-top:8px;font-size:12px;color:#4b5563;background:#f9fafb;border-radius:7px;padding:8px 10px;line-height:1.6;white-space:pre-wrap}
+.mf{margin-bottom:9px}
+.mf label{display:block;font-size:10px;font-weight:700;color:#6b7280;margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+.mf input,.mf textarea,.mf select{width:100%;border:1.5px solid #e5e7eb;border-radius:7px;padding:6px 9px;font-size:12px;font-family:inherit;outline:none;transition:border-color .2s}
+.mf input:focus,.mf textarea:focus{border-color:#3b82f6}
+.mf-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.toggle-lbl{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#374151;cursor:pointer;text-transform:none!important;letter-spacing:0!important}
+.toggle-lbl input{width:auto}
+.guest-ticks{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px}
+.guest-tick{display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:7px;background:#f9fafb;border:1.5px solid #e5e7eb;font-size:11px;font-weight:600;cursor:pointer}
+.guest-tick input{width:auto;cursor:pointer}
+.modal-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}
+.mbtn-cancel{padding:7px 14px;border-radius:7px;border:1.5px solid #e5e7eb;background:#f9fafb;color:#6b7280;font-size:12px;font-weight:700;cursor:pointer}
+.mbtn-save{padding:7px 16px;border-radius:7px;border:2px solid #3b82f6;background:#dbeafe;color:#1e40af;font-size:12px;font-weight:800;cursor:pointer}
+.mbtn-green{border-color:#10b981;background:#d1fae5;color:#065f46}
+.hidden{display:none!important}
+@media(max-width:700px){.child-row{grid-template-columns:52px repeat(7,minmax(0,1fr))}.col-headers{grid-template-columns:44px 52px repeat(7,1fr)}.child-lbl{font-size:8px;padding:2px 3px}}
+</style>
+</head>
+<body>
+<div class="hh-header">
+<div class="hh-header-left"><div class="hh-logo">🌞 Holiday Helper</div><div class="hh-sub">Summer 2025 · 8 July – 3 September</div></div>
+<div class="hh-header-right">
+<div class="cost-pills">
+<div class="cost-pill" style="background:#D6E8F7;color:#1a3a5c;border-color:#4A90D9"><span class="pill-name">Arthur</span><span class="pill-amt">£0</span></div>
+<div class="cost-pill" style="background:#FDE8D4;color:#5c2a00;border-color:#E8853A"><span class="pill-name">Wilf</span><span class="pill-amt">£0</span></div>
+<div class="cost-pill" style="background:#D4F0D3;color:#1a4a19;border-color:#7DC87B"><span class="pill-name">Mabel</span><span class="pill-amt">£0</span></div>
+</div>
+<div class="slicers">
+<button class="slicer active" data-child="Arthur" style="--sb:#D6E8F7;--sc:#4A90D9;--st:#1a3a5c" onclick="toggleSlicer(this)">Arthur</button>
+<button class="slicer active" data-child="Wilf" style="--sb:#FDE8D4;--sc:#E8853A;--st:#5c2a00" onclick="toggleSlicer(this)">Wilf</button>
+<button class="slicer active" data-child="Mabel" style="--sb:#D4F0D3;--sc:#7DC87B;--st:#1a4a19" onclick="toggleSlicer(this)">Mabel</button>
+</div>
+<button class="hh-btn" onclick="openAddModal()">&#43; Event</button>
+<button class="hh-btn hh-btn-green" onclick="openTaskModal()">&#43; Task</button>
+<button class="hh-btn hh-btn-grey" onclick="rebuildHH(this)" title="Rebuild">↻</button>
+</div>
+</div>
+<div class="cal-outer">
+<div class="col-headers"><div class="col-hdr-spacer"></div><div class="col-hdr-spacer2"></div><div class="col-hdr">Mon</div><div class="col-hdr">Tue</div><div class="col-hdr">Wed</div><div class="col-hdr">Thu</div><div class="col-hdr">Fri</div><div class="col-hdr">Sat</div><div class="col-hdr">Sun</div></div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">8 Jul</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell">
+<div class="day-num">8</div>
+</div>
+<div class="day-cell">
+<div class="day-num">9</div>
+</div>
+<div class="day-cell">
+<div class="day-num">10</div>
+</div>
+<div class="day-cell">
+<div class="day-num">11</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">12</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">13</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">14 Jul</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">14</div>
+</div>
+<div class="day-cell">
+<div class="day-num">15</div>
+</div>
+<div class="day-cell">
+<div class="day-num">16</div>
+</div>
+<div class="day-cell">
+<div class="day-num">17</div>
+</div>
+<div class="day-cell">
+<div class="day-num">18</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">19</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">20</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">21 Jul</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">21</div>
+</div>
+<div class="day-cell">
+<div class="day-num">22</div>
+</div>
+<div class="day-cell">
+<div class="day-num">23</div>
+</div>
+<div class="day-cell">
+<div class="day-num">24</div>
+</div>
+<div class="day-cell">
+<div class="day-num">25</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">26</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">27</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">28 Jul</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">28</div>
+</div>
+<div class="day-cell">
+<div class="day-num">29</div>
+</div>
+<div class="day-cell">
+<div class="day-num">30</div>
+</div>
+<div class="day-cell">
+<div class="day-num">31</div>
+</div>
+<div class="day-cell">
+<div class="day-num">1</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">2</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">3</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">4 Aug</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">4</div>
+</div>
+<div class="day-cell">
+<div class="day-num">5</div>
+</div>
+<div class="day-cell">
+<div class="day-num">6</div>
+</div>
+<div class="day-cell">
+<div class="day-num">7</div>
+</div>
+<div class="day-cell">
+<div class="day-num">8</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">9</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">10</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+<div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="6gr68e9nc9i6cb9kckrj2b9kchimcb9o64rjgb9g6csm6chl74om2dpncg@google.com" data-title="Mabel ear apt" data-date="2025-08-05" data-time="9:00 AM" data-endtime="11:00 AM" data-loc="Royal Berkshire Hospital, Reading RG1, UK" data-desc="Paediatric audiology, audiology 1, west drive buildings, redlands road site rg1 5an" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Mabel ear apt</span></div>
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">11 Aug</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">11</div>
+</div>
+<div class="day-cell">
+<div class="day-num">12</div>
+</div>
+<div class="day-cell">
+<div class="day-num">13</div>
+</div>
+<div class="day-cell">
+<div class="day-num">14</div>
+</div>
+<div class="day-cell">
+<div class="day-num">15</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">16</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">17</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">18 Aug</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">18</div>
+</div>
+<div class="day-cell">
+<div class="day-num">19</div>
+</div>
+<div class="day-cell">
+<div class="day-num">20</div>
+</div>
+<div class="day-cell">
+<div class="day-num">21</div>
+</div>
+<div class="day-cell">
+<div class="day-num">22</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">23</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">24</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">25 Aug</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">25</div>
+</div>
+<div class="day-cell">
+<div class="day-num">26</div>
+</div>
+<div class="day-cell">
+<div class="day-num">27</div>
+</div>
+<div class="day-cell">
+<div class="day-num">28</div>
+</div>
+<div class="day-cell">
+<div class="day-num">29</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">30</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">31</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell weekend">
+</div>
+<div class="day-cell weekend">
+</div>
+</div>
+</div>
+</div>
+<div class="week-block">
+<div class="week-label-col"><div class="week-label">1 Sep</div></div>
+<div class="week-days-grid">
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">1</div>
+</div>
+<div class="day-cell">
+<div class="day-num">2</div>
+</div>
+<div class="day-cell">
+<div class="day-num">3</div>
+</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell out-of-range weekend">
+</div>
+<div class="day-cell out-of-range weekend">
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell out-of-range weekend">
+</div>
+<div class="day-cell out-of-range weekend">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell out-of-range">
+</div>
+<div class="day-cell out-of-range weekend">
+</div>
+<div class="day-cell out-of-range weekend">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal-bg hidden" id="detailModal" onclick="bgClose(event,'detailModal')"><div class="modal"><button class="modal-close" onclick="closeModal('detailModal')">✕</button><div class="modal-badge" id="dm-badge"></div><h3 id="dm-title" class="modal-h3"></h3><div id="dm-cost" class="modal-cost"></div><div class="modal-row"><span class="mfl">📅</span><span id="dm-date"></span></div><div class="modal-row"><span class="mfl">⏰</span><span id="dm-time"></span></div><div class="modal-row" id="dm-loc-row"><span class="mfl">📍</span><span id="dm-loc"></span></div><div class="modal-desc" id="dm-desc"></div></div></div><div class="modal-bg hidden" id="addModal" onclick="bgClose(event,'addModal')"><div class="modal"><button class="modal-close" onclick="closeModal('addModal')">✕</button><h3 class="modal-h3">📅 Add calendar event</h3><div class="mf"><label>Title *</label><input type="text" id="ae-title" placeholder="e.g. Swimming club…"/></div><div class="mf"><label class="toggle-lbl"><input type="checkbox" id="ae-allday" onchange="aeToggleAllDay(this)"> All-day event</label></div><div id="ae-dt-row"><div class="mf-row"><div class="mf"><label>Start date *</label><input type="date" id="ae-sd" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>Start time</label><input type="time" id="ae-st" value="09:00"/></div></div><div class="mf-row"><div class="mf"><label>End date</label><input type="date" id="ae-ed" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>End time</label><input type="time" id="ae-et" value="10:00"/></div></div></div><div id="ae-ad-row" class="hidden"><div class="mf-row"><div class="mf"><label>Date *</label><input type="date" id="ae-ad" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>End date (multi-day)</label><input type="date" id="ae-ae" min="2025-07-08" max="2025-09-03"/></div></div></div><div class="mf"><label>📍 Location</label><input type="text" id="ae-loc" placeholder="e.g. Leisure centre…"/></div><div class="mf"><label>📝 Notes</label><textarea id="ae-notes" rows="3" placeholder="Add details… include £ amount to track costs"></textarea></div><div class="mf"><label>🔁 Recurrence</label><select id="ae-recur"><option value="">Does not repeat</option><option value="weekly">Weekly</option><option value="weekly2">Every 2 weeks</option><option value="daily">Daily</option><option value="weekday">Every weekday</option></select></div><div class="mf"><label>👥 Guests</label><div class="guest-ticks"><label class="guest-tick"><input type="checkbox" id="ae-g1" value="ellenvjarrett@gmail.com"><span>Ellen</span></label><label class="guest-tick"><input type="checkbox" id="ae-g2" value="chris.j.jarrett@gmail.com"><span>Chris</span></label></div><input type="text" id="ae-gx" placeholder="Other emails, comma-separated…" style="margin-top:6px"/></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('addModal')">Cancel</button><button class="mbtn-save" onclick="saveEvent()">Save to calendar</button></div></div></div><div class="modal-bg hidden" id="taskModal" onclick="bgClose(event,'taskModal')"><div class="modal" style="border-top-color:#10b981"><button class="modal-close" onclick="closeModal('taskModal')">✕</button><h3 class="modal-h3">✅ Create Google Task</h3><div class="mf"><label>Title *</label><input type="text" id="tm-title" placeholder="e.g. Book swimming lessons…"/></div><div class="mf"><label>Notes</label><textarea id="tm-notes" rows="2"></textarea></div><div class="mf-row"><div class="mf"><label>Due date</label><input type="date" id="tm-due"/></div></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('taskModal')">Cancel</button><button class="mbtn-save mbtn-green" onclick="saveTask()">Create task</button></div></div></div><div class="modal-bg hidden" id="clubModal" onclick="bgClose(event,'clubModal')"><div class="modal"><button class="modal-close" onclick="closeModal('clubModal')">✕</button><h3 class="modal-h3">📋 Available activity</h3><div id="club-info" style="margin-bottom:12px;font-size:13px"></div><div class="mf"><label>Add to calendar as…</label><input type="text" id="cl-title"/></div><div class="mf-row"><div class="mf"><label>Date</label><input type="date" id="cl-date"/></div><div class="mf"><label>Start</label><input type="time" id="cl-start" value="09:00"/></div><div class="mf"><label>End</label><input type="time" id="cl-end" value="11:00"/></div></div><div class="mf"><label>Notes</label><textarea id="cl-notes" rows="2"></textarea></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('clubModal')">Cancel</button><button class="mbtn-save" onclick="bookClub()">📅 Book it!</button></div></div></div><script>
+var WEB_APP_URL="https://script.google.com/macros/s/AKfycbygAOYKkq83S_yA5GCrUZkgEKdrfQc1uFRXgjrjylIHRw2-8LWUXJrSFkS_abc27Erb/exec";
+var APP_SECRET="87311204471295316682189964520796";
+var HH_COLOURS={"Arthur":{"bg":"#4A90D9","light":"#D6E8F7","text":"#1a3a5c","border":"#2171c7"},"Wilf":{"bg":"#E8853A","light":"#FDE8D4","text":"#5c2a00","border":"#c96820"},"Mabel":{"bg":"#7DC87B","light":"#D4F0D3","text":"#1a4a19","border":"#4fa84d"}};
+var HH_CHILDREN=["Arthur","Wilf","Mabel"];
+var MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var activeChildren=new Set(HH_CHILDREN);
+function toggleSlicer(btn){  var c=btn.dataset.child;  if(activeChildren.has(c)&&activeChildren.size>1){activeChildren.delete(c);btn.classList.remove("active");}  else{activeChildren.add(c);btn.classList.add("active");}  document.querySelectorAll(".child-row").forEach(function(r){    r.style.display=activeChildren.has(r.dataset.child)?"":"none";});}
+function openDetail(el){  var d=el.dataset,c=HH_COLOURS[d.child]||{};  var b=document.getElementById("dm-badge");  b.textContent=d.child;b.style.cssText="background:"+c.light+";color:"+c.text+";border-color:"+c.bg;  document.getElementById("dm-title").textContent=d.title||"";  var ce=document.getElementById("dm-cost");  if(d.cost){ce.textContent="£"+parseFloat(d.cost).toFixed(2);ce.style.color=c.bg;ce.style.display="";}else{ce.style.display="none";}  document.getElementById("dm-date").textContent=niceDate(d.date);  document.getElementById("dm-time").textContent=d.allday==="1"?"All day":(d.time+(d.endtime?" – "+d.endtime:""));  var lr=document.getElementById("dm-loc-row");  if(d.loc){document.getElementById("dm-loc").textContent=d.loc;lr.style.display="";}else{lr.style.display="none";}  var de=document.getElementById("dm-desc");  if(d.desc){de.textContent=d.desc;de.style.display="";}else{de.style.display="none";}  openModal("detailModal");}
+function openAddModal(){  ["ae-title","ae-loc","ae-notes","ae-gx"].forEach(function(id){var e=document.getElementById(id);if(e)e.value="";});  ["ae-sd","ae-ed","ae-ad","ae-ae"].forEach(function(id){document.getElementById(id).value="";});  document.getElementById("ae-st").value="09:00";document.getElementById("ae-et").value="10:00";  document.getElementById("ae-allday").checked=false;  document.getElementById("ae-dt-row").style.display="";  document.getElementById("ae-ad-row").classList.add("hidden");  document.getElementById("ae-g1").checked=false;document.getElementById("ae-g2").checked=false;  document.getElementById("ae-recur").value="";  openModal("addModal");}
+function aeToggleAllDay(cb){  document.getElementById("ae-dt-row").style.display=cb.checked?"none":"";  document.getElementById("ae-ad-row").classList.toggle("hidden",!cb.checked);}
+function saveEvent(){  var title=document.getElementById("ae-title").value.trim();  if(!title){alert("Please enter a title.");return;}  var allDay=document.getElementById("ae-allday").checked;  var payload={action:"email_calendar",title:title,allDay:allDay,    notes:document.getElementById("ae-notes").value.trim(),    location:document.getElementById("ae-loc").value.trim()};  if(allDay){    payload.date=document.getElementById("ae-ad").value;    payload.endDate=document.getElementById("ae-ae").value||payload.date;  }else{    payload.date=document.getElementById("ae-sd").value;    payload.endDate=document.getElementById("ae-ed").value||payload.date;    payload.startTime=document.getElementById("ae-st").value;    payload.endTime=document.getElementById("ae-et").value;  }  var guests=[];  if(document.getElementById("ae-g1").checked)guests.push("ellenvjarrett@gmail.com");  if(document.getElementById("ae-g2").checked)guests.push("chris.j.jarrett@gmail.com");  var gx=document.getElementById("ae-gx").value.trim();  if(gx)gx.split(",").forEach(function(g){var t=g.trim();if(t)guests.push(t);});  if(guests.length)payload.guests=guests;  postHH(payload,function(){closeModal("addModal");toast("Event saved – reload to see it.");});}
+function openTaskModal(){  ["tm-title","tm-notes"].forEach(function(id){document.getElementById(id).value="";});  document.getElementById("tm-due").value="";  openModal("taskModal");}
+function saveTask(){  var title=document.getElementById("tm-title").value.trim();  if(!title){alert("Please enter a title.");return;}  postHH({action:"add",title:title,    notes:document.getElementById("tm-notes").value.trim(),    due:document.getElementById("tm-due").value||null},    function(){closeModal("taskModal");toast("Task created!");});}
+function openClubModal(el){  var d=el.dataset,c=HH_COLOURS[d.child]||{};  document.getElementById("club-info").innerHTML=    '<span style="display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:700;background:'+c.light+';color:'+c.text+'">'+d.child+'</span>'    +(d.cost&&d.cost!=="null"?" &nbsp;<strong>£"+parseFloat(d.cost).toFixed(0)+"</strong> estimated":"");  document.getElementById("cl-title").value=d.name;  document.getElementById("cl-date").value=d.date;  document.getElementById("cl-notes").value=d.notes||"";  openModal("clubModal");}
+function bookClub(){  var title=document.getElementById("cl-title").value.trim();  if(!title){alert("Please enter a title.");return;}  postHH({action:"email_calendar",title:title,allDay:false,    date:document.getElementById("cl-date").value,    startTime:document.getElementById("cl-start").value,    endTime:document.getElementById("cl-end").value,    notes:document.getElementById("cl-notes").value.trim()},    function(){closeModal("clubModal");toast("Booked! Reload to see it.");});}
+function openModal(id){document.getElementById(id).classList.remove("hidden");}
+function closeModal(id){document.getElementById(id).classList.add("hidden");}
+function bgClose(e,id){if(e.target===document.getElementById(id))closeModal(id);}
+function postHH(data,cb){  data.secret=APP_SECRET;  var p=new URLSearchParams();p.append("payload",JSON.stringify(data));  fetch(WEB_APP_URL,{method:"POST",mode:"no-cors",    headers:{"Content-Type":"application/x-www-form-urlencoded"},body:p.toString()})  .then(function(){if(cb)cb({success:true});}).catch(function(){if(cb)cb({success:false});});}
+function rebuildHH(btn){  var orig=btn.textContent;btn.textContent="↻…";btn.disabled=true;  postHH({action:"rebuild_holidays"},function(){btn.textContent="✓ Done — reload";});}
+function toast(msg){  var t=document.getElementById("hh-toast");  if(!t){t=document.createElement("div");t.id="hh-toast";    t.style.cssText="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2937;color:#fff;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none";    document.body.appendChild(t);}  t.textContent=msg;t.style.opacity="1";  clearTimeout(t._to);t._to=setTimeout(function(){t.style.opacity="0";},3200);}
+function niceDate(ds){  var d=new Date(ds+"T12:00:00");  return DN[d.getDay()]+" "+d.getDate()+" "+MO[d.getMonth()]+" "+d.getFullYear();}
+</script>
+</body>
+</html>
