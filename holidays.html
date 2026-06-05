@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Holiday Helper 🌞</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;color:#1f2937;background:#f0f4f8;min-height:100vh}
@@ -72,8 +73,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </style>
 </head>
 <body>
+<div id="hh-auth-wall" style="display:flex;position:fixed;inset:0;background:linear-gradient(135deg,#D6E8F7,#FDE8D4,#D4F0D3);z-index:999;flex-direction:column;align-items:center;justify-content:center"><div style="background:white;padding:32px 40px;border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:1rem;box-shadow:0 8px 32px rgba(0,0,0,0.12)"><div style="font-size:40px">🌞</div><h2 style="font-size:22px;font-weight:800;color:#1f2937;font-family:-apple-system,sans-serif">Holiday Helper</h2><p style="font-size:13px;color:#6b7280">Sign in with your Google account</p><div id="g_id_onload" data-client_id="405796403274-stt245u5lgepihh0etnaqnsrg67jkk44.apps.googleusercontent.com" data-callback="hhHandleSignIn" data-auto_select="true"></div><div class="g_id_signin" data-type="standard" data-theme="outline" data-size="large"></div><p id="hh-auth-error" style="font-size:13px;color:#ef4444;display:none">Sorry, that account isn't authorised.</p></div></div>
+<div id="hh-app" style="display:none">
 <div class="hh-header">
-<div class="hh-header-left"><div class="hh-logo">🌞 Holiday Helper</div><div class="hh-sub">Summer 2026 · 8 July – 3 September</div></div>
+<div class="hh-header-left"><div class="hh-logo">🌞 Holiday Helper</div><div class="hh-sub">Summer 2025 · 8 July – 3 September</div></div>
 <div class="hh-header-right">
 <div class="cost-pills">
 <div class="cost-pill" style="background:#D6E8F7;color:#1a3a5c;border-color:#4A90D9"><span class="pill-name">Arthur</span><span class="pill-amt">£0</span></div>
@@ -99,8 +102,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
 <div class="day-cell out-of-range">
 </div>
-<div class="day-cell out-of-range">
-</div>
 <div class="day-cell">
 <div class="day-num">8</div>
 </div>
@@ -110,19 +111,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">10</div>
 </div>
-<div class="day-cell weekend">
+<div class="day-cell">
 <div class="day-num">11</div>
 </div>
 <div class="day-cell weekend">
 <div class="day-num">12</div>
-<div class="event-chip" style="background:#D6E8F7;color:#1a3a5c;border-color:#2171c7" data-child="Arthur" data-id="t1ervmejhcieftguo1omgk6ieq@google.com" data-title="Arthur&#39;s Guitar Lesson" data-date="2026-07-12" data-time="5:30 PM" data-endtime="6:30 PM" data-loc="" data-desc="" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Arthur's Guitar Lesson</span></div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">13</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
 <div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
 <div class="day-cell out-of-range">
 </div>
-<div class="day-cell out-of-range">
+<div class="day-cell">
 </div>
 <div class="day-cell">
 </div>
@@ -139,11 +142,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
 <div class="day-cell out-of-range">
 </div>
-<div class="day-cell out-of-range">
+<div class="day-cell">
 </div>
 <div class="day-cell">
-<div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="lin0fpo2dqh4jtsnckqaadnt8c@google.com" data-title="Mabel&#39;s Menu - BBQ Chicken Pieces" data-date="2026-07-08" data-time="7:15 AM" data-endtime="7:30 AM" data-loc="" data-desc="" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Mabel's Menu - BBQ Chicken Pieces</span></div>
-<div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="3qg5uhk17hma1h6b0utnu76ee8@google.com" data-title="Mabel at School Camp" data-date="2026-07-08" data-time="9:00 AM" data-endtime="5:00 PM" data-loc="" data-desc="" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Mabel at School Camp</span></div>
 </div>
 <div class="day-cell">
 </div>
@@ -157,13 +158,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">13 Jul</div></div>
+<div class="week-label-col"><div class="week-label">14 Jul</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">13</div>
-</div>
 <div class="day-cell">
 <div class="day-num">14</div>
 </div>
@@ -176,11 +174,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">17</div>
 </div>
-<div class="day-cell weekend">
+<div class="day-cell">
 <div class="day-num">18</div>
 </div>
 <div class="day-cell weekend">
 <div class="day-num">19</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">20</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -220,13 +221,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">20 Jul</div></div>
+<div class="week-label-col"><div class="week-label">21 Jul</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">20</div>
-</div>
 <div class="day-cell">
 <div class="day-num">21</div>
 </div>
@@ -239,11 +237,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">24</div>
 </div>
-<div class="day-cell weekend">
+<div class="day-cell">
 <div class="day-num">25</div>
 </div>
 <div class="day-cell weekend">
 <div class="day-num">26</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">27</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -283,13 +284,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">27 Jul</div></div>
+<div class="week-label-col"><div class="week-label">28 Jul</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">27</div>
-</div>
 <div class="day-cell">
 <div class="day-num">28</div>
 </div>
@@ -302,11 +300,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">31</div>
 </div>
-<div class="day-cell weekend">
+<div class="day-cell">
 <div class="day-num">1</div>
 </div>
 <div class="day-cell weekend">
 <div class="day-num">2</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">3</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -346,13 +347,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">3 Aug</div></div>
+<div class="week-label-col"><div class="week-label">4 Aug</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">3</div>
-</div>
 <div class="day-cell">
 <div class="day-num">4</div>
 </div>
@@ -365,11 +363,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">7</div>
 </div>
-<div class="day-cell weekend">
+<div class="day-cell">
 <div class="day-num">8</div>
 </div>
 <div class="day-cell weekend">
 <div class="day-num">9</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">10</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -394,6 +395,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 </div>
 <div class="day-cell">
+<div class="event-chip" style="background:#D4F0D3;color:#1a4a19;border-color:#4fa84d" data-child="Mabel" data-id="6gr68e9nc9i6cb9kckrj2b9kchimcb9o64rjgb9g6csm6chl74om2dpncg@google.com" data-title="Mabel ear apt" data-date="2025-08-05" data-time="9:00 AM" data-endtime="11:00 AM" data-loc="Royal Berkshire Hospital, Reading RG1, UK" data-desc="Paediatric audiology, audiology 1, west drive buildings, redlands road site rg1 5an" data-allday="0" data-cost="" onclick="openDetail(this)"><span class="chip-title">Mabel ear apt</span></div>
 </div>
 <div class="day-cell">
 </div>
@@ -409,13 +411,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">10 Aug</div></div>
+<div class="week-label-col"><div class="week-label">11 Aug</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">10</div>
-</div>
 <div class="day-cell">
 <div class="day-num">11</div>
 </div>
@@ -428,11 +427,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">14</div>
 </div>
-<div class="day-cell weekend">
+<div class="day-cell">
 <div class="day-num">15</div>
 </div>
 <div class="day-cell weekend">
 <div class="day-num">16</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">17</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -472,13 +474,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">17 Aug</div></div>
+<div class="week-label-col"><div class="week-label">18 Aug</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">17</div>
-</div>
 <div class="day-cell">
 <div class="day-num">18</div>
 </div>
@@ -491,11 +490,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">21</div>
 </div>
-<div class="day-cell weekend">
+<div class="day-cell">
 <div class="day-num">22</div>
 </div>
 <div class="day-cell weekend">
 <div class="day-num">23</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">24</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -535,13 +537,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">24 Aug</div></div>
+<div class="week-label-col"><div class="week-label">25 Aug</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">24</div>
-</div>
 <div class="day-cell">
 <div class="day-num">25</div>
 </div>
@@ -554,11 +553,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="day-cell">
 <div class="day-num">28</div>
 </div>
-<div class="day-cell weekend">
+<div class="day-cell">
 <div class="day-num">29</div>
 </div>
 <div class="day-cell weekend">
 <div class="day-num">30</div>
+</div>
+<div class="day-cell weekend">
+<div class="day-num">31</div>
 </div>
 </div>
 <div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
@@ -598,13 +600,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 <div class="week-block">
-<div class="week-label-col"><div class="week-label">31 Aug</div></div>
+<div class="week-label-col"><div class="week-label">1 Sep</div></div>
 <div class="week-days-grid">
 <div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
 <div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
-<div class="day-cell">
-<div class="day-num">31</div>
-</div>
 <div class="day-cell">
 <div class="day-num">1</div>
 </div>
@@ -613,6 +612,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 <div class="day-num">3</div>
+</div>
+<div class="day-cell out-of-range">
 </div>
 <div class="day-cell out-of-range">
 </div>
@@ -629,7 +630,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell">
+<div class="day-cell out-of-range">
 </div>
 <div class="day-cell out-of-range">
 </div>
@@ -646,7 +647,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 <div class="day-cell">
 </div>
-<div class="day-cell">
+<div class="day-cell out-of-range">
 </div>
 <div class="day-cell out-of-range">
 </div>
@@ -658,14 +659,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 </div>
 </div>
 </div>
-<div class="modal-bg hidden" id="detailModal" onclick="bgClose(event,'detailModal')"><div class="modal"><button class="modal-close" onclick="closeModal('detailModal')">✕</button><div class="modal-badge" id="dm-badge"></div><h3 id="dm-title" class="modal-h3"></h3><div id="dm-cost" class="modal-cost"></div><div class="modal-row"><span class="mfl">📅</span><span id="dm-date"></span></div><div class="modal-row"><span class="mfl">⏰</span><span id="dm-time"></span></div><div class="modal-row" id="dm-loc-row"><span class="mfl">📍</span><span id="dm-loc"></span></div><div class="modal-desc" id="dm-desc"></div></div></div><div class="modal-bg hidden" id="addModal" onclick="bgClose(event,'addModal')"><div class="modal"><button class="modal-close" onclick="closeModal('addModal')">✕</button><h3 class="modal-h3">📅 Add calendar event</h3><div class="mf"><label>Title *</label><input type="text" id="ae-title" placeholder="e.g. Swimming club…"/></div><div class="mf"><label class="toggle-lbl"><input type="checkbox" id="ae-allday" onchange="aeToggleAllDay(this)"> All-day event</label></div><div id="ae-dt-row"><div class="mf-row"><div class="mf"><label>Start date *</label><input type="date" id="ae-sd" min="2026-07-08" max="2026-09-03"/></div><div class="mf"><label>Start time</label><input type="time" id="ae-st" value="09:00"/></div></div><div class="mf-row"><div class="mf"><label>End date</label><input type="date" id="ae-ed" min="2026-07-08" max="2026-09-03"/></div><div class="mf"><label>End time</label><input type="time" id="ae-et" value="10:00"/></div></div></div><div id="ae-ad-row" class="hidden"><div class="mf-row"><div class="mf"><label>Date *</label><input type="date" id="ae-ad" min="2026-07-08" max="2026-09-03"/></div><div class="mf"><label>End date (multi-day)</label><input type="date" id="ae-ae" min="2026-07-08" max="2026-09-03"/></div></div></div><div class="mf"><label>📍 Location</label><input type="text" id="ae-loc" placeholder="e.g. Leisure centre…"/></div><div class="mf"><label>📝 Notes</label><textarea id="ae-notes" rows="3" placeholder="Add details… include £ amount to track costs"></textarea></div><div class="mf"><label>🔁 Recurrence</label><select id="ae-recur"><option value="">Does not repeat</option><option value="weekly">Weekly</option><option value="weekly2">Every 2 weeks</option><option value="daily">Daily</option><option value="weekday">Every weekday</option></select></div><div class="mf"><label>👥 Guests</label><div class="guest-ticks"><label class="guest-tick"><input type="checkbox" id="ae-g1" value="ellenvjarrett@gmail.com"><span>Ellen</span></label><label class="guest-tick"><input type="checkbox" id="ae-g2" value="chris.j.jarrett@gmail.com"><span>Chris</span></label></div><input type="text" id="ae-gx" placeholder="Other emails, comma-separated…" style="margin-top:6px"/></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('addModal')">Cancel</button><button class="mbtn-save" onclick="saveEvent()">Save to calendar</button></div></div></div><div class="modal-bg hidden" id="taskModal" onclick="bgClose(event,'taskModal')"><div class="modal" style="border-top-color:#10b981"><button class="modal-close" onclick="closeModal('taskModal')">✕</button><h3 class="modal-h3">✅ Create Google Task</h3><div class="mf"><label>Title *</label><input type="text" id="tm-title" placeholder="e.g. Book swimming lessons…"/></div><div class="mf"><label>Notes</label><textarea id="tm-notes" rows="2"></textarea></div><div class="mf-row"><div class="mf"><label>Due date</label><input type="date" id="tm-due"/></div></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('taskModal')">Cancel</button><button class="mbtn-save mbtn-green" onclick="saveTask()">Create task</button></div></div></div><div class="modal-bg hidden" id="clubModal" onclick="bgClose(event,'clubModal')"><div class="modal"><button class="modal-close" onclick="closeModal('clubModal')">✕</button><h3 class="modal-h3">📋 Available activity</h3><div id="club-info" style="margin-bottom:12px;font-size:13px"></div><div class="mf"><label>Add to calendar as…</label><input type="text" id="cl-title"/></div><div class="mf-row"><div class="mf"><label>Date</label><input type="date" id="cl-date"/></div><div class="mf"><label>Start</label><input type="time" id="cl-start" value="09:00"/></div><div class="mf"><label>End</label><input type="time" id="cl-end" value="11:00"/></div></div><div class="mf"><label>Notes</label><textarea id="cl-notes" rows="2"></textarea></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('clubModal')">Cancel</button><button class="mbtn-save" onclick="bookClub()">📅 Book it!</button></div></div></div><script>
+<div class="modal-bg hidden" id="detailModal" onclick="bgClose(event,'detailModal')"><div class="modal"><button class="modal-close" onclick="closeModal('detailModal')">✕</button><div class="modal-badge" id="dm-badge"></div><h3 id="dm-title" class="modal-h3"></h3><div id="dm-cost" class="modal-cost"></div><div class="modal-row"><span class="mfl">📅</span><span id="dm-date"></span></div><div class="modal-row"><span class="mfl">⏰</span><span id="dm-time"></span></div><div class="modal-row" id="dm-loc-row"><span class="mfl">📍</span><span id="dm-loc"></span></div><div class="modal-desc" id="dm-desc"></div></div></div><div class="modal-bg hidden" id="addModal" onclick="bgClose(event,'addModal')"><div class="modal"><button class="modal-close" onclick="closeModal('addModal')">✕</button><h3 class="modal-h3">📅 Add calendar event</h3><div class="mf"><label>Title *</label><input type="text" id="ae-title" placeholder="e.g. Swimming club…"/></div><div class="mf"><label class="toggle-lbl"><input type="checkbox" id="ae-allday" onchange="aeToggleAllDay(this)"> All-day event</label></div><div id="ae-dt-row"><div class="mf-row"><div class="mf"><label>Start date *</label><input type="date" id="ae-sd" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>Start time</label><input type="time" id="ae-st" value="09:00"/></div></div><div class="mf-row"><div class="mf"><label>End date</label><input type="date" id="ae-ed" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>End time</label><input type="time" id="ae-et" value="10:00"/></div></div></div><div id="ae-ad-row" class="hidden"><div class="mf-row"><div class="mf"><label>Date *</label><input type="date" id="ae-ad" min="2025-07-08" max="2025-09-03"/></div><div class="mf"><label>End date (multi-day)</label><input type="date" id="ae-ae" min="2025-07-08" max="2025-09-03"/></div></div></div><div class="mf"><label>📍 Location</label><input type="text" id="ae-loc" placeholder="e.g. Leisure centre…"/></div><div class="mf"><label>📝 Notes</label><textarea id="ae-notes" rows="3" placeholder="Add details… include £ amount to track costs"></textarea></div><div class="mf"><label>🔁 Recurrence</label><select id="ae-recur"><option value="">Does not repeat</option><option value="weekly">Weekly</option><option value="weekly2">Every 2 weeks</option><option value="daily">Daily</option><option value="weekday">Every weekday</option></select></div><div class="mf"><label>👥 Guests</label><div class="guest-ticks"><label class="guest-tick"><input type="checkbox" id="ae-g1" value="ellenvjarrett@gmail.com"><span>Ellen</span></label><label class="guest-tick"><input type="checkbox" id="ae-g2" value="chris.j.jarrett@gmail.com"><span>Chris</span></label></div><input type="text" id="ae-gx" placeholder="Other emails, comma-separated…" style="margin-top:6px"/></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('addModal')">Cancel</button><button class="mbtn-save" onclick="saveEvent()">Save to calendar</button></div></div></div><div class="modal-bg hidden" id="taskModal" onclick="bgClose(event,'taskModal')"><div class="modal" style="border-top-color:#10b981"><button class="modal-close" onclick="closeModal('taskModal')">✕</button><h3 class="modal-h3">✅ Create Google Task</h3><div class="mf"><label>Title *</label><input type="text" id="tm-title" placeholder="e.g. Book swimming lessons…"/></div><div class="mf"><label>Notes</label><textarea id="tm-notes" rows="2"></textarea></div><div class="mf-row"><div class="mf"><label>Due date</label><input type="date" id="tm-due"/></div></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('taskModal')">Cancel</button><button class="mbtn-save mbtn-green" onclick="saveTask()">Create task</button></div></div></div><div class="modal-bg hidden" id="clubModal" onclick="bgClose(event,'clubModal')"><div class="modal"><button class="modal-close" onclick="closeModal('clubModal')">✕</button><h3 class="modal-h3">📋 Available activity</h3><div id="club-info" style="margin-bottom:12px;font-size:13px"></div><div class="mf"><label>Add to calendar as…</label><input type="text" id="cl-title"/></div><div class="mf-row"><div class="mf"><label>Date</label><input type="date" id="cl-date"/></div><div class="mf"><label>Start</label><input type="time" id="cl-start" value="09:00"/></div><div class="mf"><label>End</label><input type="time" id="cl-end" value="11:00"/></div></div><div class="mf"><label>Notes</label><textarea id="cl-notes" rows="2"></textarea></div><div class="modal-actions"><button class="mbtn-cancel" onclick="closeModal('clubModal')">Cancel</button><button class="mbtn-save" onclick="bookClub()">📅 Book it!</button></div></div></div><script>
 var WEB_APP_URL="https://script.google.com/macros/s/AKfycbygAOYKkq83S_yA5GCrUZkgEKdrfQc1uFRXgjrjylIHRw2-8LWUXJrSFkS_abc27Erb/exec";
 var APP_SECRET="87311204471295316682189964520796";
+var HH_ALLOWED=["ellenvjarrett@gmail.com","chris.j.jarrett@gmail.com"];
 var HH_COLOURS={"Arthur":{"bg":"#4A90D9","light":"#D6E8F7","text":"#1a3a5c","border":"#2171c7"},"Wilf":{"bg":"#E8853A","light":"#FDE8D4","text":"#5c2a00","border":"#c96820"},"Mabel":{"bg":"#7DC87B","light":"#D4F0D3","text":"#1a4a19","border":"#4fa84d"}};
 var HH_CHILDREN=["Arthur","Wilf","Mabel"];
 var MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 var DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 var activeChildren=new Set(HH_CHILDREN);
+function hhHandleSignIn(r){  var p=JSON.parse(atob(r.credential.split(".")[1]));  if(HH_ALLOWED.includes(p.email)){    document.getElementById("hh-auth-wall").style.display="none";    document.getElementById("hh-app").style.display="";  }else{document.getElementById("hh-auth-error").style.display="block";}}
+document.getElementById("hh-app").style.display="none";
 function toggleSlicer(btn){  var c=btn.dataset.child;  if(activeChildren.has(c)&&activeChildren.size>1){activeChildren.delete(c);btn.classList.remove("active");}  else{activeChildren.add(c);btn.classList.add("active");}  document.querySelectorAll(".child-row").forEach(function(r){    r.style.display=activeChildren.has(r.dataset.child)?"":"none";});}
 function openDetail(el){  var d=el.dataset,c=HH_COLOURS[d.child]||{};  var b=document.getElementById("dm-badge");  b.textContent=d.child;b.style.cssText="background:"+c.light+";color:"+c.text+";border-color:"+c.bg;  document.getElementById("dm-title").textContent=d.title||"";  var ce=document.getElementById("dm-cost");  if(d.cost){ce.textContent="£"+parseFloat(d.cost).toFixed(2);ce.style.color=c.bg;ce.style.display="";}else{ce.style.display="none";}  document.getElementById("dm-date").textContent=niceDate(d.date);  document.getElementById("dm-time").textContent=d.allday==="1"?"All day":(d.time+(d.endtime?" – "+d.endtime:""));  var lr=document.getElementById("dm-loc-row");  if(d.loc){document.getElementById("dm-loc").textContent=d.loc;lr.style.display="";}else{lr.style.display="none";}  var de=document.getElementById("dm-desc");  if(d.desc){de.textContent=d.desc;de.style.display="";}else{de.style.display="none";}  openModal("detailModal");}
 function openAddModal(){  ["ae-title","ae-loc","ae-notes","ae-gx"].forEach(function(id){var e=document.getElementById(id);if(e)e.value="";});  ["ae-sd","ae-ed","ae-ad","ae-ae"].forEach(function(id){document.getElementById(id).value="";});  document.getElementById("ae-st").value="09:00";document.getElementById("ae-et").value="10:00";  document.getElementById("ae-allday").checked=false;  document.getElementById("ae-dt-row").style.display="";  document.getElementById("ae-ad-row").classList.add("hidden");  document.getElementById("ae-g1").checked=false;document.getElementById("ae-g2").checked=false;  document.getElementById("ae-recur").value="";  openModal("addModal");}
@@ -683,5 +687,6 @@ function rebuildHH(btn){  var orig=btn.textContent;btn.textContent="↻…";btn.
 function toast(msg){  var t=document.getElementById("hh-toast");  if(!t){t=document.createElement("div");t.id="hh-toast";    t.style.cssText="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2937;color:#fff;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none";    document.body.appendChild(t);}  t.textContent=msg;t.style.opacity="1";  clearTimeout(t._to);t._to=setTimeout(function(){t.style.opacity="0";},3200);}
 function niceDate(ds){  var d=new Date(ds+"T12:00:00");  return DN[d.getDay()]+" "+d.getDate()+" "+MO[d.getMonth()]+" "+d.getFullYear();}
 </script>
+</div>
 </body>
 </html>
