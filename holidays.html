@@ -27,8 +27,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 .hol-date-cell{font-size:8px;color:#d1d5db;font-weight:700;text-align:right;padding:0 4px 1px}
 .holiday-banner{display:flex;align-items:center;gap:8px;background:#fef3c7;border:2px solid #f59e0b;border-radius:8px;padding:7px 12px;cursor:pointer;margin-bottom:2px;transition:opacity .15s}
 .holiday-banner:hover{opacity:.85}
-.hol-banner-lbl{font-size:18px;flex-shrink:0}
-.hol-banner-title{font-size:12px;font-weight:800;color:#92400e;flex:1}
+.hol-banner-row{display:grid;grid-template-columns:90px 1fr;gap:2px;margin-bottom:2px}
+.hol-banner-spacer{}
+.hol-banner-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.holiday-banner{border-radius:6px;background:#fef3c7;border:2px solid #f59e0b;padding:5px 8px;cursor:pointer;font-size:10px;font-weight:800;color:#92400e;transition:opacity .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.holiday-banner:hover{opacity:.85}
 .hh-btn{padding:5px 11px;border-radius:7px;border:1.5px solid #3b82f6;background:#dbeafe;color:#1e40af;font-size:11px;font-weight:700;cursor:pointer}
 .hh-btn-green{border-color:#10b981;background:#d1fae5;color:#065f46}
 .hh-btn-grey{padding:5px 9px;border-radius:7px;border:1.5px solid #d1d5db;background:#f9fafb;color:#374151;font-size:14px;cursor:pointer}
@@ -165,9 +168,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="hol-date-cell">16</div>
 <div class="hol-date-cell">17</div>
 </div>
-<div class="holiday-banner" data-child="all" data-id="6ssj6dph75h36b9j6sqj8b9k6co34b9ocks6abb4c9i36o9p71i3ce9i74@google.com_2026-07-13" data-title="Centerparcs Holiday" data-date="2026-07-13" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">
-<div class="hol-banner-lbl">🏖️</div>
-<div class="hol-banner-title">Centerparcs Holiday</div>
+<div class="hol-banner-row">
+<div class="hol-banner-spacer"></div>
+<div class="hol-banner-grid">
+<div class="holiday-banner" style="grid-column:1/6" data-child="all" data-id="6ssj6dph75h36b9j6sqj8b9k6co34b9ocks6abb4c9i36o9p71i3ce9i74@google.com_2026-07-13" data-title="Centerparcs Holiday" data-date="2026-07-13" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ Centerparcs Holiday</div>
+</div>
 </div>
 </div>
 </div>
@@ -236,9 +241,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="hol-date-cell">30</div>
 <div class="hol-date-cell">31</div>
 </div>
-<div class="holiday-banner" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-07-31" data-title="France Holiday" data-date="2026-07-31" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">
-<div class="hol-banner-lbl">🏖️</div>
-<div class="hol-banner-title">France Holiday</div>
+<div class="hol-banner-row">
+<div class="hol-banner-spacer"></div>
+<div class="hol-banner-grid">
+<div class="holiday-banner" style="grid-column:5/6" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-07-31" data-title="France Holiday" data-date="2026-07-31" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ France Holiday</div>
+</div>
+</div>
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">27</div>
+</div>
+<div class="day-cell">
+<div class="day-num">28</div>
+</div>
+<div class="day-cell">
+<div class="day-num">29</div>
+</div>
+<div class="day-cell">
+<div class="day-num">30</div>
+</div>
+<div class="day-cell">
+<div class="day-num">31</div>
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-27" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
+</div>
+<div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-28" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
+</div>
+<div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-29" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
+</div>
+<div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-30" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
+</div>
+<div class="day-cell">
+<div class="club-chip" data-child="Mabel" data-date="2026-07-31" data-name="Ultimate Activity Camps" data-cost="50" data-notes="Abingon" onclick="openClubModal(this)"><span class="club-title">Ultimate Activity Camps, Abingon (£50)?</span></div>
+</div>
 </div>
 </div>
 </div>
@@ -253,9 +309,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="hol-date-cell">6</div>
 <div class="hol-date-cell">7</div>
 </div>
-<div class="holiday-banner" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-03" data-title="France Holiday" data-date="2026-08-03" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">
-<div class="hol-banner-lbl">🏖️</div>
-<div class="hol-banner-title">France Holiday</div>
+<div class="hol-banner-row">
+<div class="hol-banner-spacer"></div>
+<div class="hol-banner-grid">
+<div class="holiday-banner" style="grid-column:1/6" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-03" data-title="France Holiday" data-date="2026-08-03" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ France Holiday</div>
+</div>
 </div>
 </div>
 </div>
@@ -270,9 +328,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="hol-date-cell">13</div>
 <div class="hol-date-cell">14</div>
 </div>
-<div class="holiday-banner" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-10" data-title="France Holiday" data-date="2026-08-10" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">
-<div class="hol-banner-lbl">🏖️</div>
-<div class="hol-banner-title">France Holiday</div>
+<div class="hol-banner-row">
+<div class="hol-banner-spacer"></div>
+<div class="hol-banner-grid">
+<div class="holiday-banner" style="grid-column:1/6" data-child="all" data-id="cco62c9j6ksj8b9n6sr3eb9k6komcb9p6or34b9hccqm8pj3cgqmac1g6g@google.com_2026-08-10" data-title="France Holiday" data-date="2026-08-10" data-time="All day" data-endtime="" data-loc="" data-desc="" data-allday="1" onclick="openDetail(this)">🏖️ France Holiday</div>
+</div>
 </div>
 </div>
 </div>
@@ -385,9 +445,54 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-siz
 <div class="hol-date-cell">3</div>
 <div class="hol-date-cell"></div>
 </div>
-<div class="holiday-banner" data-child="all" data-id="20260831_n81blc7vheh9a967emaqiq6lo0@google.com_2026-08-31" data-title="Summer Bank Holiday (regional holiday)" data-date="2026-08-31" data-time="All day" data-endtime="" data-loc="" data-desc="Public holiday in England, Wales, Northern Ireland" data-allday="1" onclick="openDetail(this)">
-<div class="hol-banner-lbl">🏖️</div>
-<div class="hol-banner-title">Summer Bank Holiday (regional holiday)</div>
+<div class="hol-banner-row">
+<div class="hol-banner-spacer"></div>
+<div class="hol-banner-grid">
+<div class="holiday-banner" style="grid-column:1/2" data-child="all" data-id="20260831_n81blc7vheh9a967emaqiq6lo0@google.com_2026-08-31" data-title="Summer Bank Holiday (regional holiday)" data-date="2026-08-31" data-time="All day" data-endtime="" data-loc="" data-desc="Public holiday in England, Wales, Northern Ireland" data-allday="1" onclick="openDetail(this)">🏖️ Summer Bank Holiday (regional holiday)</div>
+</div>
+</div>
+<div class="child-row" data-child="Arthur" style="--cl:#D6E8F7;--cb:#4A90D9;--ct:#1a3a5c;--ce:#2171c7">
+<div class="child-lbl" style="background:#D6E8F7;color:#1a3a5c">Arthur</div>
+<div class="day-cell">
+<div class="day-num">31</div>
+</div>
+<div class="day-cell">
+<div class="day-num">1</div>
+</div>
+<div class="day-cell">
+<div class="day-num">2</div>
+</div>
+<div class="day-cell">
+<div class="day-num">3</div>
+</div>
+<div class="day-cell out-of-range">
+</div>
+</div>
+<div class="child-row" data-child="Wilf" style="--cl:#FDE8D4;--cb:#E8853A;--ct:#5c2a00;--ce:#c96820">
+<div class="child-lbl" style="background:#FDE8D4;color:#5c2a00">Wilf</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell out-of-range">
+</div>
+</div>
+<div class="child-row" data-child="Mabel" style="--cl:#D4F0D3;--cb:#7DC87B;--ct:#1a4a19;--ce:#4fa84d">
+<div class="child-lbl" style="background:#D4F0D3;color:#1a4a19">Mabel</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell">
+</div>
+<div class="day-cell out-of-range">
+</div>
 </div>
 </div>
 </div>
