@@ -30,7 +30,7 @@
 <div class="fcol fcol-1">
 <div class="fcard fcard-blue fcard-today">
 <div class="fcard-hdr"><span class="fcard-ico">📅</span><span class="fcard-title">Today</span><button class="fcard-add-btn" onclick="openFridgeAddEventModal()">＋</button></div>
-<div class="fevs-list" id="fevs-list"><div class="fev-row" data-eid="ho4ft3c32c47qfsp2kvjvd2sjg@google.com" data-title="Arthur exams over meal!" data-date="2026-06-12" data-time="7:00 PM" data-endtime="8:30 PM" data-loc="" data-desc="" data-allday="0" onclick="openFridgeEvModal(this)" style="--ac:#f59e0b"><div class="fev-time"><strong>7:00 PM</strong></div><div class="fev-ico">🍽️</div><div class="fev-body"><div class="fev-title">Arthur exams over meal!</div></div></div></div>
+<div class="fevs-list" id="fevs-list"><div class="fev-empty">Nothing on — enjoy the calm!</div></div>
 </div>
 <div class="fcard fcard-amber fcard-upcoming">
 <div class="fcard-hdr"><span class="fcard-ico">📆</span><span class="fcard-title">Coming up</span><input type="text" class="fcu-search" id="fcu-search" placeholder="search…" oninput="filterFCU(this.value)"><button class="fcard-add-btn" onclick="openFridgeAddEventModal()">＋</button></div>
@@ -83,7 +83,7 @@ This event was created from an email you received in Gmail. https://mail.google.
 var WEB_APP_URL="https://script.google.com/macros/s/AKfycbygAOYKkq83S_yA5GCrUZkgEKdrfQc1uFRXgjrjylIHRw2-8LWUXJrSFkS_abc27Erb/exec";
 var APP_SECRET="87311204471295316682189964520796";
 var ALLOWED=["ellenvjarrett@gmail.com","chris.j.jarrett@gmail.com"];
-var GOAL_PHOTOS=["https://drive.google.com/thumbnail?id=1eBtezQJD0SLcRHnyw4pQpO2RM2dpJB6z&sz=w1200","https://drive.google.com/thumbnail?id=1-Xjm9Hc85Xy02y6xriFPhGuAYklOeJd_&sz=w1200","https://drive.google.com/thumbnail?id=1CVPZ0_aIIOQI2CZgraKnLrE3oo3ebUSq&sz=w1200","https://drive.google.com/thumbnail?id=1ojcO1-CS9ybG00rT4O-yw-nbmom48eZm&sz=w1200"];
+var GOAL_PHOTOS=["https://drive.google.com/thumbnail?id=1-Xjm9Hc85Xy02y6xriFPhGuAYklOeJd_&sz=w1200","https://drive.google.com/thumbnail?id=1eBtezQJD0SLcRHnyw4pQpO2RM2dpJB6z&sz=w1200","https://drive.google.com/thumbnail?id=1ojcO1-CS9ybG00rT4O-yw-nbmom48eZm&sz=w1200","https://drive.google.com/thumbnail?id=1CVPZ0_aIIOQI2CZgraKnLrE3oo3ebUSq&sz=w1200"];
 var FRIDGE_TASKS=JSON.parse("[]");
 var FRIDGE_HW=JSON.parse("{\"arthur\":[],\"wilfred\":[{\"subject\":\"Italian\",\"desc\":\"Furniture crosswords, reading worksheets\",\"due\":\"2026-06-14\",\"color\":\"#3b82f6\"}],\"mabel\":[]}");
 var _fevModalId=null,_fevModalEl=null,_ftkModalId=null,_ftkModalEl=null;
