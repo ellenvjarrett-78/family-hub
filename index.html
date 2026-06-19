@@ -362,7 +362,7 @@ function shiftWeek(dir){
   start.setDate(today.getDate()+(_weekOffset*7));
   var cols=[];
   for(var i=0;i<7;i++){var d=new Date(start);d.setDate(start.getDate()+i);cols.push(d);}
-  var WX={"2026-06-19":{"icon":"☁️","tempC":26,"precip":0},"2026-06-20":{"icon":"☁️","tempC":24,"precip":19},"2026-06-21":{"icon":"☁️","tempC":28,"precip":4},"2026-06-22":{"icon":"⛈","tempC":30,"precip":20},"2026-06-23":{"icon":"⛈","tempC":30,"precip":11},"2026-06-24":{"icon":"☀️","tempC":29,"precip":2},"2026-06-25":{"icon":"☁️","tempC":28,"precip":4},"2026-06-26":{"icon":"☁️","tempC":28,"precip":6}};
+  var WX={"2026-06-19":{"icon":"☁️","tempC":26,"precip":0},"2026-06-20":{"icon":"☁️","tempC":24,"precip":14},"2026-06-21":{"icon":"☁️","tempC":28,"precip":2},"2026-06-22":{"icon":"⛈","tempC":30,"precip":18},"2026-06-23":{"icon":"⛈","tempC":30,"precip":8},"2026-06-24":{"icon":"☀️","tempC":29,"precip":0},"2026-06-25":{"icon":"☁️","tempC":28,"precip":4},"2026-06-26":{"icon":"☁️","tempC":28,"precip":6}};
   var todayStr=(function(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");})();
   var DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
   var html="<div class=\"week-cal-grid\">";
