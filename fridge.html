@@ -30,7 +30,7 @@
 <div class="fcol fcol-1">
 <div class="fcard fcard-blue fcard-today">
 <div class="fcard-hdr"><span class="fcard-ico">📅</span><span class="fcard-title">Today</span><button class="fcard-add-btn" onclick="openFridgeAddEventModal()">＋</button></div>
-<div class="fevs-list" id="fevs-list"><div class="fev-row" data-eid="79hip4ag6n43i8uoroosi09hh0@google.com" data-title="Ellen collecting girls from camp" data-date="2026-07-22" data-time="5:00 PM" data-endtime="5:30 PM" data-loc="" data-desc="" data-allday="0" onclick="openFridgeEvModal(this)" style="--ac:#a855f7"><div class="fev-time"><strong>5:00 PM</strong></div><div class="fev-ico">📆</div><div class="fev-body"><div class="fev-title">Ellen collecting girls from camp</div></div></div><div class="fev-row" data-eid="onhrdesmcr2a0kh16ui8651qic@google.com" data-title="Mabel &amp; Isabel at Ultimate Activity Camp" data-date="2026-07-22" data-time="8:30 AM" data-endtime="5:15 PM" data-loc="" data-desc="£58" data-allday="0" onclick="openFridgeEvModal(this)" style="--ac:#ec4899"><div class="fev-time"><strong>8:30 AM</strong></div><div class="fev-ico">📆</div><div class="fev-body"><div class="fev-title">Mabel &amp; Isabel at Ultimate Activity Camp</div></div></div></div>
+<div class="fevs-list" id="fevs-list"><div class="fev-empty">Nothing on — enjoy the calm!</div></div>
 </div>
 <div class="fcard fcard-amber fcard-upcoming">
 <div class="fcard-hdr"><span class="fcard-ico">📆</span><span class="fcard-title">Coming up</span><input type="text" class="fcu-search" id="fcu-search" placeholder="search…" oninput="filterFCU(this.value)"><button class="fcard-add-btn" onclick="openFridgeAddEventModal()">＋</button></div>
@@ -81,7 +81,7 @@ To hide observances, go to Google Calendar Settings &gt; Holidays in United King
 var WEB_APP_URL="https://script.google.com/macros/s/AKfycbygAOYKkq83S_yA5GCrUZkgEKdrfQc1uFRXgjrjylIHRw2-8LWUXJrSFkS_abc27Erb/exec";
 var APP_SECRET="87311204471295316682189964520796";
 var ALLOWED=["ellenvjarrett@gmail.com","chris.j.jarrett@gmail.com"];
-var GOAL_PHOTOS=["https://drive.google.com/thumbnail?id=1kr4u1ueZWKTwo7MRLN7szuUq-E99kH1d&sz=w1200","https://drive.google.com/thumbnail?id=12rBG11M7_8ISiKcsjSWiWaqZnhkc5BLM&sz=w1200","https://drive.google.com/thumbnail?id=10xi05SyV7t2U9oT7dI5DCdr6ll5g28Nd&sz=w1200","https://drive.google.com/thumbnail?id=1F9DRd_DGPezE--gzVLzA4-By5IAvhmOa&sz=w1200","https://drive.google.com/thumbnail?id=1gmZvZZMx_tIdlItOCm1E6tEXre_seMUv&sz=w1200","https://drive.google.com/thumbnail?id=1HFArSGzvcSF732IoBV537KKq7wNmJ-gt&sz=w1200","https://drive.google.com/thumbnail?id=1yx-WzRygRFk7cyNkXrrq-Mz1b7DMuaW0&sz=w1200"];
+var GOAL_PHOTOS=["https://drive.google.com/thumbnail?id=10xi05SyV7t2U9oT7dI5DCdr6ll5g28Nd&sz=w1200","https://drive.google.com/thumbnail?id=1gmZvZZMx_tIdlItOCm1E6tEXre_seMUv&sz=w1200","https://drive.google.com/thumbnail?id=12rBG11M7_8ISiKcsjSWiWaqZnhkc5BLM&sz=w1200","https://drive.google.com/thumbnail?id=1F9DRd_DGPezE--gzVLzA4-By5IAvhmOa&sz=w1200","https://drive.google.com/thumbnail?id=1HFArSGzvcSF732IoBV537KKq7wNmJ-gt&sz=w1200","https://drive.google.com/thumbnail?id=1yx-WzRygRFk7cyNkXrrq-Mz1b7DMuaW0&sz=w1200","https://drive.google.com/thumbnail?id=1kr4u1ueZWKTwo7MRLN7szuUq-E99kH1d&sz=w1200"];
 var FRIDGE_TASKS=JSON.parse("[]");
 var FRIDGE_HW=JSON.parse("{\"arthur\":[],\"wilfred\":[],\"mabel\":[{\"subject\":\"Spanish\",\"desc\":\"\\\"The Perfect School' sheet\",\"due\":\"2026-07-01\",\"color\":\"#ec4899\"}]}");
 var _fevModalId=null,_fevModalEl=null,_ftkModalId=null,_ftkModalEl=null;
